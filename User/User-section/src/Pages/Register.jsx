@@ -1,5 +1,10 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { nav_link } from "../Constants";
+import { useState } from "react";
+
+
+
+// const register=async()
 
 const Register = () => {
   return (

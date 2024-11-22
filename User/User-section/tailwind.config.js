@@ -12,9 +12,10 @@ export default {
         AntonSC: ['Anton SC', 'sans-serif']
       }
     },
-    colors:{
-      primary:'#128B9E',
-      lightGray:'#5F5F60'
+    colors: {
+      primary: '#128B9E',
+      lightGray: '#5F5F60',
+      lightBlack: '#5F5F60',
     }
   },
   plugins: [],
