@@ -6,7 +6,7 @@ const ShoesCard = ({ shoesData }) => {
     <div className="container mx-auto px-4 mt-10">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
         {shoesData.map((element, index) => (
-          <Link key={index} to={`Detail/${element.id || index}`}>
+          <Link key={index} to={`/Detail/${element.id}`}>
             <div className="w-sm transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-xl rounded-lg overflow-hidden bg-black border-2 border-lightGray">
               {/* Image */}
               <img

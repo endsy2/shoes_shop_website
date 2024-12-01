@@ -42,6 +42,7 @@ export const detailpic = [
 ]
 export const productCart = [
     {
+        id: 1,
         name: "Product 1",
         price: "$100",
         color: "Red",
@@ -49,6 +50,7 @@ export const productCart = [
         pic: pic1
     },
     {
+        id: 2,
         name: "Product 2",
         price: "$120",
         color: "Blue",
@@ -56,6 +58,7 @@ export const productCart = [
         pic: pic2
     },
     {
+        id: 3,
         name: "Product 3",
         price: "$80",
         color: "Green",
@@ -63,6 +66,7 @@ export const productCart = [
         pic: pic3
     },
     {
+        id: 4,
         name: "Product 4",
         price: "$150",
         color: "Black",
@@ -70,6 +74,7 @@ export const productCart = [
         pic: pic4
     },
     {
+        id: 5,
         name: "Product 5",
         price: "$90",
         color: "White",
@@ -77,6 +82,7 @@ export const productCart = [
         pic: pic5
     },
     {
+        id: 6,
         name: "Product 6",
         price: "$110",
         color: "Yellow",
@@ -84,6 +90,7 @@ export const productCart = [
         pic: pic1
     },
     {
+        id: 7,
         name: "Product 7",
         price: "$130",
         color: "Purple",
@@ -91,6 +98,7 @@ export const productCart = [
         pic: pic2
     },
     {
+        id: 8,
         name: "Product 8",
         price: "$140",
         color: "Orange",
@@ -98,6 +106,7 @@ export const productCart = [
         pic: pic3
     },
     {
+        id: 9,
         name: "Product 9",
         price: "$95",
         color: "Pink",
@@ -105,6 +114,7 @@ export const productCart = [
         pic: pic4
     },
     {
+        id: 10,
         name: "Product 10",
         price: "$160",
         color: "Gray",
@@ -112,6 +122,7 @@ export const productCart = [
         pic: pic5
     },
     {
+        id: 11,
         name: "Product 11",
         price: "$70",
         color: "Cyan",
@@ -119,6 +130,7 @@ export const productCart = [
         pic: pic1
     },
     {
+        id: 12,
         name: "Product 12",
         price: "$200",
         color: "Magenta",
@@ -126,6 +138,7 @@ export const productCart = [
         pic: pic2
     },
     {
+        id: 13,
         name: "Product 13",
         price: "$135",
         color: "Teal",
@@ -133,6 +146,7 @@ export const productCart = [
         pic: pic3
     },
     {
+        id: 14,
         name: "Product 14",
         price: "$105",
         color: "Brown",
@@ -140,6 +154,7 @@ export const productCart = [
         pic: pic4
     },
     {
+        id: 15,
         name: "Product 15",
         price: "$75",
         color: "Beige",
@@ -147,6 +162,7 @@ export const productCart = [
         pic: pic5
     },
     {
+        id: 16,
         name: "Product 16",
         price: "$125",
         color: "Lime",
@@ -154,6 +170,7 @@ export const productCart = [
         pic: pic1
     },
     {
+        id: 17,
         name: "Product 17",
         price: "$155",
         color: "Violet",
@@ -161,6 +178,7 @@ export const productCart = [
         pic: pic2
     },
     {
+        id: 18,
         name: "Product 18",
         price: "$85",
         color: "Indigo",
@@ -168,6 +186,7 @@ export const productCart = [
         pic: pic3
     },
     {
+        id: 19,
         name: "Product 19",
         price: "$100",
         color: "Gold",
@@ -175,6 +194,7 @@ export const productCart = [
         pic: pic4
     },
     {
+        id: 20,
         name: "Product 20",
         price: "$125",
         color: "Silver",

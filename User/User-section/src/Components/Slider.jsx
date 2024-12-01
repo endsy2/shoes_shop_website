@@ -31,7 +31,7 @@ const Slider = ({ images }) => {
 
             {/* Next Button */}
             <button
-                className="z-40 absolute top-1/2 right-0 h-full transform -translate-y-1/2 p-3 bg-[#128B9E] text-white hover:bg-[#0f7787] shadow-lg focus:outline-none transition duration-300 ease-in-out"
+                className="z-40  absolute top-1/2 right-0 h-full transform -translate-y-1/2 p-3 bg-[#128B9E] text-white hover:bg-[#0f7787] shadow-lg focus:outline-none transition duration-300 ease-in-out"
                 onClick={nextSlide}
             >
                 <span className="text-2xl">&gt;</span>
