@@ -9,11 +9,7 @@ import NavBar from '../Components/NavBar';
 const Detail = () => {
     return (
         <main>
-            <nav>
-                <NavBar />
-            </nav>
-            <section className='flex gap-16 mt-10'>
-
+            <section className='flex gap-16 mt-10 mx-10'>
                 <DetailPic />
                 <DetailText />
             </section>

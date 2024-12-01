@@ -14,6 +14,7 @@ import AddToFavorite from "./Pages/AddToFavorite.jsx";
 import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
 import Detail from "./Pages/Detail.jsx";
+import Bycategory from "./Pages/Bycategory.jsx";
 
 
 const router = createBrowserRouter(
@@ -24,8 +25,8 @@ const router = createBrowserRouter(
       <Route path="Add-to-favorite" element={<AddToFavorite />} />
       <Route path="Login" element={<Login />} />
       <Route path="Register" element={<Register />} />
-      <Route path="Detail/" element={<Detail />} />
-
+      <Route path="Detail/:id" element={<Detail />} />
+      <Route path="category/:category" element={<Bycategory />} />
     </Route>
   )
 )
