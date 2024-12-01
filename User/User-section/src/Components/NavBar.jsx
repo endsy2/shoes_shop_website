@@ -7,8 +7,8 @@ const NavBar = () => {
   return (
     <>
       <nav className="flex-col">
-        <section className="flex justify-between items-center px-14 py-10">
-          <NavLink to="/" className="text-white">
+        <section className="flex justify-between items-center px-9 py-10">
+          <NavLink to="/" className="text-white px-5">
             <img src={logo} alt="logo" />
           </NavLink>
           <input
@@ -35,11 +35,10 @@ const NavBar = () => {
                 className="text-[white]"
               >
                 <label
-                  className={`font-bold px-7 py-4 rounded-xl ${
-                    element.label === "Login"
-                      ? "bg-primary text-[white] hover:bg-[#0A5561]"
-                      : "bg-[white] text-[black] hover:text-[#9B9797]"
-                  }`}
+                  className={`font-bold px-7 py-4 rounded-xl ${element.label === "Login"
+                    ? "bg-primary text-[white] hover:bg-[#0A5561]"
+                    : "bg-[white] text-[black] hover:text-[#9B9797]"
+                    }`}
                 >
                   {element.label}
                 </label>

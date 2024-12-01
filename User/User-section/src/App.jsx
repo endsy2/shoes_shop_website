@@ -1,4 +1,5 @@
-import { createBrowserRouter,
+import {
+  createBrowserRouter,
   createRoutesFromElements,
   Route,
   RouterProvider
@@ -12,16 +13,19 @@ import AddToCart from "./Pages/AddToCart.jsx";
 import AddToFavorite from "./Pages/AddToFavorite.jsx";
 import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
+import Detail from "./Pages/Detail.jsx";
 
 
-const router=createBrowserRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout/>}>
-      <Route index element={<Home/>}/>
-      <Route path="Add-to-cart" element={<AddToCart/>}/>
-      <Route path="Add-to-favorite" element={<AddToFavorite/>}/>
-      <Route path="Login" element={<Login/>}/>
-      <Route path="Register" element={<Register/>}/>
+    <Route path="/" element={<RootLayout />}>
+      <Route index element={<Home />} />
+      <Route path="Add-to-cart" element={<AddToCart />} />
+      <Route path="Add-to-favorite" element={<AddToFavorite />} />
+      <Route path="Login" element={<Login />} />
+      <Route path="Register" element={<Register />} />
+      <Route path="Detail/" element={<Detail />} />
+
     </Route>
   )
 )
@@ -29,7 +33,7 @@ const router=createBrowserRouter(
 export default function App() {
   return (
     <>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
   )
 }
