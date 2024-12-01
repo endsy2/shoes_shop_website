@@ -1,53 +1,67 @@
-import React, { useState } from 'react';
-import { img_slider } from '../Constants';
+import React, { useState, useEffect } from 'react';
 
-const Slider = () => {
+const Slider = ({ images }) => {
     const [currentIndex, setCurrentIndex] = useState(0);
 
+    // Auto-play every 3 seconds
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 3000);
+        return () => clearInterval(interval);
+    }, [images.length]);
+
     const nextSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex + 1) % img_slider.length);
+        setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
     };
 
     const prevSlide = () => {
-        setCurrentIndex((prevIndex) => (prevIndex - 1 + img_slider.length) % img_slider.length);
+        setCurrentIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
     };
 
     return (
-        <div className="relative w-full h-full mx-auto overflow-hidden">
-            {/* Image Slider */}
-            <div className="flex transition-transform duration-500 ease-in-out">
-                <img
-                    src={img_slider[currentIndex]}
-                    alt={`Slide ${currentIndex + 1}`}
-                    className="w-full h-full object-cover"
-                />
+        <div className="relative w-full max-w-7xl mx-auto overflow-hidden rounded-lg shadow-lg bg-black">
+            {/* Previous Button */}
+            <button
+                className="z-40 absolute top-1/2 h-full transform -translate-y-1/2 p-3 bg-[#128B9E] text-white  hover:bg-[#0f7787] shadow-lg focus:outline-none transition duration-300 ease-in-out"
+                onClick={prevSlide}
+            >
+                <span className="text-2xl">&lt;</span>
+            </button>
+
+            {/* Next Button */}
+            <button
+                className="z-40 absolute top-1/2 right-0 h-full transform -translate-y-1/2 p-3 bg-[#128B9E] text-white hover:bg-[#0f7787] shadow-lg focus:outline-none transition duration-300 ease-in-out"
+                onClick={nextSlide}
+            >
+                <span className="text-2xl">&gt;</span>
+            </button>
+
+            {/* Slide container */}
+            <div
+                className="flex transition-transform duration-500"
+                style={{ transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+                {images.map((image, index) => (
+                    <div key={index} className="w-full flex-shrink-0 h-[250px] bg-[white]">
+                        <img
+                            src={image.pic}
+                            alt={`Slide ${index + 1}`}
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+                ))}
             </div>
 
-            {/* Previous and Next Buttons */}
-            <button
-                onClick={prevSlide}
-                className="absolute top-1/2 left-4 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 p-2 rounded-full z-10"
-            >
-                {"<"}
-            </button>
-            <button
-                onClick={nextSlide}
-                className="absolute top-1/2 right-4 transform -translate-y-1/2 text-white text-3xl bg-black bg-opacity-50 p-2 rounded-full z-10"
-            >
-                {">"}
-            </button>
-
-            {/* Dot Navigation */}
+            {/* Dots for navigation */}
             <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
-                {img_slider.map((_, index) => (
+                {images.map((_, index) => (
                     <span
                         key={index}
-                        onClick={() => setCurrentIndex(index)}
-                        className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 ${index === currentIndex
-                            ? 'bg-white opacity-100'
-                            : 'bg-white opacity-50'
+                        className={`h-3 w-3 rounded-full cursor-pointer ${index === currentIndex ? 'bg-[#128B9E]' : 'bg-gray-600'
                             }`}
-                    />
+                        onClick={() => setCurrentIndex(index)}
+                    ></span>
                 ))}
             </div>
         </div>

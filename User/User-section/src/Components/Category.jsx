@@ -14,7 +14,7 @@ const Category = () => {
     };
 
     return (
-        <aside className="w-44 flex-col justify-end m-7 h-full  border-r-2 border-[white]">
+        <aside className="w-44 flex-col justify-end m-7 h-full ">
             <button
                 className="font-AntonSC text-[white] border-b-2 border-[white] flex justify-between text-xl w-full mb-2"
                 onClick={() => setOpen(!open)}

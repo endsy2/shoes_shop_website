@@ -20,4 +20,10 @@
   .slider-container {
     @apply relative w-full max-w-4xl mx-auto;
   }
+  .blue-btn {
+    @apply font-bold px-7 py-4 rounded-xl bg-primary text-[white] hover:bg-[#0A5561];
+  }
+  .white-btn {
+    @apply font-bold px-7 py-4 rounded-xl bg-[white] text-[black] hover:text-[#9B9797];
+  }
 }
