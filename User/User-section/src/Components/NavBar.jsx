@@ -2,12 +2,29 @@ import { Link, NavLink } from "react-router-dom";
 import { hamburgerBar, logo } from "../assets";
 import { nav_icon, nav_link } from "../Constants";
 import { menubar } from "../Constants";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleStatusTab } from "../store/cart"; // Import the toggleStatusTab action
 
 const NavBar = () => {
+  const [totalQuatity, setTotalQuantity] = useState(0);
+  const cart = useSelector(store => store.cart.items);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    let total = 0;
+    cart.forEach(item => total += item.quantity);
+    setTotalQuantity(total);
+  }, [cart]);
+
+  const handleOpenTabCart = () => {
+    dispatch(toggleStatusTab()); // Dispatch the action to open the cart tab
+  };
+
   return (
     <nav className="flex-col">
-      <section className="grid grid-cols-2 py-7 ">
-        <NavLink to="/" className="text-[white] px-7">
+      <section className="grid grid-cols-2 py-7">
+        <NavLink to="/" className="text-[white] px-10">
           <img src={logo} alt="logo" className="w-40" />
         </NavLink>
         <div className="flex justify-end">
@@ -18,13 +35,26 @@ const NavBar = () => {
           />
           <div className="flex gap-7 items-center">
             {nav_icon.map((element) => (
-              <NavLink
-                key={element.label}
-                to={element.href}
-                className="max-xl:hidden"
-              >
-                <img src={element.img} alt={element.label} className="w-8" />
-              </NavLink>
+              element.label === "AddToCart" ? (
+                <div
+                  key={element.label}
+                  className="w-12 h-12 rounded-full flex justify-center items-center relative max-xl:hidden"
+                  onClick={handleOpenTabCart} // Add onClick event
+                >
+                  <img src={element.img} alt={element.label} className="w-8" />
+                  <span className="absolute bottom-0 font-bold right-0 text-primary text-lg w-5 h-5 rounded-full flex justify-center items-center">
+                    {totalQuatity}
+                  </span>
+                </div>
+              ) : (
+                <NavLink
+                  key={element.label}
+                  to={element.href}
+                  className="max-xl:hidden"
+                >
+                  <img src={element.img} alt={element.label} className="w-8" />
+                </NavLink>
+              )
             ))}
           </div>
           <div className="mt-3 mx-7 flex gap-10">
@@ -57,10 +87,7 @@ const NavBar = () => {
       <section className="bg-lightGray w-full h-20">
         <ol className="flex justify-center items-center w-full h-20 gap-36 text-[white] text-xl">
           {menubar.map(({ label, items }) => (
-            <li
-              key={label}
-              className="relative text-[white] group"
-            >
+            <li key={label} className="relative text-[white] group">
               {/* Menu Label */}
               <span className="cursor-pointer">{label}</span>
               {/* Dropdown Menu */}
@@ -81,7 +108,7 @@ const NavBar = () => {
           ))}
         </ol>
       </section>
-    </nav >
+    </nav>
   );
 };
 

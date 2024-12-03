@@ -1,5 +1,5 @@
 
-import { notificationIcon, addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, pic6, pic7 } from '../assets';
+import { notificationIcon, addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, pic6, pic7, facebook, instagram, telegram, twitter, call, mail } from '../assets';
 
 export const nav_link = [
     { href: "Login", label: "Login" },
@@ -47,7 +47,8 @@ export const productCart = [
         price: "$100",
         color: "Red",
         size: "M",
-        pic: pic1
+        pic: pic1,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 2,
@@ -55,7 +56,8 @@ export const productCart = [
         price: "$120",
         color: "Blue",
         size: "L",
-        pic: pic2
+        pic: pic2,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 3,
@@ -63,7 +65,8 @@ export const productCart = [
         price: "$80",
         color: "Green",
         size: "S",
-        pic: pic3
+        pic: pic3,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 4,
@@ -71,7 +74,8 @@ export const productCart = [
         price: "$150",
         color: "Black",
         size: "XL",
-        pic: pic4
+        pic: pic4,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 5,
@@ -79,7 +83,8 @@ export const productCart = [
         price: "$90",
         color: "White",
         size: "M",
-        pic: pic5
+        pic: pic5,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 6,
@@ -87,7 +92,8 @@ export const productCart = [
         price: "$110",
         color: "Yellow",
         size: "S",
-        pic: pic1
+        pic: pic1,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 7,
@@ -95,7 +101,8 @@ export const productCart = [
         price: "$130",
         color: "Purple",
         size: "M",
-        pic: pic2
+        pic: pic2,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 8,
@@ -103,7 +110,8 @@ export const productCart = [
         price: "$140",
         color: "Orange",
         size: "L",
-        pic: pic3
+        pic: pic3,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 9,
@@ -111,7 +119,8 @@ export const productCart = [
         price: "$95",
         color: "Pink",
         size: "S",
-        pic: pic4
+        pic: pic4,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 10,
@@ -119,7 +128,8 @@ export const productCart = [
         price: "$160",
         color: "Gray",
         size: "XL",
-        pic: pic5
+        pic: pic5,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 11,
@@ -127,7 +137,8 @@ export const productCart = [
         price: "$70",
         color: "Cyan",
         size: "M",
-        pic: pic1
+        pic: pic1,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 12,
@@ -135,7 +146,8 @@ export const productCart = [
         price: "$200",
         color: "Magenta",
         size: "S",
-        pic: pic2
+        pic: pic2,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 13,
@@ -143,7 +155,8 @@ export const productCart = [
         price: "$135",
         color: "Teal",
         size: "L",
-        pic: pic3
+        pic: pic3,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 14,
@@ -151,7 +164,8 @@ export const productCart = [
         price: "$105",
         color: "Brown",
         size: "M",
-        pic: pic4
+        pic: pic4,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 15,
@@ -159,7 +173,8 @@ export const productCart = [
         price: "$75",
         color: "Beige",
         size: "S",
-        pic: pic5
+        pic: pic5,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 16,
@@ -167,7 +182,8 @@ export const productCart = [
         price: "$125",
         color: "Lime",
         size: "XL",
-        pic: pic1
+        pic: pic1,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 17,
@@ -175,7 +191,8 @@ export const productCart = [
         price: "$155",
         color: "Violet",
         size: "M",
-        pic: pic2
+        pic: pic2,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 18,
@@ -183,7 +200,8 @@ export const productCart = [
         price: "$85",
         color: "Indigo",
         size: "L",
-        pic: pic3
+        pic: pic3,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 19,
@@ -191,7 +209,8 @@ export const productCart = [
         price: "$100",
         color: "Gold",
         size: "S",
-        pic: pic4
+        pic: pic4,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
     {
         id: 20,
@@ -199,9 +218,11 @@ export const productCart = [
         price: "$125",
         color: "Silver",
         size: "M",
-        pic: pic5
+        pic: pic5,
+        picDetail: [pic1, pic2, pic3, pic4, pic5]
     }
 ];
+
 
 export const detailText = [
     {
@@ -211,4 +232,23 @@ export const detailText = [
         size: "M"
     }
 ];
-
+export const footerImage = [
+    facebook,
+    instagram,
+    telegram,
+    twitter
+]
+export const footerInfo = [
+    { header: "Information", body: [{ detail: ["About us", "Event"] }] },
+    { header: "Helpful Links", body: [{ detail: ["Sevice", "Support", "Term & Condition", "Privacy Policy"] }] },
+    { header: "Our Sevice", body: [{ detail: ["Brands List", "Order"] }] },
+    {
+        header: "Contect", body: [
+            {
+                detail: [],
+                img: [{ img: call, detail: "1231231" },
+                { img: mail, detail: "ShoesStore@gamail.com" },
+                ]
+            }]
+    },
+]

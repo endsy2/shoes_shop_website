@@ -12,7 +12,12 @@ import pic6 from '../assets/pic6.png'
 import pic7 from '../assets/pic7.png'
 import arrowup from '../assets/arrowup.svg'
 import arrowdown from '../assets/arrowdown.svg'
-
+import facebook from '../assets/facebook.svg';
+import telegram from '../assets/telegram.svg';
+import twitter from '../assets/twitter.svg';
+import instagram from '../assets/instagram.svg';
+import call from '../assets/call.svg';
+import mail from '../assets/mail.svg';
 export {
     notificationIcon,
     addToCartIcon,
@@ -28,4 +33,10 @@ export {
     pic7,
     arrowup,
     arrowdown,
+    facebook,
+    telegram,
+    twitter,
+    instagram,
+    call,
+    mail
 }
