@@ -87,13 +87,13 @@ const NavBar = () => {
       <section className="bg-lightGray w-full h-20">
         <ol className="flex justify-center items-center w-full h-20 gap-36 text-[white] text-xl">
           {menubar.map(({ label, items }) => (
-            <li key={label} className="relative text-[white] group">
+            <li key={label} className="relative text-[white]">
               {/* Menu Label */}
               <span className="cursor-pointer">{label}</span>
               {/* Dropdown Menu */}
               <div className="z-50 absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-[350px] bg-lightGray border border-gray-200 shadow-md opacity-0 group-hover:opacity-100 group-hover:block transition-all duration-200 p-4 rounded-sm">
                 {/* Loop through items to display them */}
-                <ul>
+                {/* <ul>
                   {items.map((item, index) => (
                     <li
                       key={index}
@@ -102,7 +102,7 @@ const NavBar = () => {
                       <Link to={`category/${item}`}>{item}</Link>
                     </li>
                   ))}
-                </ul>
+                </ul> */}
               </div>
             </li>
           ))}
