@@ -22,9 +22,9 @@ const ShoesCard = ({ shoesData }) => {
     <div className="container mx-auto px-4 mt-10 ">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 m-auto">
         {shoesData.map((element) => (
-          <div key={element.id} className="border-2 overflow-hidden rounded-lg border-lightGray flex flex-col items-center">
+          <div key={element.id} className="border-2 overflow-hidden border-lightGray flex flex-col transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-xl rounded-lg ">
             <Link to={`/product/${element.id}`}>
-              <div className="w-80 transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-xl rounded-lg  bg-black ">
+              <div className="w-full  bg-black ">
                 {/* Image */}
                 <img
                   src={element.pic}
@@ -56,13 +56,15 @@ const ShoesCard = ({ shoesData }) => {
                 </div>
               </div>
             </Link>
-            <button
-              className="mt-4 w-52 px-2 py-2 mb-3 bg-[white] text-[black] 
+            <div className="w-full flex justify-center">
+              <button
+                className="mt-4 w-52 px-2 py-2 mb-3 bg-[white] text-[black] 
                     font-semibold rounded-lg hover:bg-yellow-500 transition-all duration-200"
-              onClick={() => handleAddToCart(element)} // Pass the current product to the handler
-            >
-              Add To Cart
-            </button>
+                onClick={() => handleAddToCart(element)} // Pass the current product to the handler
+              >
+                Add To Cart
+              </button>
+            </div>
           </div>
         ))}
       </div>

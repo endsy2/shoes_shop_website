@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addToCart } from '../../store/cart';
+import { addToCart, toggleStatusTab } from '../../store/cart';
 
 const DetailPic = ({ props }) => {
     const { detail } = props;
@@ -21,6 +21,7 @@ const DetailPic = ({ props }) => {
                 productId: detail.id,
                 quantity: quantity
             }));
+            dispatch(toggleStatusTab());
         }
     };
 
