@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
-import { pic1 } from "../assets"; // Ensure pic1 is your image
+import { addToCartBlack } from "../assets"; // Ensure pic1 is your image
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../store/cart";
 import { toggleStatusTab } from "../store/cart"; // Import the toggle action if needed
+import { useEffect } from "react";
 
 const ShoesCard = ({ shoesData }) => {
   const dispatch = useDispatch();
@@ -13,16 +14,14 @@ const ShoesCard = ({ shoesData }) => {
       productId: product.id,
       quantity: 1, // Assuming you are adding one item at a time
     }));
-
-    // Optionally, open the cart tab when an item is added
     dispatch(toggleStatusTab());
   };
 
   return (
     <div className="container mx-auto px-4 mt-10 ">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 m-auto">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 m-auto">
         {shoesData.map((element) => (
-          <div key={element.id} className="border-2 overflow-hidden border-lightGray flex flex-col transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-xl rounded-lg ">
+          <div key={element.id} className=" w-[300px] border-2 overflow-hidden border-lightGray flex flex-col transform hover:scale-105 transition-transform duration-300 ease-in-out shadow-xl rounded-lg ">
             <Link to={`/product/${element.id}`}>
               <div className="w-full  bg-black ">
                 {/* Image */}
@@ -58,11 +57,14 @@ const ShoesCard = ({ shoesData }) => {
             </Link>
             <div className="w-full flex justify-center">
               <button
-                className="mt-4 w-52 px-2 py-2 mb-3 bg-[white] text-[black] 
-                    font-semibold rounded-lg hover:bg-yellow-500 transition-all duration-200"
+                className="mt-4 w-52 py-2 mb-3 bg-[white] text-[black] flex justify-center items-center gap-2
+                          font-semibold rounded-lg hover:bg-yellow-500 transition-all duration-200"
                 onClick={() => handleAddToCart(element)} // Pass the current product to the handler
               >
-                Add To Cart
+                Add To Cart<img src={addToCartBlack} className="w-5" />
+              </button>
+              <button>
+
               </button>
             </div>
           </div>

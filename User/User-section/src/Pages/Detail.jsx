@@ -24,7 +24,7 @@ const Detail = () => {
     return (
         <main>
             <section className='flex gap-16 mt-10 mx-10'>
-                {detail ? <DetailPic props={{ detail, param }} /> : <p>Loading...</p>}
+                {detail ? <DetailPic detail={detail} /> : <p>Loading...</p>}
             </section>
             <ShoesCard shoesData={productCart} />
         </main>

@@ -18,6 +18,9 @@ import twitter from '../assets/twitter.svg';
 import instagram from '../assets/instagram.svg';
 import call from '../assets/call.svg';
 import mail from '../assets/mail.svg';
+import heart from '../assets/heart.svg';
+import heartFill from '../assets/heartFill.svg';
+import addToCartBlack from '../assets/addToCartBlack.svg'
 export {
     notificationIcon,
     addToCartIcon,
@@ -38,5 +41,8 @@ export {
     twitter,
     instagram,
     call,
-    mail
+    mail,
+    heart,
+    heartFill,
+    addToCartBlack
 }
