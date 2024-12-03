@@ -1,20 +1,32 @@
-import React from 'react';
-import DetailPic from '../Section/Detail/DetailPic';
-import DetailText from '../Section/Detail/DetailText';
+import React, { useEffect, useState } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import DetailPic from '../Section/Detail/Detail';
 import ShoesCard from '../Components/ShoesCard';
 import { productCart } from '../Constants';
-import NavBar from '../Components/NavBar';
-
 
 const Detail = () => {
+    const { param } = useParams();
+    const navigate = useNavigate();
+    const [detail, setDetail] = useState(null);
+
+    useEffect(() => {
+        const productId = parseInt(param, 10);
+        const findDetail2 = productCart.filter(product => product.id === productId);
+
+        if (findDetail2.length > 0) {
+            setDetail(findDetail2[0]);
+        } else {
+            // Navigate to another page if the product is not found
+            navigate('/');
+        }
+    }, [param, navigate]);
+
     return (
         <main>
             <section className='flex gap-16 mt-10 mx-10'>
-                <DetailPic />
-                <DetailText />
+                {detail ? <DetailPic props={{ detail, param }} /> : <p>Loading...</p>}
             </section>
             <ShoesCard shoesData={productCart} />
-
         </main>
     );
 };

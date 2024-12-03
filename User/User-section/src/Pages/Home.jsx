@@ -18,9 +18,10 @@ const Home = () => {
           <aside>
             <Category />
           </aside>
-          <section className="flex flex-wrap pl-14 gap-10">
+          <section className="flex flex-wrap pl-14 gap-16">
             <ShoesCard shoesData={productCart} />
           </section>
+
         </div>
       </main>
 
