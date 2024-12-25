@@ -1,18 +1,26 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+
 import { UserController } from './user/user.controller';
 import { UserService } from './user/user.service';
 
 import { AdminModule } from './admin/admin.module';
 import { UserModule } from './user/user.module';
 import { MulterModule } from '@nestjs/platform-express';
+import { CommonModule } from './common/common.module';
+import { PrismaService } from 'src/prisma/prisma.service'; // Add PrismaService here if needed
+
 import multer from 'multer';
+import { AdminController } from './admin/admin.controller';
+import { CommonController } from './common/common.controller';
+import { PrismaModule } from './prisma/prisma.module';
+import { AdminService } from './admin/admin.service';
+import { CommonService } from './common/common.service';
 
 @Module({
   imports: [
     AdminModule,
     UserModule,
+    CommonModule,
     MulterModule.register({
       storage: multer.diskStorage({
         destination: './uploads',
@@ -22,7 +30,5 @@ import multer from 'multer';
       }),
     }),
   ],
-  controllers: [AppController, UserController],
-  providers: [AppService, UserService],
 })
-export class AppModule { }
+export class AppModule {}

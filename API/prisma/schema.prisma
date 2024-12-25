@@ -24,7 +24,6 @@ model customer {
   phoneNumber String
   address     String
   createdAt   DateTime @default(now())
-  updatedAt   DateTime
   order       order[]
 }
 
@@ -38,7 +37,6 @@ model discount {
   endDate      DateTime
   productId    Int?
   createdAt    DateTime              @default(now())
-  updatedAt    DateTime
   product      product?              @relation(fields: [productId], references: [id], onDelete: Cascade, map: "Discount_productId_fkey")
 
   @@index([productId], map: "Discount_productId_fkey")
@@ -46,12 +44,10 @@ model discount {
 
 model order {
   id          Int          @id @default(autoincrement())
-  orderDate   DateTime     @default(now())
-  totalAmount Float
+  totalAmount Float        @default(0)
   status      order_status @default(Pending)
   customerId  Int
   createdAt   DateTime     @default(now())
-  updatedAt   DateTime
   customer    customer     @relation(fields: [customerId], references: [id], onDelete: Cascade, map: "Order_customerId_fkey")
   orderitem   orderitem[]
 
@@ -73,17 +69,26 @@ model orderitem {
 }
 
 model product {
-  id           Int            @id @default(autoincrement())
-  name         String
-  price        Float
-  brandId      Int
-  createdAt    DateTime       @default(now())
-  discount     discount[]
-  orderitem    orderitem[]
-  brand        brand          @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fkey")
-  productimage productimage[]
+  id              Int               @id @default(autoincrement())
+  name            String
+  brandId         Int
+  createdAt       DateTime          @default(now())
+  discount        discount[]
+  orderitem       orderitem[]
+  brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fkey")
+  productimage    productimage[]
+  Description     String
+  productVariants productVariants[]
 
   @@index([brandId], map: "Product_brandId_fkey")
+}
+
+model productVariants {
+  id         Int     @id @default(autoincrement())
+  product_id Int
+  product_fk product @relation(fields: [product_id], references: [id])
+  color      String
+  price      Float
 }
 
 model productimage {
