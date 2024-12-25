@@ -44,7 +44,7 @@ export const productCart = [
     {
         id: 1,
         name: "Product 1",
-        price: "$100",
+        price: "100",
         color: "Red",
         size: "M",
         pic: pic1,
@@ -53,7 +53,7 @@ export const productCart = [
     {
         id: 2,
         name: "Product 2",
-        price: "$120",
+        price: "120",
         color: "Blue",
         size: "L",
         pic: pic2,
@@ -62,7 +62,7 @@ export const productCart = [
     {
         id: 3,
         name: "Product 3",
-        price: "$80",
+        price: "80",
         color: "Green",
         size: "S",
         pic: pic3,
@@ -71,7 +71,7 @@ export const productCart = [
     {
         id: 4,
         name: "Product 4",
-        price: "$150",
+        price: "150",
         color: "Black",
         size: "XL",
         pic: pic4,
@@ -80,7 +80,7 @@ export const productCart = [
     {
         id: 5,
         name: "Product 5",
-        price: "$90",
+        price: "90",
         color: "White",
         size: "M",
         pic: pic5,
@@ -89,7 +89,7 @@ export const productCart = [
     {
         id: 6,
         name: "Product 6",
-        price: "$110",
+        price: "110",
         color: "Yellow",
         size: "S",
         pic: pic1,
@@ -98,7 +98,7 @@ export const productCart = [
     {
         id: 7,
         name: "Product 7",
-        price: "$130",
+        price: "130",
         color: "Purple",
         size: "M",
         pic: pic2,
@@ -107,7 +107,7 @@ export const productCart = [
     {
         id: 8,
         name: "Product 8",
-        price: "$140",
+        price: "140",
         color: "Orange",
         size: "L",
         pic: pic3,
@@ -116,7 +116,7 @@ export const productCart = [
     {
         id: 9,
         name: "Product 9",
-        price: "$95",
+        price: "95",
         color: "Pink",
         size: "S",
         pic: pic4,
@@ -125,7 +125,7 @@ export const productCart = [
     {
         id: 10,
         name: "Product 10",
-        price: "$160",
+        price: "160",
         color: "Gray",
         size: "XL",
         pic: pic5,
@@ -134,7 +134,7 @@ export const productCart = [
     {
         id: 11,
         name: "Product 11",
-        price: "$70",
+        price: "70",
         color: "Cyan",
         size: "M",
         pic: pic1,
@@ -143,7 +143,7 @@ export const productCart = [
     {
         id: 12,
         name: "Product 12",
-        price: "$200",
+        price: "200",
         color: "Magenta",
         size: "S",
         pic: pic2,
@@ -152,7 +152,7 @@ export const productCart = [
     {
         id: 13,
         name: "Product 13",
-        price: "$135",
+        price: "135",
         color: "Teal",
         size: "L",
         pic: pic3,
@@ -161,7 +161,7 @@ export const productCart = [
     {
         id: 14,
         name: "Product 14",
-        price: "$105",
+        price: "105",
         color: "Brown",
         size: "M",
         pic: pic4,
@@ -170,7 +170,7 @@ export const productCart = [
     {
         id: 15,
         name: "Product 15",
-        price: "$75",
+        price: "75",
         color: "Beige",
         size: "S",
         pic: pic5,
@@ -179,7 +179,7 @@ export const productCart = [
     {
         id: 16,
         name: "Product 16",
-        price: "$125",
+        price: "125",
         color: "Lime",
         size: "XL",
         pic: pic1,
@@ -188,7 +188,7 @@ export const productCart = [
     {
         id: 17,
         name: "Product 17",
-        price: "$155",
+        price: "155",
         color: "Violet",
         size: "M",
         pic: pic2,
@@ -197,7 +197,7 @@ export const productCart = [
     {
         id: 18,
         name: "Product 18",
-        price: "$85",
+        price: "85",
         color: "Indigo",
         size: "L",
         pic: pic3,
@@ -206,7 +206,7 @@ export const productCart = [
     {
         id: 19,
         name: "Product 19",
-        price: "$100",
+        price: "100",
         color: "Gold",
         size: "S",
         pic: pic4,
@@ -215,7 +215,7 @@ export const productCart = [
     {
         id: 20,
         name: "Product 20",
-        price: "$125",
+        price: "125",
         color: "Silver",
         size: "M",
         pic: pic5,

@@ -16,6 +16,7 @@ import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
 import Detail from "./Pages/Detail.jsx";
 import Bycategory from "./Pages/Bycategory.jsx";
+import Checkout from "./Pages/Checkout.jsx";
 
 // Create router
 const router = createBrowserRouter(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<Home />} />
       <Route path="add-to-cart" element={<AddToCart />} />
+      <Route path="checkout" element={<Checkout />} />
       <Route path="add-to-favorite" element={<AddToFavorite />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />

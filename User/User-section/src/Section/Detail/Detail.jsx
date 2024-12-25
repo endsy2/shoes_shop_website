@@ -15,7 +15,7 @@ const DetailPic = ({ detail }) => {
 
     const handleAddToCart = () => {
         if (detail) {
-            dispatch(addToCart({ productId: detail.id, quantity }));
+            dispatch(addToCart({ productId: detail.id, quantity, price: detail.price }));
             dispatch(toggleStatusTab());
         }
     };
@@ -37,8 +37,8 @@ const DetailPic = ({ detail }) => {
     return (
         <section className='flex flex-wrap gap-10'>
             <section className='flex'>
-                {console.log(favorite)
-                }
+                {/* {console.log(favorite)
+                } */}
                 <div className='flex flex-col gap-5 mx-5 mt-2'>
                     {detail.picDetail.map((element, index) => (
                         <div key={index} className='w-20'>
@@ -55,13 +55,30 @@ const DetailPic = ({ detail }) => {
             <div className='flex flex-col'>
                 <section>
                     <h1 className='text-main font-bold text-4xl mb-5'>{detail?.name}</h1>
-                    <button onClick={handleAddToFavorite}>
+                    <button
+                        onClick={() => handleAddToFavorite(detail.id)
+                        }
+                        className={`flex justify-center items-center bg-[white] p-3 px-6 gap-3 mb-5 rounded-lg shadow-md transition duration-300 transform hover:scale-105 ${favorite.findIndex((element) => element === detail.id) >= 0
+                            ? "border-red-500 border-2"
+                            : "border-gray-300 border"
+                            }`}
+                    >
                         <img
-                            src={favorite.findIndex((element) => element === detail.id) >= 0 ? heartFill : heart}
-                            alt="Favorite"
-                            className='w-10 my-10'
+                            src={
+                                favorite.findIndex((element) => element === detail.id) >= 0
+                                    ? heartFill
+                                    : heart
+                            }
+                            alt="favorite"
+                            className="w-7 transition-transform duration-200 transform hover:scale-110"
                         />
+                        <p className="text-sm font-semibold">
+                            {favorite.findIndex((element) => element === detail.id) >= 0
+                                ? "Remove From Favorite"
+                                : "Add to Favorite"}
+                        </p>
                     </button>
+
                     <p className='text-main mb-5 text-3xl'>${detail?.price}</p>
                     <p className='text-main mb-5 text-2xl'>Color: {detail?.color}</p>
                     <p className='text-main mb-5 text-2xl'>Size: {detail?.size}</p>
@@ -69,7 +86,7 @@ const DetailPic = ({ detail }) => {
                 </section>
                 <section className='flex gap-5 items-center'>
                     <button className="blue-btn" onClick={handleMinusQuantity}>-</button>
-                    <span className='text-[white]'>{quantity}</span>
+                    <span className='text-[white] text-xl'>{quantity}</span>
                     <button className="blue-btn" onClick={handlePlusQuantity}>+</button>
                     <button className='blue-btn' onClick={handleAddToCart}>Add To Cart</button>
                 </section>

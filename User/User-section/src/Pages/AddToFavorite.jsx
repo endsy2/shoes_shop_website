@@ -11,8 +11,6 @@ const AddToFavorite = () => {
   }
   useEffect(() => {
     findProduct();
-    console.log(favorite);
-
   }, [favorite])
   return (
     <div className="flex flex-col justify-cente w-full items-center">

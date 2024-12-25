@@ -1,22 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { addToCartBlack } from "../assets"; // Ensure pic1 is your image
 import { useSelector, useDispatch } from "react-redux";
 import { addToCart } from "../store/cart";
 import { toggleStatusTab } from "../store/cart"; // Import the toggle action if needed
 import { useEffect } from "react";
+import { removeFromFavorite } from "../store/favorite";
 
 const ShoesCard = ({ shoesData }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleAddToCart = (product) => {
     // Dispatch the action to add the product to the cart
     dispatch(addToCart({
       productId: product.id,
-      quantity: 1, // Assuming you are adding one item at a time
+      quantity: 1,
+      price: product.price // Assuming you are adding one item at a time
     }));
     dispatch(toggleStatusTab());
   };
-
+  const handleRemove = (productId) => {
+    dispatch(removeFromFavorite({
+      productId: productId
+    }))
+  }
   return (
     <div className="container mx-auto px-4 mt-10 ">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-10 m-auto">
@@ -25,11 +32,13 @@ const ShoesCard = ({ shoesData }) => {
             <Link to={`/product/${element.id}`}>
               <div className="w-full  bg-black ">
                 {/* Image */}
-                <img
-                  src={element.pic}
-                  alt="Shoes"
-                  className="w-full h-48 object-cover rounded-t-lg"
-                />
+                <div>
+                  <img
+                    src={element.pic}
+                    alt="Shoes"
+                    className="w-full h-48 object-cover rounded-t-lg relative"
+                  />
+                </div>
 
                 {/* Content Section */}
                 <div className="bg-[black] text-[white] px-5 py-1 flex flex-col items-center">
@@ -67,7 +76,10 @@ const ShoesCard = ({ shoesData }) => {
 
               </button>
             </div>
+            {location.pathname === "/Add-to-favorite" ? <button className="absolute top-0 right-3 font-bold text-primary" onClick={() => handleRemove(element.id)} >X</button>
+              : ""}
           </div>
+
         ))}
       </div>
     </div>
