@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model brand {
+  id        Int       @id @default(autoincrement())
+  name      String
+  imageUrl  String
+  createdAt DateTime  @default(now())
+  product   product[]
+}
+
+model customer {
+  id          Int      @id @default(autoincrement())
+  firstName   String
+  lastName    String
+  email       String   @unique(map: "Customer_email_key")
+  password    String
+  phoneNumber String
+  address     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime
+  order       order[]
+}
+
+model discount {
+  id           Int                   @id @default(autoincrement())
+  name         String
+  description  String?
+  discountType discount_discountType
+  value        Float
+  startDate    DateTime
+  endDate      DateTime
+  productId    Int?
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime
+  product      product?              @relation(fields: [productId], references: [id], onDelete: Cascade, map: "Discount_productId_fkey")
+
+  @@index([productId], map: "Discount_productId_fkey")
+}
+
+model order {
+  id          Int          @id @default(autoincrement())
+  orderDate   DateTime     @default(now())
+  totalAmount Float
+  status      order_status @default(Pending)
+  customerId  Int
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime
+  customer    customer     @relation(fields: [customerId], references: [id], onDelete: Cascade, map: "Order_customerId_fkey")
+  orderitem   orderitem[]
+
+  @@index([customerId], map: "Order_customerId_fkey")
+}
+
+model orderitem {
+  id        Int      @id @default(autoincrement())
+  orderId   Int
+  productId Int
+  quantity  Int
+  amount    Float
+  createdAt DateTime @default(now())
+  order     order    @relation(fields: [orderId], references: [id], onDelete: Cascade, map: "OrderItem_orderId_fkey")
+  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "OrderItem_productId_fkey")
+
+  @@index([orderId], map: "OrderItem_orderId_fkey")
+  @@index([productId], map: "OrderItem_productId_fkey")
+}
+
+model product {
+  id           Int            @id @default(autoincrement())
+  name         String
+  price        Float
+  brandId      Int
+  createdAt    DateTime       @default(now())
+  discount     discount[]
+  orderitem    orderitem[]
+  brand        brand          @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fkey")
+  productimage productimage[]
+
+  @@index([brandId], map: "Product_brandId_fkey")
+}
+
+model productimage {
+  id        Int      @id @default(autoincrement())
+  productId Int
+  imageUrl  String
+  createdAt DateTime @default(now())
+  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "ProductImage_productId_fkey")
+
+  @@index([productId], map: "ProductImage_productId_fkey")
+}
+
+enum order_status {
+  Pending
+  Delivery
+  Completed
+}
+
+enum discount_discountType {
+  active
+  expired
+}
