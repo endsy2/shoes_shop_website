@@ -21,6 +21,8 @@ import mail from '../assets/mail.svg';
 import heart from '../assets/heart.svg';
 import heartFill from '../assets/heartFill.svg';
 import addToCartBlack from '../assets/addToCartBlack.svg'
+import delivery from '../assets/delivery.svg'
+import shop from '../assets/shop.svg'
 export {
     notificationIcon,
     addToCartIcon,
@@ -44,5 +46,11 @@ export {
     mail,
     heart,
     heartFill,
-    addToCartBlack
+    addToCartBlack,
+    delivery,
+    shop
 }
+export const checkoutIcon = [
+    { value: "packup", icon: shop },
+    { value: "delivery", icon: delivery }
+]

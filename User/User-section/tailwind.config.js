@@ -13,9 +13,12 @@ export default {
       }
     },
     colors: {
-      primary: '#128B9E',
+      primary: {
+        DEFAULT: ' #128B9E',
+        600: '#127c8c',
+        700: '#136f7d'
+      },
       lightGray: '#5F5F60',
-      lightBlack: '#5F5F60',
     }
   },
   plugins: [],

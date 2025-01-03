@@ -17,6 +17,7 @@ import Register from "./Pages/Register.jsx";
 import Detail from "./Pages/Detail.jsx";
 import Bycategory from "./Pages/Bycategory.jsx";
 import Checkout from "./Pages/Checkout.jsx";
+import './index.css';
 
 // Create router
 const router = createBrowserRouter(
