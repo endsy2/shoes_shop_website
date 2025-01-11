@@ -1,9 +1,8 @@
 
 
-export const Notificate= () => {
+export const Notificate = () => {
   return (
     <section>
-        
     </section>
   )
 }

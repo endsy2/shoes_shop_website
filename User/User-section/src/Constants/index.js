@@ -6,7 +6,6 @@ export const nav_link = [
     { href: "Register", label: "Register" },
 ]
 export const nav_icon = [
-    { href: "Notification", img: notificationIcon, label: 'Notification' },
     { href: "Add-to-card", img: addToCartIcon, label: 'AddToCart' },
     { href: "Add-to-favorite", img: addToFavoriteIcon, label: 'AddToFavorite' },
 ]

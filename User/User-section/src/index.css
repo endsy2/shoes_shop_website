@@ -11,11 +11,20 @@
   scroll-behavior: smooth;
 }
 @layer components {
-  .text-login {
+  .text-head {
     @apply text-[white] font-AntonSC font-bold text-3xl;
   }
   .text-main {
     @apply text-[white] font-sans text-xl;
+  }
+  .text-main-light {
+    @apply text-primary-600 font-sans text-xl;
+  }
+  .text-simple-low {
+    @apply text-[white] font-OpenSans opacity-90;
+  }
+  .text-simple{
+    @apply text-[white] font-OpenSans
   }
   .slider-container {
     @apply relative w-full max-w-4xl mx-auto;

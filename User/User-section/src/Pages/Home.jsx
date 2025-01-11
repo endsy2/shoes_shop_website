@@ -1,11 +1,7 @@
-import NavBar from "../Components/NavBar";
 import Category from "../Components/Category";
 import ShoesCard from "../Components/ShoesCard";
 import Slider from "../Components/Slider.jsx";
-import Login from "./Login";
 
-
-import Detail from "./Detail";
 
 import { detailpic, productCart } from "../Constants";
 

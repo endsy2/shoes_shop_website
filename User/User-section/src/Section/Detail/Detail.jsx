@@ -22,6 +22,8 @@ const DetailPic = ({ detail }) => {
 
     const handleAddToFavorite = () => {
         if (detail) {
+            console.log('here' + detail.id);
+
             if (favorite.findIndex((element) => element === detail.id) >= 0) {
                 dispatch(removeFromFavorite({ productId: detail.id }));
             } else {
@@ -35,7 +37,7 @@ const DetailPic = ({ detail }) => {
     }
 
     return (
-        <section className='flex flex-wrap gap-10'>
+        <section className='flex flex-wrap gap-10 '>
             <section className='flex'>
                 {/* {console.log(favorite)
                 } */}
@@ -52,9 +54,9 @@ const DetailPic = ({ detail }) => {
                     </div>
                 </section>
             </section>
-            <div className='flex flex-col'>
-                <section>
-                    <h1 className='text-main font-bold text-4xl mb-5'>{detail?.name}</h1>
+            <div className='flex flex-col '>
+                <section >
+                    <h1 className='text-main dark:text-main-light font-bold text-4xl mb-5 '>{detail?.name}</h1>
                     <button
                         onClick={() => handleAddToFavorite(detail.id)
                         }
@@ -72,21 +74,21 @@ const DetailPic = ({ detail }) => {
                             alt="favorite"
                             className="w-7 transition-transform duration-200 transform hover:scale-110"
                         />
-                        <p className="text-sm font-semibold">
+                        <p className="text-sm font-semibold dark:text-primary-600">
                             {favorite.findIndex((element) => element === detail.id) >= 0
                                 ? "Remove From Favorite"
                                 : "Add to Favorite"}
                         </p>
                     </button>
 
-                    <p className='text-main mb-5 text-3xl'>${detail?.price}</p>
-                    <p className='text-main mb-5 text-2xl'>Color: {detail?.color}</p>
-                    <p className='text-main mb-5 text-2xl'>Size: {detail?.size}</p>
-                    <p className='text-main mb-5 text-2xl'>Detail: {detail?.description}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-3xl'>${detail?.price}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Color: {detail?.color}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Size: {detail?.size}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Detail: {detail?.description}</p>
                 </section>
                 <section className='flex gap-5 items-center'>
                     <button className="blue-btn" onClick={handleMinusQuantity}>-</button>
-                    <span className='text-[white] text-xl'>{quantity}</span>
+                    <span className='text-[white] dark:text-main-light text-xl'>{quantity}</span>
                     <button className="blue-btn" onClick={handlePlusQuantity}>+</button>
                     <button className='blue-btn' onClick={handleAddToCart}>Add To Cart</button>
                 </section>

@@ -28,7 +28,7 @@ const AddToCart = () => {
       </div>
       <div className='grid grid-cols-2'>
         <button className='bg-black text-white py-2' onClick={handleCloseTabCart}>CLOSE</button>
-        <Link className='bg-primary text-white py-2' to="/checkout">CHECKOUT</Link>
+        <Link className='bg-primary text-white py-2 flex justify-center items-center' to="/checkout" onClick={handleCloseTabCart}>CHECKOUT</Link>
       </div>
     </div>
   );
