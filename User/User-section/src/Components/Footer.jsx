@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
     return (
 
-        <footer className='bg-darkGray py-16 mt-40 w-full border-t-2 border-[white] h-full'>
+        <div className='bg-darkGray py-16 mt-40 w-full border-t-2 border-[white] h-full'>
             <div className='max-w-7xl mx-auto px-6'>
                 {/* Logo and Social Media Icons */}
                 <div className='flex flex-col items-center md:items-start md:flex-row md:justify-between gap-10'>
@@ -64,7 +64,7 @@ const Footer = () => {
                     &copy; {new Date().getFullYear()} Your Company. All Rights Reserved.
                 </p>
             </div>
-        </footer>
+        </div>
 
     );
 };

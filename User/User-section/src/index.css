@@ -17,6 +17,9 @@
   .text-main {
     @apply text-[white] font-sans text-xl;
   }
+  .text-main-light {
+    @apply text-primary-600 font-sans text-xl;
+  }
   .text-simple-low {
     @apply text-[white] font-OpenSans opacity-90;
   }

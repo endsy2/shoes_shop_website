@@ -1,5 +1,6 @@
 import notificationIcon from '../assets/notification.svg'
 import addToCartIcon from '../assets/add-to-cart.svg'
+import addToCartIconBlack from '../assets/add-to-cart-black.svg'
 import addToFavoriteIcon from '../assets/add-to-favorite.svg'
 import hamburgerBar from '../assets/hamburgerBar.svg'
 import logo from '../assets/logo.svg'
@@ -23,10 +24,16 @@ import heartFill from '../assets/heartFill.svg';
 import addToCartBlack from '../assets/addToCartBlack.svg'
 import delivery from '../assets/delivery.svg'
 import shop from '../assets/shop.svg'
+import lightMode from '../assets/night.png'
+import darkMode from '../assets/moon.svg'
+import heartBlack from '../assets/heartBlack.svg'
+import heartFillBlack from '../assets/heartFillBlack.svg'
+import addToFavoriteWhiteIcon from '../assets/add-to-favorite-white.svg'
 export {
     notificationIcon,
     addToCartIcon,
     addToFavoriteIcon,
+    addToFavoriteWhiteIcon,
     hamburgerBar,
     logo,
     pic1,
@@ -48,7 +55,12 @@ export {
     heartFill,
     addToCartBlack,
     delivery,
-    shop
+    shop,
+    lightMode,
+    darkMode,
+    heartBlack,
+    heartFillBlack,
+    addToCartIconBlack
 }
 export const checkoutIcon = [
     { value: "packup", icon: shop },

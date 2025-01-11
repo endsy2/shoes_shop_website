@@ -1,4 +1,6 @@
 /** @type {import('tailwindcss').Config} */
+import colors from 'tailwindcss/colors';
+import { darkMode } from './src/assets';
 export default {
   content: [
     "./index.html",
@@ -13,6 +15,12 @@ export default {
       }
     },
     colors: {
+      sky: colors.sky,
+      stone: colors.stone,
+      neutral: colors.neutral,
+      gray: colors.gray,
+      slate: colors.slate,
+      ...colors,
       primary: {
         DEFAULT: ' #128B9E',
         600: '#127c8c',
@@ -22,4 +30,5 @@ export default {
     }
   },
   plugins: [],
+  darkMode: "class"
 }
