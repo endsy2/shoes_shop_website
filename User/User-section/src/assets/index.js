@@ -29,6 +29,8 @@ import darkMode from '../assets/moon.svg'
 import heartBlack from '../assets/heartBlack.svg'
 import heartFillBlack from '../assets/heartFillBlack.svg'
 import addToFavoriteWhiteIcon from '../assets/add-to-favorite-white.svg'
+import callBlack from '../assets/callBlack.svg'
+import mailBlack from '../assets/mailBlack.svg'
 export {
     notificationIcon,
     addToCartIcon,
@@ -60,9 +62,11 @@ export {
     darkMode,
     heartBlack,
     heartFillBlack,
-    addToCartIconBlack
+    addToCartIconBlack,
+    mailBlack,
+    callBlack
 }
 export const checkoutIcon = [
-    { value: "packup", icon: shop },
-    { value: "delivery", icon: delivery }
+    { value: "Pack Up", icon: shop },
+    { value: "Delivery", icon: delivery }
 ]

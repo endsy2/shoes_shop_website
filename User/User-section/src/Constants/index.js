@@ -1,5 +1,5 @@
 
-import { notificationIcon, addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, pic6, pic7, facebook, instagram, telegram, twitter, call, mail } from '../assets';
+import { addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, facebook, instagram, telegram, twitter, call, mail, mailBlack, callBlack } from '../assets';
 
 export const nav_link = [
     { href: "Login", label: "Login" },
@@ -245,8 +245,8 @@ export const footerInfo = [
         header: "Contect", body: [
             {
                 detail: [],
-                img: [{ img: call, detail: "1231231" },
-                { img: mail, detail: "ShoesStore@gamail.com" },
+                img: [{ img: call, detail: "1231231", imgBlack: callBlack },
+                { img: mail, detail: "ShoesStore@gamail.com", imgBlack: mailBlack },
                 ]
             }]
     },

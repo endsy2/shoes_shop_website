@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { arrowdown, arrowup } from "../assets";
 import { category_menu } from "../Constants";
+import { ThemeContext } from "../Context/ThemeContext";
+import { MdKeyboardArrowDown, MdOutlineKeyboardArrowUp } from "react-icons/md";
 
 const Category = () => {
     const [open, setOpen] = useState(false);
     const [checkedItems, setCheckedItems] = useState({}); // Track checked state for each item
-
+    const { theme } = useContext(ThemeContext)
     const handleCheckboxChange = (index) => {
         setCheckedItems((prev) => ({
             ...prev,
@@ -17,15 +19,17 @@ const Category = () => {
         <>
             <aside className="w-44 flex-col justify-end m-7 h-full xl:block hidden dark:text-black">
                 <button
-                    className="font-AntonSC dark:text-black text-white border-b-2 border-[white] flex justify-between text-xl w-full mb-2"
+                    className="font-AntonSC dark:text-primary  text-white border-b-2 border-[white] dark:border-primary-600 flex justify-between text-xl w-full mb-2"
                     onClick={() => setOpen(!open)}
                 >
                     Collection
-                    {!open ? (
-                        <img src={arrowup} alt="Arrow Up" className="h-5 ml-4" />
-                    ) : (
-                        <img src={arrowdown} alt="Arrow Down" className="h-5 ml-4" />
-                    )}
+
+                    {!open ? theme ? <div><MdOutlineKeyboardArrowUp className="text-primary" /></div>
+                        : <div><MdOutlineKeyboardArrowUp /></div>
+                        : theme ?
+                            <div><MdKeyboardArrowDown className="text-primary" /></div> :
+                            <div><MdKeyboardArrowDown /></div>
+                    }
                 </button>
                 {open && ( // Only display categories when `open` is true
                     <div >
@@ -41,10 +45,10 @@ const Category = () => {
                                 />
                                 <label
                                     htmlFor={`category-${index}`}
-                                    className="flex items-center cursor-pointer dark:text-black text-[white] font-AntonSC text-sm"
+                                    className="flex items-center cursor-pointer dark:text-primary text-[white] font-AntonSC text-sm"
                                 >
                                     {/* Custom styled checkbox with peer-checked */}
-                                    <span className="w-6 h-6 border-2  border-white rounded-sm flex justify-center items-center mr-2 peer-checked:bg-black peer-checked:text-white">
+                                    <span className="w-6 h-6 border-2  dark:border-primary-600 border-white rounded-sm flex justify-center items-center mr-2 peer-checked:bg-black peer-checked:text-white">
                                         {/* Show checkmark when the box is checked */}
                                         {checkedItems[index] ? (
                                             <span className="block">✓</span>
@@ -62,7 +66,7 @@ const Category = () => {
             <div className="mt-5">
                 <form action="" className="max-w-sm mx-auto xl:hidden block">
                     <select
-                        className="xl:hidden border mx-5 border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-gray-400 focus:border-primary block w-full p-2.5 dark:bg-primary dark:border-gray-600 dark:placeholder-primary dark:text-white dark:focus:ring-primary-600 dark:focus:border-primary"
+                        className="xl:hidden border mx-5 border-gray-300 dark:border-primary-600 text-gray-900 text-sm rounded-lg focus:ring-gray-400 focus:border-primary block w-full p-2.5   dark:placeholder-primary dark:text-primary dark:focus:ring-primary-600 dark:focus:border-primary"
                         onMouseOver={(e) => e.currentTarget.classList.add('hover:bg-gray-200')}
                         onMouseOut={(e) => e.currentTarget.classList.remove('hover:bg-gray-200')}
                     >

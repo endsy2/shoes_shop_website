@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { logo } from '../assets';
 import { footerImage, footerInfo } from '../Constants';
 import { Link } from 'react-router-dom';
+import { ThemeContext } from '../Context/ThemeContext';
 
 const Footer = () => {
+    const { theme } = useContext(ThemeContext)
     return (
 
-        <div className='bg-darkGray py-16 mt-40 w-full border-t-2 border-[white] h-full'>
+        <div className='bg-darkGray py-16 mt-40 w-full border-t-2 border-white dark:border-primary-600 h-full'>
             <div className='max-w-7xl mx-auto px-6'>
                 {/* Logo and Social Media Icons */}
                 <div className='flex flex-col items-center md:items-start md:flex-row md:justify-between gap-10'>
@@ -24,7 +26,7 @@ const Footer = () => {
                     {/* Footer Info Links */}
                     <div className='grid grid-cols-2 lg:grid-cols-4 gap-10'>
                         {footerInfo.map((element, index) => (
-                            <section key={index} className='text-[white] flex flex-col gap-4'>
+                            <section key={index} className='text-[white] dark:text-primary-600  flex flex-col gap-4'>
                                 <ul className='flex flex-col gap-2'>
                                     <li className='text-xl font-bold'>{element.header}</li>
                                     {element.body.map((item, idx) => (
@@ -34,19 +36,20 @@ const Footer = () => {
                                                 <div className='flex flex-col gap-2'>
                                                     {item.img.map((imgSrc, imgIdx) => (
                                                         <li key={imgIdx}>
-                                                            <Link to={imgSrc.detail} className='flex items-center gap-2 text-gray-400 hover:text-white'>
-                                                                <img src={imgSrc.img} alt={`image-${imgIdx}`} className='w-6 h-6' />
+                                                            <Link to={imgSrc.detail} className='flex items-center gap-2 text-gray-400 '>
+                                                                <img src={theme ? imgSrc.imgBlack : imgSrc.img} alt={`image-${imgIdx}`} className='w-6 h-6' />
                                                                 <span>{imgSrc.detail}</span>
                                                             </Link>
                                                         </li>
                                                     ))}
                                                 </div>
                                             )}
-
+                                            {console.log(theme)
+                                            }
                                             {/* Render text details */}
                                             {item.detail && item.detail.map((text, textIdx) => (
-                                                <li key={textIdx}>
-                                                    <Link to={text} className='text-gray-400 hover:text-white'>{text}</Link>
+                                                <li key={textIdx} className=''>
+                                                    <Link to={text} className='text-gray-400 hover:text-white dark:hover:text-primary-600'>{text}</Link>
                                                 </li>
                                             ))}
                                         </div>
