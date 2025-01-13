@@ -11,11 +11,18 @@ const Home = () => {
       <main className="flex flex-col flex-1 pt-10">
         <Slider images={detailpic} />
         <div className="flex">
-          <aside>
+          <aside className="hidden lg:block">
             <Category />
           </aside>
-          <section className="flex flex-wrap pl-14 gap-16">
-            <ShoesCard shoesData={productCart} />
+          <section className="flex flex-col">
+            <section className="max-lg:flex hidden pl-14">
+              <Category />
+            </section>
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pl-14 gap-16">
+              {productCart.map((element, index) => (
+                <ShoesCard shoesData={element} key={index} />
+              ))}
+            </section>
           </section>
 
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import DetailPic from '../Section/Detail/Detail';
 import ShoesCard from '../Components/ShoesCard';
@@ -26,7 +26,13 @@ const Detail = () => {
             <section className='flex gap-16 mt-10 mx-10'>
                 {detail ? <DetailPic detail={detail} /> : <p>Loading...</p>}
             </section>
-            <ShoesCard shoesData={productCart} />
+
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pl-14 gap-16">
+                {productCart.map((element, index) => (
+                    <ShoesCard shoesData={element} key={index} />
+                ))}
+            </section>
+
         </main>
     );
 };
