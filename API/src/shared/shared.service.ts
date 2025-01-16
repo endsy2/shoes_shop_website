@@ -2,8 +2,8 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
-export class CommonService {
-  constructor(private prisma: PrismaService) { }
+export class SharedService {
+  constructor(private prisma: PrismaService) {}
 
   async displayProduct() {
     return this.prisma.product.findMany({
@@ -56,5 +56,8 @@ export class CommonService {
       throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
     }
     return product; // Return the result.
+  }
+  async getCategory() {
+    return this.prisma.category.findMany();
   }
 }
