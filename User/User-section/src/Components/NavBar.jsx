@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleStatusTab } from "../store/cart"; // Import the toggleStatusTab action
 import { useThemeContext } from "../Context/ThemeContext";
+import { IoPersonOutline, IoPersonSharp } from "react-icons/io5";
 
 const NavBar = () => {
   const [totalQuatity, setTotalQuantity] = useState(0);
@@ -37,7 +38,6 @@ const NavBar = () => {
 
   return (
     <nav className={`flex-col w-full `}>
-      {console.log(toggleHeart)}
       <section className="flex justify-around md:justify-between items-center py-7 w-full">
         <div className="flex md:justify-start justify-end max-md:w-1/2">
           <button onClick={() => setToggleMenu(!toggleMenu)}>
@@ -86,6 +86,7 @@ const NavBar = () => {
             <button onClick={() => setTheme((prev) => !prev)} className="w-8">
               <img src={theme ? darkMode : lightMode} alt="Theme Toggle" />
             </button>
+            <NavLink to='/Profile'>{theme ? <IoPersonSharp className="text-primary text-2xl" /> : <IoPersonOutline className="text-2xl " />}</NavLink>
           </div>
           <div className="mt-3 mx-7 flex gap-10">
             {nav_link.map((element) => (

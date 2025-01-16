@@ -9,11 +9,13 @@ const Footer = () => {
     return (
 
         <div className='bg-darkGray py-16 mt-40 w-full border-t-2 border-white dark:border-primary-600 h-full'>
-            <div className='max-w-7xl mx-auto px-6'>
+            <div className='max-w-7xl mx-auto px-6 flex justify-around  '>
                 {/* Logo and Social Media Icons */}
                 <div className='flex flex-col items-center md:items-start md:flex-row md:justify-between gap-10'>
-                    <div className='flex flex-col items-center md:items-start'>
-                        <img src={logo} alt="logo" className='w-40 mb-6' />
+                    <div className='flex flex-col items-center md:items-start mr-32'>
+                        <Link to='/'>
+                            <img src={logo} alt="logo" className='w-40 mb-6' />
+                        </Link>
                         <ul className='flex justify-center gap-6'>
                             {footerImage.map((element, index) => (
                                 <li key={index}>
@@ -44,8 +46,7 @@ const Footer = () => {
                                                     ))}
                                                 </div>
                                             )}
-                                            {console.log(theme)
-                                            }
+
                                             {/* Render text details */}
                                             {item.detail && item.detail.map((text, textIdx) => (
                                                 <li key={textIdx} className=''>

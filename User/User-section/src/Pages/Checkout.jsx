@@ -1,5 +1,5 @@
 
-import  { useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productCart } from "../Constants";
 import { checkoutIcon } from "../assets";
@@ -49,7 +49,7 @@ const Checkout = () => {
                                         Your Number
                                     </label>
                                     <input
-                                        className="p-3 dark:placeholder:text-primary-600 px-6 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
+                                        className="p-3 text-primary-600 placeholder:text-primary-600 px-6 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
                                         type="text"
                                         placeholder="Enter your number"
                                         required
@@ -60,7 +60,7 @@ const Checkout = () => {
                                         Your Address
                                     </label>
                                     <input
-                                        className="p-3 px-6 dark:placeholder:text-primary-600 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
+                                        className="p-3 px-6 text-primary-600 placeholder:text-primary-600 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
                                         type="text"
                                         placeholder="Enter your address"
                                         required

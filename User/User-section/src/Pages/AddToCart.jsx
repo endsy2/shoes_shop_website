@@ -35,11 +35,11 @@ const AddToCart = () => {
   return (
     <div
       ref={cartRef}
-      className={`fixed top-0 right-0 bg-lightGray shadow-2xl w-96 h-full grid grid-rows-[60px_1fr_60px]
+      className={`fixed top-0 right-0 bg-lightGray dark:bg-white shadow-2xl w-[450px] h-full grid grid-rows-[60px_1fr_60px]
       transform transition-transform duration-500
       ${statusTab === false ? 'translate-x-full' : ''}`}
     >
-      <h2 className="p-5 text-white text-2xl">Shopping Cart</h2>
+      <h2 className="p-5 text-white text-2xl dark:text-primary-600">Shopping Cart</h2>
       <div className="p-5 overflow-y-auto">
         {carts.length > 0 ? (
           carts.map((item) => <CartItem key={item.productId} product={item} />)
