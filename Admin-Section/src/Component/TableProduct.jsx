@@ -3,15 +3,28 @@ import { trash } from "../Assets";
 import { tableHeadProduct } from "../Constants";
 import { Link } from "react-router-dom";
 import { removeOneFetch, searchFetch } from "../Fetch/FetchAPI.js";
+import Cookies from "js-cookie";
 
 const TableProduct = ({ title, items }) => {
   const [datatable, setDataTable] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]); // Track selected row IDs
   const [searchData, setSearchData] = useState("");
+  // const [cookie, setCookie] = useState(() => {
+  //   const cookieValue = document.cookie
+  //     .split('; ')
+  //     .find((row) => row.startsWith('admin-access-token'));
+  //   return cookieValue ? cookieValue.split('=')[1] : null; // Return the value or null if not found
+  // });
 
   useEffect(() => {
     setDataTable(items);
+    // if (cookie) {
+    //   console.log('Cookie found:', cookie);
+    // } else {
+    //   console.log('No cookie found');
+    // }
+
   }, [items]);
 
   const handleSelectAll = () => {

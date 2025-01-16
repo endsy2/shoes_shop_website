@@ -9,10 +9,16 @@ datasource db {
 
 model brand {
   id        Int       @id @default(autoincrement())
-  name      String
+  name      String    @unique
   imageUrl  String
   createdAt DateTime  @default(now())
   product   product[]
+}
+
+model category {
+  id      Int       @id @default(autoincrement())
+  name    String    @unique
+  product product[]
 }
 
 model customer {
@@ -25,6 +31,12 @@ model customer {
   address     String
   createdAt   DateTime @default(now())
   order       order[]
+}
+
+model admin {
+  id       Int    @id @default(autoincrement())
+  Email    String
+  password String
 }
 
 model discount {
@@ -70,8 +82,9 @@ model orderitem {
 
 model product {
   id              Int               @id @default(autoincrement())
-  name            String
+  name            String            @unique
   brandId         Int
+  categoryID      Int
   createdAt       DateTime          @default(now())
   discount        discount[]
   orderitem       orderitem[]
@@ -79,8 +92,10 @@ model product {
   productimage    productimage[]
   Description     String
   productVariants productVariants[]
+  category        category          @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "Product_categoryId_fkey")
 
   @@index([brandId], map: "Product_brandId_fkey")
+  @@index([categoryID], map: "Product_categoryId_fkey")
 }
 
 model productVariants {
