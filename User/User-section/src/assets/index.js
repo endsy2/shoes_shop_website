@@ -31,6 +31,7 @@ import heartFillBlack from '../assets/heartFillBlack.svg'
 import addToFavoriteWhiteIcon from '../assets/add-to-favorite-white.svg'
 import callBlack from '../assets/callBlack.svg'
 import mailBlack from '../assets/mailBlack.svg'
+import profile from '../assets/profile.png'
 export {
     notificationIcon,
     addToCartIcon,
@@ -64,7 +65,8 @@ export {
     heartFillBlack,
     addToCartIconBlack,
     mailBlack,
-    callBlack
+    callBlack,
+    profile
 }
 export const checkoutIcon = [
     { value: "Pack Up", icon: shop },

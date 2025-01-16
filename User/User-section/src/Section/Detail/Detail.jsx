@@ -74,7 +74,7 @@ const DetailPic = ({ detail }) => {
                             alt="favorite"
                             className="w-7 transition-transform duration-200 transform hover:scale-110"
                         />
-                        <p className="text-sm font-semibold dark:text-primary-600">
+                        <p className="text-sm font-semibold  text-primary-600">
                             {favorite.findIndex((element) => element === detail.id) >= 0
                                 ? "Remove From Favorite"
                                 : "Add to Favorite"}

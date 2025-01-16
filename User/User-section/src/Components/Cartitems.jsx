@@ -35,38 +35,42 @@ const CartItem = ({ product }) => {
     }
 
     return (
-        <div className='flex flex-col sm:flex-row items-start sm:items-center bg-gray-800 text-white p-4 border-b border-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200'>
-            <img src={detail.pic} alt={detail.name} className='w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-lg' />
+        <div className='relative flex flex-col sm:flex-row items-start sm:items-center bg-gray-800 dark:bg-gray-50 border-2  text-white p-4 border-b border-gray-700 rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200'>
+            <img src={detail.pic} alt={detail.name} className='w-20 h-32 sm:w-24 sm:h-36 object-contain ' />
             <div className='flex-1 ml-4 flex flex-col justify-between'>
-                <div className='flex justify-between items-center mb-2'>
-                    {console.log(console.log(cart)
-                    )
-                    }
-                    <h3 className='text-lg font-semibold'>{detail.name}</h3>
-                    <p className='text-xl font-bold text-green-500'>${(detail.price * quantity).toFixed(2)}</p>
+                <div className='flex flex-col '>
+                    <h3 className='text-lg font-semibold dark:text-primary-600 hover:underline'>{detail.name}</h3>
+                    <p className='text-lg font-semibold dark:text-primary-600 '>Color:{detail.color}</p>
+                    <p className='text-lg font-semibold dark:text-primary-600 '>Size:{detail.size}</p>
                 </div>
-                <div className='flex items-center gap-3'>
-                    <button
-                        className='bg-gray-700 text-white rounded-full p-2 hover:bg-gray-600 transition-colors duration-200'
-                        onClick={handleMinusQuantity}
-                    >
-                        <span className='text-lg'>-</span>
-                    </button>
-                    <span className='text-lg font-medium'>{quantity}</span>
-                    <button
-                        className='bg-gray-700 text-white rounded-full p-2 hover:bg-gray-600 transition-colors duration-200'
-                        onClick={handlePlusQuantity}
-                    >
-                        <span className='text-lg'>+</span>
-                    </button>
-                    <button
-                        className='bg-red-600 text-white rounded-full p-2 hover:bg-red-500 transition-colors duration-200'
-                        onClick={handleRemoveItem}
-                    >
-                        <span className='text-lg'>×</span>
-                    </button>
+                <div className='flex gap-5 mt-3'>
+                    <div className='grid grid-cols-3 w-36 items-center justify-center border-2 border-lightGray gap-3'>
+                        <button
+                            className='bg-gray-700 text-white  p-1 hover:bg-gray-600 transition-colors duration-200'
+                            onClick={handleMinusQuantity}
+                        >
+                            <span className='text-lg'>-</span>
+                        </button>
+                        <span className='text-lg font-medium dark:text-primary-600 text-center'>{quantity}</span>
+                        <button
+                            className='bg-gray-700 text-white  p-1 hover:bg-gray-600 transition-colors duration-200'
+                            onClick={handlePlusQuantity}
+                        >
+                            <span className='text-lg'>+</span>
+                        </button>
+
+                    </div>
+                    <div>
+                        <p className='text-xl font-bold text-green-500 dark:text-primary-600'>${(detail.price * quantity).toFixed(2)}</p>
+                    </div>
                 </div>
             </div>
+            <button
+                className="absolute top-2 right-2 flex justify-center items-center text-white w-10 h-10  hover:bg-red-500 dark:hover:bg-primary-600 rounded-full transition-colors duration-200"
+                onClick={handleRemoveItem}
+            >
+                <span className="text-xl dark:text-black font-bold">×</span>
+            </button>
         </div>
     );
 };

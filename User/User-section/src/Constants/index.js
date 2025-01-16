@@ -251,3 +251,12 @@ export const footerInfo = [
             }]
     },
 ]
+export const tableHeadOffer = ["ID", "Created", "Amount", "Discount", "Status"];
+
+export const order = [
+    { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" },
+    { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" },
+    { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" },
+    { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" },
+    { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" }
+]
