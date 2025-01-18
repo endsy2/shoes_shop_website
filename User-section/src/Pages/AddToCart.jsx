@@ -58,6 +58,7 @@ const AddToCart = () => {
         >
           CHECKOUT
         </Link>
+       
       </div>
     </div>
   );
