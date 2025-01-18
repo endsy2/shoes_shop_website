@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { trash } from "../Assets";
 import { tableHeadOrder } from "../Constants";
 import { Link } from "react-router-dom";
-import { removeOrder, searchFetch, searchOrder } from "../Fetch/FetchAPI.js";
+import { removeOrder, searchOrder } from "../Fetch/FetchAPI.js";
 
 const TableOrder = ({ title, items }) => {
     const [datatable, setDataTable] = useState(items || []);
@@ -211,7 +211,11 @@ const TableOrder = ({ title, items }) => {
                                             onClick={() => handleRemove(element.order_id)}
                                             className="flex"
                                         >
-                                            <img src={trash} alt="Delete" className="cursor-pointer" />
+                                            <img
+                                                src={trash}
+                                                alt="Delete"
+                                                className="cursor-pointer max-w-[25px] max-h-[25px] sm:max-w-[30px] sm:max-h-[30px]"
+                                            />
                                         </button>
                                     </td>
                                 </tr>

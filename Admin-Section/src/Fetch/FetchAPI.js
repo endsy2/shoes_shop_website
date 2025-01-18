@@ -1,5 +1,5 @@
 import axios from "axios";
-import Cookies from "js-cookie";
+
 
 const API_URL_Auth = "http://localhost:3000/auth";
 // const API_URL2 = 'http://localhost:3000/user/functionality';
@@ -7,25 +7,26 @@ const API_URL_Admin = "http://localhost:3000/admin";
 const API_URL_COMMON = "http://localhost:3000/common";
 
 export const signIn = async ({ email, password }) => {
-  return axios.post(`${API_URL_Auth}/adminLogin`, { email, password });
+  return axios.post(`${API_URL_Auth}/login`, { email, password });
 };
-export const register = async ({ username, email, password }) => {
-  return axios.post(
-    `${API_URL_Auth}/adminRegister`,
-    { username, email, password },
-    {
-      headers: {
-        "Content-Type": "application/json", // Correct Content-Type for JSON
-      },
-      withCredentials: true, // Include cookies if needed
-    }
-  );
-};
+export const register = async ({ profile, username, email, password }) => {
+  const formData = new FormData();
+  formData.append("profile", profile);
+  formData.append("username", username);
+  formData.append("email", email);
+  formData.append("password", password);
 
+  return axios.post(`${API_URL_Auth}/signup`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+    withCredentials: true
+  });
+};
 export const productData = async () => {
   try {
     const response = await axios.get(`${API_URL_COMMON}/getAllProduct`, { withCredentials: true });
-    return response.data; // return the data from the response
+    return response; // return the data from the response
   } catch (error) {
     console.error("Error fetching product data:", error);
     throw error; // Rethrow the error so it can be handled by the caller
@@ -90,8 +91,9 @@ export const dashboardHeaderAll = async () => {
 export const tableByDate = async (date) => {
 
   try {
-    const response = await axios.get(`${API_URL_COMMON}/getAllProductbydate`, {
-      params: { date: date },
+    console.log(date);
+
+    const response = await axios.get(`${API_URL_COMMON}/getAllProductbydate?date=${date}`, {
       withCredentials: true
     })
 
@@ -123,9 +125,9 @@ export const tableByCategory = async (category) => {
   }
 }
 
-export const searchFetch = async ({ searchData }) => {
+export const searchFetchByCategory = async ({ searchData, Category }) => {
   try {
-    const response = await axios.get(`${API_URL_COMMON}/searchProduct?searchData=${searchData}`, {
+    const response = await axios.get(`${API_URL_COMMON}/searchProduct?searchData=${searchData}&Category=${Category}`, {
       withCredentials: true
     });
     console.log(response);
@@ -171,7 +173,8 @@ export const addNewProductAPI = async (formdata) => {
   formData.append("screenSize", formdata.screenSize);
   formData.append("ram", formdata.ram);
   formData.append("battery", formdata.battery);
-  formdata.color === null ? formData.append("color", "#000000") : formData.append("color", formdata.colors)
+  formData.append("colors", formdata.colors);
+
 
 
 
@@ -191,6 +194,28 @@ export const addNewProductAPI = async (formdata) => {
     // console.log(formdata);
 
 
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+export const addNewColorFetch = async (formdata) => {
+  try {
+    const formData = new FormData();
+    formData.append('productName', formdata.productName);
+    formData.append('color', formdata.color);
+    formData.append('price', formdata.price);
+    formData.append('stock', formdata.stock);
+    for (let image of formdata.images) {
+      formData.append('productImages', image)
+    }
+    const response = await axios.post(`${API_URL_Admin}/addNewVariants`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data"
+      },
+      withCredentials: true,
+    })
+    return response;
   } catch (error) {
     console.log(error);
 
@@ -222,15 +247,51 @@ export const addNewCategoryAPI = async (category) => {
     throw error;
   }
 };
-export const removeOneFetch = async (deleteid) => {
+
+export const addNewDetail = async ({ formdata }) => {
   try {
-    const response = await axios.delete(`${API_URL_Admin}/deleteProduct`, {
-      params: deleteid,
+    const response = await axios.post(`${API_URL_Admin}/addNewSpecification`, { formdata }, {
+      withCredentials: true
+    })
+    return response;
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+export const removeOneFetch = async ({ deleteid }) => {
+  try {
+    const response = await axios.delete(`${API_URL_Admin}/deleteProduct?deleteid=${deleteid}`, {
+      withCredentials: true
+    })
+    return response;
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+export const removeVariants = async ({ deleteid }) => {
+  try {
+    const response = await axios.delete(`${API_URL_Admin}/deleteVariants?variants_id=${deleteid}`, {
       withCredentials: true
     })
     return response;
 
 
+  } catch (error) {
+    console.log(error);
+
+  }
+}
+export const removeSpec = async (variantID, storage) => {
+  try {
+    const response = await axios.delete(`${API_URL_Admin}/deleleSpec?variantID=${variantID}&storage=${storage}`, {
+      withCredentials: true
+    })
+    // console.log(variantID);
+    // console.log(storage);
+
+    return response;
   } catch (error) {
     console.log(error);
 
@@ -252,8 +313,7 @@ export const loginFetch = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL_Auth}/adminLogin`, { email, password }, { withCredentials: true });
     // return response.data; // Return the response payload
-    Cookies.set('token', response.data.token)
-
+    console.log(response);
 
   } catch (error) {
     console.error("Error during login request:", error.message);
@@ -286,9 +346,9 @@ export const OrderTableFetch = async () => {
 };
 
 
-export const productByID = async (id) => {
+export const productByID = async (query) => {
   try {
-    const response = await axios.get(`${API_URL_COMMON}/searchProductByID/${id}`, {
+    const response = await axios.get(`${API_URL_COMMON}/getProduct?phone_name=${query}`, {
       withCredentials: true,
     });
     return response.data;
@@ -297,6 +357,20 @@ export const productByID = async (id) => {
     throw error; // Re-throw the error for the caller to handle
   }
 };
+export const fetchOfferByID = async (param) => {
+  try {
+    const response = await axios.get(`${API_URL_COMMON}/offerDisplayByID/${param.id}`,
+      {
+        withCredentials: true
+      }
+    )
+    return response.data;
+
+  } catch (error) {
+    console.log(error);
+
+  }
+}
 export const headerOrder = async () => {
   try {
     const response = await axios.get(`${API_URL_Admin}/headerOrder`, {
@@ -361,47 +435,59 @@ export const searchPromotion = async ({ promo_name }) => {
 };
 export const insertPromotion = async ({ formData }) => {
   try {
-    const response = await axios.put(`${API_URL_Admin}/offerInsert`, formData, {
-      withCredentials: true
-    });
+    // Create a new FormData object
+    const formDataObj = new FormData();
+
+    // Append individual form fields to FormData
+    formDataObj.append('phone_name', formData.phone_name);
+    formDataObj.append('discount_percent', formData.discount_percent);
+    formDataObj.append('start_date', formData.start_date);
+    formDataObj.append('end_date', formData.end_date);
+    formDataObj.append('promo_name', formData.promo_name);
+    formDataObj.append('color', formData.Color)
+    formDataObj.append('storage', formData.storage)
+    // Append each color from the formData.Color array to FormData
+
+    // Make the API call using axios
     // console.log(formData);
 
-    return response;
+    const response = await axios.put(`${API_URL_Admin}/offerInsert`, formDataObj, {
+      withCredentials: true,
+      headers: {
+        // No need to manually set Content-Type for FormData
+        'Content-Type': "application/json"  // Optional, but can be used if you need to specify it
+      },
+    });
+
+    return response.data; // Assuming you need the response body
 
   } catch (error) {
-    console.log(error);
-
+    console.error("Error inserting promotion:", error);
+    return null; // Return null or handle the error based on your needs
   }
-}
+};
 
 
-export const updateProduct = async (formdata, id) => {
+export const updateProductVariants = async (formdata, id) => {
   const formData = new FormData();
 
   // Append all fields to FormData
-  formData.append("name", formdata.name);
-  formData.append("brand", formdata.brand);
+
   formData.append("price", formdata.price);
-  formData.append("date", formdata.date);
-  formData.append("processor", formdata.processor);
-  formData.append("storage", formdata.storage);
-  formData.append("camera", formdata.camera);
-  formData.append("category", formdata.category);
-  formData.append("description", formdata.description);
   formData.append("stock", formdata.stock);
-  formData.append("screenSize", formdata.screenSize);
-  formData.append("ram", formdata.ram);
-  formData.append("battery", formdata.battery);
   formData.append("color", formdata.colors);
 
   // Append images to FormData
   for (let image of formdata.images) {
-    formData.append("images", image); // Ensure "images" matches the backend field
+    formData.append("productImages", image); // Ensure "images" matches the backend field
   }
+  console.log(id);
+
+
 
   try {
     const response = await axios.put(
-      `${API_URL_Admin}/updateProduct/${id}`,
+      `${API_URL_Admin}/updateVariants/${id}`,
       formData, // Pass FormData directly
       {
         headers: {
@@ -417,14 +503,27 @@ export const updateProduct = async (formdata, id) => {
     throw error; // Re-throw the error to allow proper error handling
   }
 };
+export const updateSpec = async (formdata, queryParam) => {
+  try {
+    const response = await axios.put(`${API_URL_Admin}/updateSpec?variantID=${queryParam.variantID}&oldStorage=${queryParam.oldStorage}`, formdata, {
+      headers: {
+        "Content-Type": "application/json"
+      },
+      withCredentials: true
+    })
+    return response;
+
+  } catch (error) {
+    console.log(error);
+
+  }
+}
 export const fetchOrderItemsByID = async (id) => {
   try {
-    // console.log(id);
-
     const response = await axios.get(`${API_URL_Admin}/tableOrderItemsByID/${id}`, {
       withCredentials: true
     })
-    // console.log(response.data.data);
+    // console.log(id);
 
     return response.data;
   } catch (error) {
@@ -432,20 +531,20 @@ export const fetchOrderItemsByID = async (id) => {
 
   }
 }
-export const fetchOrderByID = async ({ id }) => {
-  try {
-    const response = await axios.get(`${API_URL_Admin}/orderByID/${id}`, {
-      withCredentials: true
-    })
-    // console.log(response.data);
+// export const fetchOrderByID = async ({ id }) => {
+//   try {
+//     const response = await axios.get(`${API_URL_Admin}/orderByID/${id}`, {
+//       withCredentials: true
+//     })
+//     // console.log(response.data);
 
-    return response.data;
+//     return response.data;
 
-  } catch (error) {
-    console.log(error);
+//   } catch (error) {
+//     console.log(error);
 
-  }
-}
+//   }
+// }
 export const deleteOrderItemByID = async ({ id }) => {
   try {
     const response = await axios.delete(`${API_URL_Admin}/deleteOrderItems/${id}`, { withCredentials: true })
@@ -455,4 +554,17 @@ export const deleteOrderItemByID = async ({ id }) => {
 
   }
 }
+export const updateOrderItems = async ({ value }) => {
+  try {
+    const response = await axios.put(`${API_URL_Admin}/updateOrderItems`, value, {
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
 
+  }
+}

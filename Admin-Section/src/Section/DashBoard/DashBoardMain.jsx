@@ -10,6 +10,8 @@ const DashBoardMain = ({ data, selectedDate }) => {
     try {
       const data = await tableByDate(selectedDate);
       // Use selectedDate here
+
+
       setItems(data || []);
     } catch (error) {
       console.log("Error fetching data:", error);
@@ -36,8 +38,7 @@ const DashBoardMain = ({ data, selectedDate }) => {
 
   return (
     <main className="pt-20">
-      {console.log(items)
-      }
+
       <section className="grid grid-cols-1 gap-20 lg:grid-cols-2 xl:grid-cols-3 w-full">
         {data.map((element, index) => (
           <div
@@ -48,6 +49,7 @@ const DashBoardMain = ({ data, selectedDate }) => {
               <div>
                 <h1 className="text-primary text-lg font-semibold mb-2">
                   {element.label}
+
                 </h1>
                 <p className="text-primary text-sm">{element.date} MONTH</p>
                 <h2 className="text-primary text-xl font-bold">
@@ -68,7 +70,7 @@ const DashBoardMain = ({ data, selectedDate }) => {
 
       {/* Render Table for Inventory */}
       <section className="mt-10">
-        <TableProduct title="Inventory" items={items} />
+        <TableProduct title="Inventory" items={items.data} />
       </section>
     </main>
   );

@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
-import { json, Link, useLocation } from "react-router-dom";
-import { addNewProductAPI, updateProduct } from "../../Fetch/FetchAPI";
-import { stringify } from "postcss";
+import { useEffect, useRef, useState } from "react";
+import { useLocation } from "react-router-dom";
+import { addNewProductAPI } from "../../Fetch/FetchAPI";
+
 
 const AddProduct = ({ product_id }) => {
   const location = useLocation();
+  const fileRef = useRef();
   const [id, setID] = useState('');
   const [name, setName] = useState('');
   const [brand, setBrand] = useState('');
@@ -15,32 +16,19 @@ const AddProduct = ({ product_id }) => {
   const [storage, setStorage] = useState('');
   const [camera, setCamera] = useState('');
   const [category, setCategory] = useState('');
-  const [colors, setColors] = useState('#000000'); // Default to black
+  const [colors, setColors] = useState("#000000"); // Default to one color
   const [description, setDescription] = useState('');
   const [stock, setStock] = useState('');
   const [screenSize, setScreenSize] = useState('');
   const [ram, setRam] = useState('');
   const [battery, setBattery] = useState('');
+  const [error, setError] = useState('')
+  const [result, setResult] = useState('')
 
   useEffect(() => {
     setID(product_id)
   }, [product_id])
 
-  // const handleAddColor = () => {
-  //   setColors([...colors, '']); // Add an empty string to the array, creating a new color input field
-  // };
-
-  // const handleRemoveColor = (index) => {
-  //   const newColors = [...colors];
-  //   newColors.splice(index, 1); // Remove the color at the specified index
-  //   setColors(newColors);
-  // };
-
-  // const handleColorChange = (index, value) => {
-  //   const newColors = [...colors];
-  //   newColors[index] = value; // Update the color value at the specified index
-  //   setColors(newColors);
-  // };
 
   const handleImageChange = (e) => {
     const files = Array.from(e.target.files); // Convert FileList to Array
@@ -74,45 +62,22 @@ const AddProduct = ({ product_id }) => {
     }
     try {
       const result = await addNewProductAPI(formdata, id);
-      console.log(formdata.images);
+      if (result.lenght !== 0) {
+        setResult("Add New Product Success")
+        setError('')
+      }
+      // console.log(formdata.colors);
+
+      // console.log(formdata.images);
 
       handleClear(); // Clear form after successful submission
       console.log(result);
     } catch (error) {
+      setError("Something Went Wrong")
+      setResult('')
       console.log(error);
     }
   };
-  const handleUpdate = async (e) => {
-
-    e.preventDefault();
-    const formdata = {
-      name,
-      brand,
-      images,
-      price,
-      date,
-      processor,
-      storage,
-      camera,
-      category,
-      colors,
-      description,
-      stock,
-      screenSize,
-      ram,
-      battery,
-    }
-    try {
-      const result = await updateProduct(formdata, id);
-
-      // window.location.reload()
-
-
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
 
   const handleClear = () => {
 
@@ -135,10 +100,10 @@ const AddProduct = ({ product_id }) => {
   return (
     <div className="bg-white border-gray-300 border p-12 rounded-lg w-full max-w-9xl mx-auto mt-12 shadow-lg">
       <h1 className="text-center text-3xl text-primary font-bold mb-8">
-        {location.pathname === "/dashboard/addProduct" ? <h1>Add Product</h1> : <h1>Update Product</h1>}
+        <h1>Add Product</h1>
       </h1>
       <form
-        onSubmit={(location.pathname === "/dashboard/addProduct") ? handleSubmit : handleUpdate}
+        onSubmit={handleSubmit}
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:items-center gap-10 "
       >
         {/* Product Name */}
@@ -182,6 +147,7 @@ const AddProduct = ({ product_id }) => {
             type="file"
             accept="image/*"
             multiple // This allows multiple files selection
+            ref={fileRef}
             onChange={handleImageChange}
             className="h-10 w-full rounded-lg border border-gray-300 p-1 mb-2"
           />
@@ -204,21 +170,26 @@ const AddProduct = ({ product_id }) => {
             ))}
           </div>
         </div>
-        {/* Color */}
+        {/* Colors Section */}
         <div className="flex flex-col">
+          <label className="text-sm font-medium text-primary mb-2">Colors</label>
+          <div className="flex flex-col gap-4 bg-gray-50 p-4 rounded-lg shadow-md">
 
-          <label className="text-sm font-medium text-primary mb-2">Color</label>
-
-          <div className="flex gap-4 items-center">
-            <input
-              type="color"
-              value={colors}
-              onChange={(e) => setColors(e.target.value)}
-              className="h-10 w-full rounded-lg border text-primary p-1"
-            />
+            <div className="flex items-center gap-6">
+              {/* Color Picker */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm text-gray-600">Color </span>
+                <input
+                  type="color"
+                  value={colors}
+                  onChange={(e) => setColors(e.target.value)}
+                  className="h-6 w-28 rounded-lg border-gray-300 shadow-sm focus:ring-primary focus:border-primary"
+                />
+              </div>
+            </div>
           </div>
-
         </div>
+
 
         {/* brand */}
         <div className="flex flex-col">
@@ -391,7 +362,7 @@ const AddProduct = ({ product_id }) => {
         <div className=" w-full gap-4 mt-4 grid grid-cols-2 justify-center items-center">
           <input
             type="submit"
-            value='submit'
+            value="submit"
             className="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded-lg transition"
           />
           <button
@@ -402,8 +373,12 @@ const AddProduct = ({ product_id }) => {
             Clear
           </button>
         </div>
-      </form>
-    </div>
+      </form >
+      <div className="mt-16">
+        {error && <p className="text-red-500">{error}</p>}
+        {result && <p className="text-primary">{result}</p>}
+      </div>
+    </div >
   );
 };
 

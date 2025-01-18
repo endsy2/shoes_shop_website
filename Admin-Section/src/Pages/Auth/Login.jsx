@@ -31,10 +31,7 @@ const Login = () => {
 
   return (
     <section className="flex flex-col justify-center items-center">
-      {/* <h2 className="font-Roboto font-bold text-center text-primary text-5xl block"> */}
-      <h2 className="font-Roboto font-bold text-center text-black text-5xl block">
-
-        
+      <h2 className="font-Roboto font-bold text-center text-primary text-5xl block">
         Login
       </h2>
       <div className="flex flex-col align-center items-center p-20">
