@@ -1,30 +1,20 @@
 import { useEffect, useState } from "react";
 import { trash } from "../Assets";
 import { tableHeadProduct } from "../Constants";
-import { Link } from "react-router-dom";
-import { removeOneFetch, searchFetch } from "../Fetch/FetchAPI.js";
-import Cookies from "js-cookie";
+import { Link, useLocation } from "react-router-dom";
+import { productByID, removeOneFetch, searchFetchByCategory, } from "../Fetch/FetchAPI.js";
 
-const TableProduct = ({ title, items }) => {
+const TableProduct = ({ title, items, category }) => {
   const [datatable, setDataTable] = useState([]);
   const [selectAll, setSelectAll] = useState(false);
   const [selectedRows, setSelectedRows] = useState([]); // Track selected row IDs
   const [searchData, setSearchData] = useState("");
-  // const [cookie, setCookie] = useState(() => {
-  //   const cookieValue = document.cookie
-  //     .split('; ')
-  //     .find((row) => row.startsWith('admin-access-token'));
-  //   return cookieValue ? cookieValue.split('=')[1] : null; // Return the value or null if not found
-  // });
+  const [Category, setCategory] = useState('');
+  const location = useLocation();
 
   useEffect(() => {
     setDataTable(items);
-    // if (cookie) {
-    //   console.log('Cookie found:', cookie);
-    // } else {
-    //   console.log('No cookie found');
-    // }
-
+    setCategory(category);
   }, [items]);
 
   const handleSelectAll = () => {
@@ -80,20 +70,36 @@ const TableProduct = ({ title, items }) => {
   };
 
 
-  const searchDataFetch = async () => {
+  const searchDataFetchByCategory = async () => {
     try {
-      const data = await searchFetch({ searchData });
+      const data = await searchFetchByCategory({ searchData, Category });
+      // console.log(Category);
+      setSearchData('');
       setDataTable(data);
     } catch (error) {
       console.error("Error fetching search data:", error);
     }
   };
 
-  const handleSearch = (e) => {
+  const searchDataFetchByName = async () => {
+    try {
+      const data = await productByID(searchData);
+      setSearchData('')
+      setDataTable(data);
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+  const handleSearchByCategory = (e) => {
     e.preventDefault();
-    searchDataFetch();
+    searchDataFetchByCategory();
   };
 
+  const handleSearch = (e) => {
+    e.preventDefault();
+    searchDataFetchByName();
+  }
   const handleExport = () => {
     console.log("Exporting rows:", selectedRows);
     // Add export logic here
@@ -107,6 +113,8 @@ const TableProduct = ({ title, items }) => {
   return (
     <section className="mt-16 bg-white rounded-lg p-6 sm:p-10 shadow-lg border border-gray-400">
       <section className="flex flex-col sm:flex-row justify-between mx-4 sm:mx-10 mb-5 sm:mb-10">
+        {console.log(items)
+        }
         <h1 className="green-text mt-4 sm:mt-10 font-semibold text-lg lg:text-3xl">
           {title}
         </h1>
@@ -117,10 +125,12 @@ const TableProduct = ({ title, items }) => {
             placeholder="Search..."
             className="input-style text-sm sm:text-base"
             onChange={(e) => setSearchData(e.target.value)}
+            value={searchData}
           />
           <button
             className="green-btn h-10 sm:h-12 w-[100px] sm:w-[150px] text-sm sm:text-base"
-            onClick={handleSearch}
+            onClick={location.pathname === '/dashboard' ? handleSearch : handleSearchByCategory}
+
           >
             Search
           </button>
@@ -160,7 +170,11 @@ const TableProduct = ({ title, items }) => {
                 </th>
               ))}
               <th className="rounded-r-lg text-sm sm:text-lg px-4 sm:px-6 py-3 sm:py-4 border-l border-gray-200">
-                <p><button onClick={(e) => handleSelectRemove(e)}><img src={trash} alt="" /></button></p>
+                <p><button onClick={(e) => handleSelectRemove(e)}><img
+                  src={trash}
+                  alt="Delete"
+                  className="cursor-pointer max-w-[25px] max-h-[25px] sm:max-w-[30px] sm:max-h-[30px]"
+                /></button></p>
               </th>
             </tr>
           </thead>
@@ -180,7 +194,7 @@ const TableProduct = ({ title, items }) => {
                       className="mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5"
                     />
                     <Link
-                      to={`/dashboard/product/${element.phone_id}`}
+                      to={`/dashboard/productByName?phone_name=${element.name}`}
                       className="hover:underline text-sm sm:text-base"
                     >
                       {element.phone_id}
@@ -188,7 +202,7 @@ const TableProduct = ({ title, items }) => {
                   </td>
                   <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                     <Link
-                      to={`/dashboard/product/${element.phone_id}`}
+                      to={`/dashboard/productByName?phone_name=${element.name}`}
                       className="hover:underline text-sm sm:text-base"
                     >
                       {element.name}
@@ -196,7 +210,7 @@ const TableProduct = ({ title, items }) => {
                   </td>
                   <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                     <Link
-                      to={`/dashboard/product/${element.phone_id}`}
+                      to={`/dashboard/productByName?phone_name=${element.name}`}
                       className="hover:underline text-sm sm:text-base"
                     >
                       {element.category_name}
@@ -204,7 +218,7 @@ const TableProduct = ({ title, items }) => {
                   </td>
                   <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                     <Link
-                      to={`/dashboard/product/${element.phone_id}`}
+                      to={`/dashboard/productByName?phone_name=${element.name}`}
                       className="hover:underline text-sm sm:text-base"
                     >
                       {element.price}
@@ -212,7 +226,7 @@ const TableProduct = ({ title, items }) => {
                   </td>
                   <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                     <Link
-                      to={`/dashboard/product/${element.phone_id}`}
+                      to={`/dashboard/productByName?phone_name=${element.name}`}
                       className="hover:underline text-sm sm:text-base"
                     >
                       {element.stock}
@@ -220,7 +234,7 @@ const TableProduct = ({ title, items }) => {
                   </td>
                   <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                     <Link
-                      to={`/dashboard/product/${element.phone_id}`}
+                      to={`/dashboard/productByName?phone_name=${element.name}`}
                       className="hover:underline text-sm sm:text-base"
                     >
                       {formatDate(element.release_date)}

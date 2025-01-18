@@ -1,5 +1,4 @@
-
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { offer_header } from "../../Constants";
 import { insertPromotion } from "../../Fetch/FetchAPI";
 
@@ -7,34 +6,47 @@ const HeadMainOffer = () => {
     // State to manage form inputs
     const [formData, setFormData] = useState(
         offer_header.reduce((acc, field) => {
-            acc[field.dbLabel] = ""; // Initialize each field with an empty string
+            acc[field.dbLabel] = ""; // Initialize all fields as empty strings
             return acc;
         }, {})
     );
 
+    // State to handle feedback messages
+    const [feedbackMessage, setFeedbackMessage] = useState("");
+
     // Handle input change
     const handleInputChange = (e) => {
-        const { id, value } = e.target; // Use id to identify the field
+        const { id, value } = e.target;
         setFormData((prev) => ({
             ...prev,
-            [id]: value, // Update the corresponding field in the state
+            [id]: value,
         }));
     };
 
     // Handle form submission
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await insertPromotion({ formData: formData });
-        if (response.length !== 0) {
-            window.location.reload();
+        try {
+            const response = await insertPromotion({ formData: formData });
+
+            if (!response || response.length === 0) {
+                // Handle case when response is null or empty
+                setFeedbackMessage("No data returned. Please check your input or try again.");
+            } else {
+                // Handle case when response has data
+                setFeedbackMessage("Promotion submitted successfully!");
+                console.log("Submitted Data:", response);
+                // Optionally reload or reset form here
+            }
+        } catch (error) {
+            // Handle errors from the API call
+            console.error("Submission Error:", error);
+            setFeedbackMessage("An error occurred during submission. Please try again.");
         }
-        console.log("Submitted Data:", response);
-        // Add your submission logic here (e.g., API call)
     };
 
     return (
         <div className="p-6">
-            {console.log(formData)}
             <section className="max-w-4xl mx-auto">
                 <h1 className="green-title mb-20 green-text font-semibold text-center">
                     Offer Discount
@@ -44,14 +56,39 @@ const HeadMainOffer = () => {
                     onSubmit={handleSubmit}
                 >
                     {offer_header.map((element, index) => (
-                        <FormField
-                            key={index}
-                            id={element.dbLabel} // Use dbLabel as the input ID
-                            label={element.label}
-                            value={formData[element.dbLabel]} // Bind value to dbLabel
-                            onChange={handleInputChange}
-                            type={["start_date", "end_date"].includes(element.dbLabel) ? "date" : "text"} // Conditionally set input type
-                        />
+                        <div key={index} className="col-span-1">
+                            <label
+                                htmlFor={element.dbLabel}
+                                className="text-sm font-medium text-primary mb-2"
+                            >
+                                {element.label}
+                            </label>
+                            {element.dbLabel === "Color" ? (
+                                <div className="flex items-center gap-4 mb-2">
+                                    <input
+                                        type="color"
+                                        id={element.dbLabel}
+                                        value={formData[element.dbLabel]}
+                                        onChange={handleInputChange}
+                                        className="h-10 w-64 p-0 border border-gray-300 rounded-md"
+                                    />
+                                </div>
+                            ) : (
+                                <FormField
+                                    id={element.dbLabel}
+                                    label={element.label}
+                                    value={formData[element.dbLabel]}
+                                    onChange={handleInputChange}
+                                    type={
+                                        ["start_date", "end_date"].includes(
+                                            element.dbLabel
+                                        )
+                                            ? "date"
+                                            : "text"
+                                    }
+                                />
+                            )}
+                        </div>
                     ))}
                     <div className="col-span-1 md:col-span-2 lg:col-span-3 flex justify-end">
                         <input
@@ -61,6 +98,11 @@ const HeadMainOffer = () => {
                         />
                     </div>
                 </form>
+                {feedbackMessage && (
+                    <p className="text-center text-sm mt-4 text-red-600">
+                        {feedbackMessage}
+                    </p>
+                )}
             </section>
         </div>
     );
@@ -68,14 +110,11 @@ const HeadMainOffer = () => {
 
 const FormField = ({ id, label, value, onChange, type }) => (
     <div className="flex flex-col items-start">
-        <label htmlFor={id} className="text-sm font-medium text-primary mb-2">
-            {label}
-        </label>
         <input
-            type={type} // Dynamically set input type
-            id={id} // Use dbLabel as the input ID
-            value={value} // Bind the input value to the corresponding state
-            onChange={onChange} // Call the onChange handler
+            type={type}
+            id={id}
+            value={value}
+            onChange={onChange}
             className="input-style h-12 w-full px-3 border border-gray-300 rounded-lg focus:border-primary focus:ring-0 transition"
             aria-label={label}
         />

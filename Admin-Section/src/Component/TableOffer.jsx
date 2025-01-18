@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { trash } from "../Assets";
 import { tableHeadOffer } from "../Constants";
-import { Link } from "react-router-dom";
 import { removeOffer, searchPromotion } from "../Fetch/FetchAPI.js";
+import { Link } from "react-router-dom";
 
 const TableOffer = ({ title, items }) => {
     const [datatable, setDataTable] = useState(items || []);
@@ -13,7 +13,6 @@ const TableOffer = ({ title, items }) => {
     useEffect(() => {
         setDataTable(items);
         console.log(items);
-
     }, [items]);
 
     const handleSelectAll = () => {
@@ -45,6 +44,7 @@ const TableOffer = ({ title, items }) => {
             console.error("Error deleting row:", error);
         }
     };
+
     const handleSelectRemove = async (e) => {
         e.preventDefault();
         try {
@@ -67,7 +67,6 @@ const TableOffer = ({ title, items }) => {
         }
     };
 
-
     const searchDataFetch = async () => {
         try {
             const data = await searchPromotion({ promo_name: searchData });
@@ -86,14 +85,14 @@ const TableOffer = ({ title, items }) => {
         console.log("Exporting rows:", selectedRows);
         // Add export logic here
     };
+
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
     };
 
-
     return (
-        <section className="mt-16 bg-white rounded-lg p-6 sm:p-10 shadow-lg border border-gray-400">
+        <section className="mt-16 bg-white rounded-lg p-6 sm:p-3 shadow-lg border border-gray-400">
             <section className="flex flex-col sm:flex-row justify-between mx-4 sm:mx-10 mb-5 sm:mb-10">
                 <h1 className="green-text mt-4 sm:mt-10 font-semibold text-lg lg:text-3xl">
                     {title}
@@ -129,8 +128,7 @@ const TableOffer = ({ title, items }) => {
                             {tableHeadOffer.map((header, index) => (
                                 <th
                                     key={index}
-                                    className={`table-data text-sm sm:text-lg px-4 sm:px-6 py-3 sm:py-4 ${index === 0 ? "rounded-l-lg " : ""
-                                        } border-r border-gray-200`}
+                                    className={`table-data text-sm sm:text-lg px-4 sm:px-6 py-3 sm:py-4 ${index === 0 ? "rounded-l-lg" : ""} border-r border-gray-200`}
                                 >
                                     {header === "ID" ? (
                                         <>
@@ -138,7 +136,7 @@ const TableOffer = ({ title, items }) => {
                                                 type="checkbox"
                                                 checked={selectAll}
                                                 onChange={handleSelectAll}
-                                                className="mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5 border-2 border-white rounded"
+                                                className="mr-2 sm:mr-3 h-3  w-3 lg:w-4 lg:h-4  border-1 border-white rounded"
                                             />
                                             {header}
                                         </>
@@ -147,9 +145,8 @@ const TableOffer = ({ title, items }) => {
                                     )}
                                 </th>
                             ))}
-                            <th className="rounded-r-lg text-sm sm:text-xl px-4 sm:px-6 py-3 sm:py-4 border-l border-gray-200">
-                                <button onClick={(e) => handleSelectRemove(e)}><img src={trash} alt="" /></button>
-                            </th>
+
+
                         </tr>
                     </thead>
 
@@ -160,84 +157,69 @@ const TableOffer = ({ title, items }) => {
                                     key={element.phone_id}
                                     className="hover:bg-gray-50 transition duration-200 border-b border-gray-200"
                                 >
-                                    <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
+                                    <td className="table-data flex justify-start items-center px-4 sm:px-6 py-3 sm:py-4">
                                         <input
                                             type="checkbox"
                                             checked={selectedRows.includes(element.promo_id)}
                                             onChange={() => handleRowSelect(element.promo_id)}
-                                            className="mr-2 sm:mr-3 h-4 sm:h-5 w-4 sm:w-5"
+                                            className="mr-2 sm:mr-3 h-3 w-3 lg:w-4 lg:h-4 border-1 border-white rounded"
                                         />
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
                                             {element.promo_id}
                                         </Link>
                                     </td>
                                     <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
                                             {element.name}
                                         </Link>
                                     </td>
-                                    <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
+                                    <td className="table-data px-4 sm:px-6 py-3 sm:py-4 ">
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
                                             {element.promo_name}
                                         </Link>
                                     </td>
                                     <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
                                             {element.price}
                                         </Link>
                                     </td>
                                     <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
-                                            {element.price}
+                                            {element.price_discount}
                                         </Link>
                                     </td>
                                     <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
-                                            {element.category_name}
+                                            {element.discount_percentage}
                                         </Link>
                                     </td>
                                     <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
                                         <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
+                                            to={`${element.phone_id}`}
+                                            className="text-sm sm:text-base"
                                         >
-                                            {formatDate(element.release_date)}
+                                            {formatDate(element.end_date)}
                                         </Link>
                                     </td>
-                                    <td className="table-data px-4 sm:px-6 py-3 sm:py-4">
-                                        <Link
-                                            to={`/dashboard/product/${element.promo_id}`}
-                                            className="hover:underline text-sm sm:text-base"
-                                        >
-                                            {element.stock}
-                                        </Link>
-                                    </td>
-                                    <td className="table-data flex gap-2 sm:gap-4 px-4 sm:px-6 py-3 sm:py-4 justify-center items-center">
-                                        <button
-                                            onClick={() => handleRemove(element.promo_id)}
-                                            className="flex"
-                                        >
-                                            <img src={trash} alt="Delete" className="cursor-pointer" />
-                                        </button>
-                                    </td>
+
                                 </tr>
                             ))
                         ) : (
@@ -248,6 +230,7 @@ const TableOffer = ({ title, items }) => {
                             </tr>
                         )}
                     </tbody>
+
                 </table>
             </div>
         </section>
