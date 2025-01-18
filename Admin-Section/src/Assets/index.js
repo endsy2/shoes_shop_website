@@ -5,7 +5,7 @@ import order from "../Assets/order.svg";
 import product from "../Assets/product.svg";
 import add from "../Assets/add.svg";
 import revanue from "../Assets/Ravenue.svg";
-import addToCart from "../Assets/addToCart.svg";
+import addToCart from "../Assets/addtocartblack.svg";
 import pending from "../Assets/pending.svg";
 import profile from "../Assets/profile.svg";
 import trash from "../Assets/trash.svg";

@@ -80,7 +80,7 @@ const DashBoardHeader = () => {
         </div>
         <Link
           to="/"
-          className="red-btn mr-6 max-lg:w-28 max-lg:h-11 max-lg:text-sm"
+          className="font-bold px-8 py-4 rounded-xl bg-black text-white hover:text-gray-700 hover:bg-red-500 red-btn mr-6 max-lg:w-28 max-lg:h-11 max-lg:text-sm"
           onClick={() => handleLogout()}
         >
           LogOut
