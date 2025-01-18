@@ -49,13 +49,13 @@ const DashBoardHeader = () => {
     }
   };
 
-  useEffect(() => {
-    if (selectDate === "ALL") {
-      fetchAll();
-    } else {
-      fetchDate();
-    }
-  }, [selectDate]);
+  // useEffect(() => {
+  //   if (selectDate === "ALL") {
+  //     fetchAll();
+  //   } else {
+  //     fetchDate();
+  //   }
+  // }, [selectDate]);
 
   return (
     <>

@@ -7,7 +7,7 @@ export default {
         Roboto: ["Roboto", "san-serif"],
       },
       colors: {
-        primary: "#4CAF4F",
+        primary: "#128B9E",
         lightGray: "#EEEEEE",
         DarkGreen: "#328D35",
         DarkLightGray: "#D9D9D9",
