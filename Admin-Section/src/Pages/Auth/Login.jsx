@@ -35,7 +35,7 @@ const Login = () => {
         Login
       </h2>
       <div className="flex flex-col align-center items-center p-20">
-        <form onSubmit={handleSubmit} className="w-full max-w-md">
+        <form /*onSubmit={handleSubmit}*/ className="w-full max-w-md">
           <label htmlFor="email" className="text-login pr-2">
             Email
           </label>
@@ -65,12 +65,13 @@ const Login = () => {
           {error && <p className="text-red-500 text-center mb-4">{error}</p>}
 
           <div className="flex justify-between mt-8">
-            <button
+            <Link
               type="submit"
               className="font-bold px-8 py-4 rounded-xl bg-primary text-white hover:bg-green-500"
+              to="/dashboard"
             >
               Login
-            </button>
+            </Link>
             <Link
               to="/register"
               className="font-bold px-8 py-4 rounded-xl bg-red-600 text-black hover:text-gray-700 hover:bg-red-500"
