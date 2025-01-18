@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton+SC&family=Jaro:opsz@6..72&family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+@layer components {
+  .text-head {
+    @apply text-[white] font-AntonSC font-bold text-3xl;
+  }
+  .text-main {
+    @apply text-[white] font-sans text-xl;
+  }
+  .text-main-light {
+    @apply text-primary-600 font-sans text-xl;
+  }
+  .text-simple-low {
+    @apply text-[white] font-OpenSans opacity-90;
+  }
+  .text-simple{
+    @apply text-[white] font-OpenSans
+  }
+  .slider-container {
+    @apply relative w-full max-w-4xl mx-auto;
+  }
+  .blue-btn {
+    @apply font-bold px-7 py-4 rounded-xl bg-primary text-[white] hover:bg-[#0A5561];
+  }
+  .white-btn {
+    @apply font-bold px-7 py-4 rounded-xl bg-[white] text-[black] hover:text-[#9B9797];
+  }
+}

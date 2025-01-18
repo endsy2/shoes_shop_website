@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Cookies from "js-cookie";
 
 const API_URL_Auth = "http://localhost:3000/auth";
 // const API_URL2 = 'http://localhost:3000/user/functionality';
@@ -7,22 +7,21 @@ const API_URL_Admin = "http://localhost:3000/admin";
 const API_URL_COMMON = "http://localhost:3000/common";
 
 export const signIn = async ({ email, password }) => {
-  return axios.post(`${API_URL_Auth}/login`, { email, password });
+  return axios.post(`${API_URL_Auth}/adminLogin`, { email, password });
 };
-export const register = async ({ profile, username, email, password }) => {
-  const formData = new FormData();
-  formData.append("profile", profile);
-  formData.append("username", username);
-  formData.append("email", email);
-  formData.append("password", password);
+export const register = async ({ username, email, password }) => {
+  return axios.post(
+    `${API_URL_Auth}/adminRegister`,
+    { username, email, password },
+    {
+      headers: {
+        "Content-Type": "application/json", // Correct Content-Type for JSON
+      },
+      withCredentials: true, // Include cookies if needed
+    }
+  );
+};
 
-  return axios.post(`${API_URL_Auth}/signup`, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-    withCredentials: true
-  });
-};
 export const productData = async () => {
   try {
     const response = await axios.get(`${API_URL_COMMON}/getAllProduct`, { withCredentials: true });
@@ -253,7 +252,8 @@ export const loginFetch = async (email, password) => {
   try {
     const response = await axios.post(`${API_URL_Auth}/adminLogin`, { email, password }, { withCredentials: true });
     // return response.data; // Return the response payload
-    console.log(response);
+    Cookies.set('token', response.data.token)
+
 
   } catch (error) {
     console.error("Error during login request:", error.message);

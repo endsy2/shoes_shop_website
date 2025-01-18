@@ -1,38 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { register } from "../../Fetch/FetchAPI";
+import Cookies from "js-cookie";
 
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [profile, setProfile] = useState(null);
+
   const [imgError, setImgError] = useState("");
   const [error, setError] = useState("");
 
   const navigation = useNavigate();
 
-  const handleImage = (event) => {
-    const file = event.target.files[0]; // Correctly accessing files array
-
-    if (file && file.type.startsWith("image/")) {
-      setProfile(file);
-      setImgError("");
-    } else {
-      setImgError("Please upload a valid image.");
-      setProfile(null);
-    }
-  };
 
   const handleSignUp = async (event) => {
     event.preventDefault();
 
     try {
-      const response = await register({ profile, username, email, password });
+      const response = await register({ username, email, password });
       const token = response.data.token;
 
-      localStorage.setItem("Access-token", token);
-      navigation("/");
+      Cookies.set('token', token)
+      navigation("/dashboard");
+
     } catch (error) {
       setError("Something went wrong. Please try again.");
       console.error(error);
@@ -81,33 +72,21 @@ const Register = () => {
           />
           <br />
           <br />
-
-          <label className="text-login">Profile</label>
-          <input
-            type="file"
-            id="imageInput"
-            accept="image/*"
-            onChange={handleImage}
-            className="text-xl ml-[125px] text-center w-[500px] h-12 "
-            required
-          />
-
-          <p className="text-red-500">{imgError}</p>
           <p className="text-red-500">{error}</p>
 
           <div className="flex justify-between w-[730px] mt-32">
-            <Link
-              to="/"
-              className="font-bold px-24 py-4 rounded-xl bg-red-600 text-[black] hover:text-[#9B9797] hover:bg-red-500"
-            >
-              Login
-            </Link>
             <button
               type="submit"
               className="font-bold px-24 py-4 rounded-xl bg-primary text-[white] hover:bg-green-500"
             >
               Register
             </button>
+            <Link
+              to="/"
+              className="font-bold px-24 py-4 rounded-xl bg-red-600 text-[black] hover:text-[#9B9797] hover:bg-red-500"
+            >
+              Login
+            </Link>
           </div>
         </form>
       </div>
