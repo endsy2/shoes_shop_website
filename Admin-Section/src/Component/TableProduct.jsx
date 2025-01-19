@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { trash } from "../Assets";
-import { tableHeadProduct } from "../Constants";
+import { h, tableHeadProduct } from "../Constants";
 import { Link, useLocation } from "react-router-dom";
 import { productByID, removeOneFetch, searchFetchByCategory, } from "../Fetch/FetchAPI.js";
 
@@ -140,6 +140,7 @@ const TableProduct = ({ title, items, category }) => {
           >
             Export
           </button>
+
         </form>
       </section>
 

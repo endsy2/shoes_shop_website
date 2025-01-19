@@ -228,3 +228,4 @@ export const productHeader = [
   { img: stock }
 ]
 export const tableHeadOffer = ["ID", "Product_Name", "Promotion Name", "Price", "Discount", "Discount Percentage", "end Date"];
+
