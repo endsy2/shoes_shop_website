@@ -22,9 +22,9 @@ export default {
       slate: colors.slate,
       ...colors,
       primary: {
-        DEFAULT: ' #128B9E',
-        600: '#127c8c',
-        700: '#136f7d'
+        DEFAULT: ' #EFEAE7',
+        600: '#EFEAE7',
+        700: '#EFEAE7'
       },
       lightGray: '#5F5F60',
     }

@@ -17,9 +17,9 @@ const Category = () => {
 
     return (
         <>
-            <aside className="w-44 flex-col justify-end m-7 h-full xl:block hidden dark:text-black">
+            <aside className="w-44 flex-col justify-end m-7 h-full xl:block hidden text-black">
                 <button
-                    className="font-AntonSC dark:text-primary  text-white border-b-2 border-[white] dark:border-primary-600 flex justify-between text-xl w-full mb-2"
+                    className="font-AntonSC text-primary  dark:text-white border-b-2 dark:border-[white] border-primary-600 flex justify-between text-xl w-full mb-2"
                     onClick={() => setOpen(!open)}
                 >
                     Collection
@@ -45,10 +45,10 @@ const Category = () => {
                                 />
                                 <label
                                     htmlFor={`category-${index}`}
-                                    className="flex items-center cursor-pointer dark:text-primary text-[white] font-AntonSC text-sm"
+                                    className="flex items-center cursor-pointer text-primary dark:text-[white] font-AntonSC text-sm"
                                 >
                                     {/* Custom styled checkbox with peer-checked */}
-                                    <span className="w-6 h-6 border-2  dark:border-primary-600 border-white rounded-sm flex justify-center items-center mr-2 peer-checked:bg-black peer-checked:text-white">
+                                    <span className="w-6 h-6 border-2  border-primary-600 dark:border-white rounded-sm flex justify-center items-center mr-2 peer-checked:bg-black peer-checked:text-white">
                                         {/* Show checkmark when the box is checked */}
                                         {checkedItems[index] ? (
                                             <span className="block">✓</span>
@@ -66,7 +66,7 @@ const Category = () => {
             <div className="mt-5">
                 <form action="" className="max-w-sm mx-auto xl:hidden block">
                     <select
-                        className="xl:hidden border mx-5 border-gray-300 dark:border-primary-600 text-gray-900 text-sm rounded-lg focus:ring-gray-400 focus:border-primary block w-full p-2.5   dark:placeholder-primary dark:text-primary dark:focus:ring-primary-600 dark:focus:border-primary"
+                        className="xl:hidden border mx-5 border-gray-300 border-primary-600 dark:text-gray-900 text-sm rounded-lg focus:ring-gray-400 focus:border-primary block w-full p-2.5   dark:placeholder-primary dark:text-primary dark:focus:ring-primary-600 dark:focus:border-primary"
                         onMouseOver={(e) => e.currentTarget.classList.add('hover:bg-gray-200')}
                         onMouseOut={(e) => e.currentTarget.classList.remove('hover:bg-gray-200')}
                     >

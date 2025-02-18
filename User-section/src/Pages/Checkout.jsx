@@ -33,11 +33,11 @@ const Checkout = () => {
         <>
             {token ? (
                 <div className="mt-7 w-full">
-                    <h1 className="text-head mb-10 text-center dark:text-primary">Check Out</h1>
+                    <h1 className="text-head mb-10 text-center text-primary">Check Out</h1>
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mx-10">
                         {/* Contact and Delivery Information */}
-                        <section className="border-2 opacity-90 border-white dark:border-primary px-14 py-10 rounded-xl">
-                            <h1 className="text-simple text-lg font-bold dark:text-primary-600">
+                        <section className="border-2 opacity-90 dark:border-white border-primary px-14 py-10 rounded-xl">
+                            <h1 className="text-simple text-lg font-bold text-primary-600">
                                 1. Contact Information
                             </h1>
                             <form
@@ -45,7 +45,7 @@ const Checkout = () => {
                                 onSubmit={handleSubmit}
                             >
                                 <div className="flex flex-col items-start space-y-4">
-                                    <label className="text-simple font-OpenSans text-lg text-white dark:text-primary-600">
+                                    <label className="text-simple font-OpenSans text-lg dark:text-white text-primary-600">
                                         Your Number
                                     </label>
                                     <input
@@ -56,7 +56,7 @@ const Checkout = () => {
                                     />
                                 </div>
                                 <div className="flex flex-col items-start space-y-4">
-                                    <label className="text-simple font-OpenSans text-lg text-white dark:text-primary-600">
+                                    <label className="text-simple font-OpenSans text-lg dark:text-white text-primary-600">
                                         Your Address
                                     </label>
                                     <input
@@ -68,7 +68,7 @@ const Checkout = () => {
                                 </div>
                             </form>
                             <div className="flex flex-col mt-5">
-                                <label className="text-simple text-lg font-bold dark:text-primary-600">
+                                <label className="text-simple text-lg font-bold text-primary-600">
                                     2. Delivery Method
                                 </label>
                                 <div className="flex gap-10 justify-between mt-8 ">
@@ -78,12 +78,12 @@ const Checkout = () => {
                                             key={element.value}
                                             onClick={() => setDeliveryMethod(element.value)}
                                             className={`flex gap-4 px-6 justify-center items-center w-60 h-14 rounded-xl focus:outline-none transition-all duration-300 ${deliveryMethod === element.value
-                                                ? "bg-primary-700 ring-4 ring-white dark:ring-primary"
+                                                ? "bg-primary-700 ring-4 dark:ring-white ring-primary"
                                                 : "bg-primary hover:bg-primary-600"
                                                 }`}
                                         >
                                             <img src={element.icon} alt={element.value} className="w-7" />
-                                            <p className="dark:text-white font-bold">{element.value}</p>
+                                            <p className="text-white font-bold">{element.value}</p>
                                         </button>
                                     ))}
                                 </div>
@@ -96,36 +96,36 @@ const Checkout = () => {
                             </div>
                         </section>
                         {/* Cart Items */}
-                        <section className="flex flex-col border-2 border-white dark:border-primary-600 rounded-lg ">
-                            <div className="grid grid-cols-4 px-3 border-b-2 dark:border-primary-600 border-white p-3 ">
+                        <section className="flex flex-col border-2 dark:border-white border-primary-600 rounded-lg ">
+                            <div className="grid grid-cols-4 px-3 border-b-2 border-primary-600 dark:border-white p-3 ">
                                 <h1 className="col-span-2 dark:text-primary-600">Product Name</h1>
-                                <h1 className="dark:text-primary-600">Quantity</h1>
-                                <h1 className="text-center dark:text-primary-600 pr-16">Price</h1>
+                                <h1 className="text-primary-600">Quantity</h1>
+                                <h1 className="text-center text-primary-600 pr-16">Price</h1>
                             </div>
                             <div>
                                 {filteredData.length > 0 ? (
                                     filteredData.map((product, index) => (
                                         <div
                                             key={product.id}
-                                            className="grid grid-cols-4 border-b-2 dark:border-primary-600 p-4 mb-4 rounded shadow text-white "
+                                            className="grid grid-cols-4 border-b-2 border-primary-600 p-4 mb-4 rounded shadow text-white "
                                         >   <div className=" flex justify-start items-center col-span-2 gap-5">
                                                 <img src={product.pic} className="w-10 rounded-lg" />
-                                                <span className="dark:text-primary-600">{product.name}</span>
+                                                <span className="text-primary-600">{product.name}</span>
                                             </div>
                                             <div className="flex justify-start pl-6 items-center">
-                                                <p className="dark:text-primary-600"> {cart[index].quantity}</p>
+                                                <p className="text-primary-600"> {cart[index].quantity}</p>
 
                                             </div>
                                             <div className="flex justify-center items-center">
-                                                <p className=" dark:text-primary-600  pr-10">{product.price}$</p>
-                                                <MdDeleteForever className="dark:text-primary-600 text-xl" onClick={() => handleRemove({ productId: product.id })} />
+                                                <p className=" text-primary-600  pr-10">{product.price}$</p>
+                                                <MdDeleteForever className="text-primary-600 text-xl" onClick={() => handleRemove({ productId: product.id })} />
                                             </div>
 
                                         </div>
                                     ))
 
                                 ) : (
-                                    <p className="text-white dark:text-primary-600">Your cart is empty.</p>
+                                    <p className="text-white text-primary-600">Your cart is empty.</p>
                                 )}
                             </div>
                         </section>
@@ -138,7 +138,7 @@ const Checkout = () => {
                     </Link>
                     <Link
                         to="/register"
-                        className="white-btn text-center dark:bg-gray-300 dark:hover:bg-gray-200"
+                        className="white-btn text-center bg-gray-300 hover:bg-gray-200"
                     >
                         Register
                     </Link>

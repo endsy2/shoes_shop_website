@@ -8,7 +8,7 @@ const Footer = () => {
     const { theme } = useContext(ThemeContext)
     return (
 
-        <div className='bg-darkGray py-16 mt-40 w-full border-t-2 border-white dark:border-primary-600 h-full'>
+        <div className='bg-darkGray py-16 mt-40 w-full border-t-2  border-primary-600 h-full'>
             <div className='max-w-7xl mx-auto px-6 flex justify-around  '>
                 {/* Logo and Social Media Icons */}
                 <div className='flex flex-col items-center md:items-start md:flex-row md:justify-between gap-10'>
@@ -28,7 +28,7 @@ const Footer = () => {
                     {/* Footer Info Links */}
                     <div className='grid grid-cols-2 lg:grid-cols-4 gap-10'>
                         {footerInfo.map((element, index) => (
-                            <section key={index} className='text-[white] dark:text-primary-600  flex flex-col gap-4'>
+                            <section key={index} className='dark:text-[white] text-primary-600  flex flex-col gap-4'>
                                 <ul className='flex flex-col gap-2'>
                                     <li className='text-xl font-bold'>{element.header}</li>
                                     {element.body.map((item, idx) => (
@@ -50,7 +50,7 @@ const Footer = () => {
                                             {/* Render text details */}
                                             {item.detail && item.detail.map((text, textIdx) => (
                                                 <li key={textIdx} className=''>
-                                                    <Link to={text} className='text-gray-400 hover:text-white dark:hover:text-primary-600'>{text}</Link>
+                                                    <Link to={text} className='text-gray-400 dark:hover:text-white hover:text-primary-600'>{text}</Link>
                                                 </li>
                                             ))}
                                         </div>

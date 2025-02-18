@@ -1,45 +1,45 @@
-import { useEffect, useState } from "react";
-import TableProduct from "../../Component/TableProduct";
-import { productData, tableByDate } from "../../Fetch/FetchAPI";
+// import { useEffect, useState } from "react";
+// import TableProduct from "../../Component/TableProduct";
+// import { productData, tableByDate } from "../../Fetch/FetchAPI";
 
 const DashBoardMain = ({ data, selectedDate }) => {
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
 
   // Function to fetch data based on the selected date
-  const fetchDataByDate = async () => {
-    try {
-      const data = await tableByDate(selectedDate);
-      // Use selectedDate here
+  // const fetchDataByDate = async () => {
+  //   try {
+  //     const data = await tableByDate(selectedDate);
+  //     // Use selectedDate here
 
 
-      setItems(data || []);
-    } catch (error) {
-      console.log("Error fetching data:", error);
-    }
-  };
+  //     setItems(data || []);
+  //   } catch (error) {
+  //     console.log("Error fetching data:", error);
+  //   }
+  // };
 
-  const fetchData = async () => {
-    try {
-      const data = await productData();
-      setItems(data || []);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-    }
-  };
+  // const fetchData = async () => {
+  //   try {
+  //     const data = await productData();
+  //     setItems(data || []);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //   }
+  // };
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (selectedDate === "ALL") {
-      fetchData();
-    } else {
-      fetchDataByDate();
-    }
-  }, [selectedDate]);  // Watch for changes in selectedDate
+  //   if (selectedDate === "ALL") {
+  //     fetchData();
+  //   } else {
+  //     fetchDataByDate();
+  //   }
+  // }, [selectedDate]);  // Watch for changes in selectedDate
 
   return (
     <main className="pt-20">
 
-      <section className="grid grid-cols-1 gap-20 lg:grid-cols-2 xl:grid-cols-3 w-full">
+      {/* <section className="grid grid-cols-1 gap-20 lg:grid-cols-2 xl:grid-cols-3 w-full">
         {data.map((element, index) => (
           <div
             key={index}
@@ -66,7 +66,7 @@ const DashBoardMain = ({ data, selectedDate }) => {
             </div>
           </div>
         ))}
-      </section>
+      </section> */}
 
       {/* Render Table for Inventory */}
       <section className="mt-10">

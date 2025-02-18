@@ -1,5 +1,5 @@
 
-import { addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, facebook, instagram, telegram, twitter, call, mail, mailBlack, callBlack } from '../assets';
+import { addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, facebook, instagram, telegram, twitter, call, mail, mailBlack, callBlack, slider4, slider3, logoNike } from '../assets';
 
 export const nav_link = [
     { href: "Login", label: "Login" },
@@ -260,3 +260,6 @@ export const order = [
     { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" },
     { orderID: 12, created: '12-12-12', amount: 123, discount: 123, status: "pending" }
 ]
+export const trending_pic = [slider3, slider4]
+
+export const logoBrand = [logoNike, logoNike, logoNike, logoNike, logoNike, logoNike, logoNike]
