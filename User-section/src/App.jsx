@@ -18,15 +18,20 @@ import Profile from "./Pages/Profile.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<Home />} />
-      <Route path="checkout" element={<Checkout />} />
-      <Route path="add-to-favorite" element={<AddToFavorite />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      <Route path="product/:param" element={<Detail />} />
-      <Route path="category/:category" element={<Bycategory />} />
-      <Route path="Profile" element={<Profile />} />
+    <Route>
+      <Route path="/" element={<RootLayout />}>
+        <Route index element={<Home />} />
+        <Route path="checkout" element={<Checkout />} />
+        <Route path="add-to-favorite" element={<AddToFavorite />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="product/:param" element={<Detail />} />
+        <Route path="category/:category" element={<Bycategory />} />
+        <Route path="Profile" element={<Profile />} />
+      </Route>
+      <Route>
+        <Route path="/" />
+      </Route>
     </Route>
   )
 );

@@ -32,6 +32,15 @@ import addToFavoriteWhiteIcon from '../assets/add-to-favorite-white.svg'
 import callBlack from '../assets/callBlack.svg'
 import mailBlack from '../assets/mailBlack.svg'
 import profile from '../assets/profile.png'
+import slider1 from '../assets/shoes image/barrett-ward-cOJgO4Zzs-w-unsplash.jpg'
+import sliderLetter from '../assets/sliderLetter.svg'
+import slider2 from '../assets/shoes image/maksim-larin-LtB12xWnkpw-unsplash.jpg'
+import slider3 from '../assets/shoes image/branislav-belko-sBljwOBX_Lo-unsplash.jpg'
+import slider4 from '../assets/shoes image/joel-muniz-jZg9Pj7-M8k-unsplash.jpg'
+import sliderDiscount from '../assets/DiscountSlider.svg'
+// import slider5 from '../assets/shoes image/Luxury-Sneakers-Brands-In-The-World-Banner.jpg'
+import sliderLetter2 from '../assets/shoes image/letter2.svg'
+import logoNike from '../assets/shoes image/nikelogo.svg'
 export {
     notificationIcon,
     addToCartIcon,
@@ -66,7 +75,16 @@ export {
     addToCartIconBlack,
     mailBlack,
     callBlack,
-    profile
+    profile,
+    slider1,
+    slider2,
+    slider3,
+    slider4,
+    // slider5,
+    sliderLetter,
+    sliderLetter2,
+    sliderDiscount,
+    logoNike
 }
 export const checkoutIcon = [
     { value: "Pack Up", icon: shop },

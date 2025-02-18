@@ -1,15 +1,24 @@
-import { NavLink, useLocation, Outlet, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, Outlet } from "react-router-dom";
 import { hambugerBar, logo } from "../../Assets";
-import { nav_bar } from "../../Constants";
 import { useState } from "react";
-// import Cookies from 'js-cookie';
+import { LuLayoutDashboard } from "react-icons/lu";
+import { FaShoppingCart } from "react-icons/fa";
+import { VscSymbolMethod } from "react-icons/vsc";
+import { MdAssignmentAdd } from "react-icons/md";
+import { RiDiscountPercentFill } from "react-icons/ri";
+
+// Navigation Items
+export const nav_bar = [
+  { img: <LuLayoutDashboard className="text-primary text-xl" />, label: "Dashboard", path: "" },
+  { img: <FaShoppingCart className="text-primary text-xl" />, label: "Order", path: "order" },
+  { img: <VscSymbolMethod className="text-primary text-xl" />, label: "Product", path: "product" },
+  { img: <MdAssignmentAdd className="text-primary text-xl" />, label: "Add Product", path: "addProduct" },
+  { img: <RiDiscountPercentFill className="text-primary text-xl" />, label: "Promotion", path: "offer" },
+];
 
 const RootLayOut = () => {
-  // const navigate = useNavigate();
-  const location = useLocation();
+  // const location = useLocation();
   const [toggleMenu, setToggleMenu] = useState(false);
-
-  // Check if the user is authenticated
 
   return (
     <main className="flex flex-col lg:flex-row min-h-screen">
@@ -36,11 +45,13 @@ const RootLayOut = () => {
           {nav_bar.map(({ img, label, path }) => (
             <NavLink
               key={label}
-              to={path}
-              className={`flex items-center gap-4 px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-gray-100 ${location.pathname === `/dashboard/${path}` ? "bg-gray-100" : ""
-                }`}
+              to={`/dashboard/${path}`}
+              className={({ isActive }) =>
+                `flex items-center gap-4 px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-gray-100 ${isActive ? "bg-gray-100" : ""
+                }`
+              }
             >
-              <img src={img} alt={`${label} icon`} className="w-5 h-5" />
+              {img}
               <span className="green-txt">{label}</span>
             </NavLink>
           ))}
@@ -48,31 +59,34 @@ const RootLayOut = () => {
       </aside>
 
       {/* Mobile Navigation */}
-      <div
-        className={`fixed inset-0 z-40 flex flex-col bg-gray-800 bg-opacity-50 lg:hidden transition-transform transform ${toggleMenu ? "translate-x-0" : "-translate-x-full"
-          }`}
-        onClick={() => setToggleMenu(false)} // Close menu on overlay click
-      >
+      {toggleMenu && (
         <div
-          className="w-64 bg-white h-full shadow-lg"
-          onClick={(e) => e.stopPropagation()} // Prevent closing on content click
+          className="fixed inset-0 z-40 flex flex-col bg-gray-800 bg-opacity-50 lg:hidden"
+          onClick={() => setToggleMenu(false)} // Close menu on overlay click
         >
-          <nav className="flex flex-col gap-4 p-6">
-            {nav_bar.map(({ img, label, path }) => (
-              <NavLink
-                key={label}
-                to={path}
-                onClick={() => setToggleMenu(false)} // Close menu on navigation
-                className={`flex items-center gap-4 px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-gray-100 ${location.pathname === `/${path}` ? "bg-gray-100" : ""
-                  }`}
-              >
-                <img src={img} alt={`${label} icon`} className="w-5 h-5" />
-                <span className="green-txt">{label}</span>
-              </NavLink>
-            ))}
-          </nav>
+          <div
+            className="w-64 bg-white h-full shadow-lg"
+            onClick={(e) => e.stopPropagation()} // Prevent closing on content click
+          >
+            <nav className="flex flex-col gap-4 p-6">
+              {nav_bar.map(({ img, label, path }) => (
+                <NavLink
+                  key={label}
+                  to={`/dashboard/${path}`}
+                  onClick={() => setToggleMenu(false)} // Close menu on navigation
+                  className={({ isActive }) =>
+                    `flex items-center gap-4 px-4 py-2 rounded-lg text-sm font-medium transition hover:bg-gray-100 ${isActive ? "bg-gray-100" : ""
+                    }`
+                  }
+                >
+                  {img}
+                  <span className="green-txt">{label}</span>
+                </NavLink>
+              ))}
+            </nav>
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Main Content */}
       <section className="flex-auto p-6 ml-2">

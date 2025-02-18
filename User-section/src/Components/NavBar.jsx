@@ -37,7 +37,7 @@ const NavBar = () => {
   };
 
   return (
-    <nav className={`flex-col w-full `}>
+    <nav className={`flex-col w-full  `}>
       <section className="flex justify-around md:justify-between items-center py-7 w-full">
         <div className="flex md:justify-start justify-end max-md:w-1/2">
           <button onClick={() => setToggleMenu(!toggleMenu)}>
@@ -83,9 +83,9 @@ const NavBar = () => {
                 </NavLink>
               )
             ))}
-            <button onClick={() => setTheme((prev) => !prev)} className="w-8">
+            {/* <button onClick={() => setTheme((prev) => !prev)} className="w-8">
               <img src={theme ? darkMode : lightMode} alt="Theme Toggle" />
-            </button>
+            </button> */}
             <NavLink to='/Profile'>{theme ? <IoPersonSharp className="text-primary text-2xl" /> : <IoPersonOutline className="text-2xl " />}</NavLink>
           </div>
           <div className="mt-3 mx-7 flex gap-10">
@@ -98,7 +98,7 @@ const NavBar = () => {
                 <label
                   className={`font-bold max-lg:hidden px-6 py-3 rounded-xl ${element.label === "Login"
                     ? "bg-primary text-[white] hover:bg-[#0A5561]"
-                    : "bg-[white] text-[black] hover:text-[#9B9797] dark:bg-black dark:text-white"}`
+                    : "dark:bg-[white] dark:text-[black] hover:text-[#9B9797] bg-black text-white"}`
                   }
                 >
                   {element.label}
@@ -119,10 +119,10 @@ const NavBar = () => {
           </div>
         </div>
       </section>
-      <section className="bg-lightGray dark:bg-neutral-100 w-full h-20">
+      <section className="dark:bg-lightGray bg-primary w-full h-20 ">
         <ol className="flex justify-start md:justify-center items-center w-full h-full gap-16 px-4  text-xl overflow-x-scroll md:overflow-x-hidden overflow-y-hidden whitespace-nowrap scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-200 snap-x snap-mandatory">
           {menubar.map(({ label, items }) => (
-            <li key={label} className="relative text-white dark:text-main-light font-bold group flex-shrink-0 snap-center">
+            <li key={label} className="relative text-black text-main-light font-bold group flex-shrink-0 snap-center">
               <span className="cursor-pointer">{label}</span>
               {/* <div className="z-50  absolute left-1/2 transform -translate-x-1/2 top-full mt-2 w-[350px] bg-lightGray border border-gray-200 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-200 p-4 rounded-sm"> */}
               {/* <ul>

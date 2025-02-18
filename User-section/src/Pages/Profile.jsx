@@ -36,13 +36,13 @@ const Profile = () => {
             >
                 <h1 className="text-head ml-10">HELLO USERNAME</h1>
             </div>
-            <div className="flex flex-col border-2 border-primary-600 dark:text-primary-600 rounded-xl px-10 py-6">
+            <div className="flex flex-col border-2 border-primary-600 text-primary-600 rounded-xl px-10 py-6">
                 <div className="flex gap-10 justify-between">
-                    <h1 className="text-head dark:text-primary ">ORDER</h1>
+                    <h1 className="text-head text-primary ">ORDER</h1>
                     <select
                         name="data"
                         id="data"
-                        className="p-2 border w-36 h-10 border-gray-300 dark:border-primary-600  text-primary-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="p-2 border w-36 h-10 border-gray-300 border-primary-600  text-primary-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     >
                         <option value="Today">Date: Today</option>
                         <option value="30">Date: 30 AGO</option>
@@ -55,7 +55,7 @@ const Profile = () => {
                         {tableHeadOffer.map((header, index) => (
                             <div
                                 key={index}
-                                className={`p-2 ${header === "ID" ? "w-32" : 'w-32'} text-center dark:text-primary-600`}
+                                className={`p-2 ${header === "ID" ? "w-32" : 'w-32'} text-center text-primary-600`}
                             >
                                 {header === "ID" ? (
                                     <div className='flex justify-center'>

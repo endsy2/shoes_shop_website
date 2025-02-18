@@ -1,26 +1,31 @@
+import { LuLayoutDashboard } from "react-icons/lu";
+import { FaShoppingCart } from "react-icons/fa";
+import { VscSymbolMethod } from "react-icons/vsc";
+import { MdAssignmentAdd } from "react-icons/md";
+import { RiDiscountPercentFill } from "react-icons/ri";
 import {
-  offer,
-  order,
-  product,
-  dashboard,
+  // offer,
+  // order,
+  // product,
+  // dashboard,
   revanue,
   addToCart,
   profile,
   pending,
   delivery,
-  addGreen,
+  // addGreen,
   phone,
   category,
   stock,
 } from "../Assets";
 
-export const nav_bar = [
-  { img: dashboard, label: "DashBoard", path: "" },
-  { img: order, label: "Order", path: "order" },
-  { img: product, label: "Product", path: "product" },
-  { img: addGreen, label: "Add Product", path: "addProduct" },
-  { img: offer, label: "Promotion", path: "offer" },
-];
+// export const nav_bar = [
+//   { img: <LuLayoutDashboard />, label: "DashBoard", path: "" },
+//   { img: <FaShoppingCart />, label: "Order", path: "order" },
+//   { img: <VscSymbolMethod />, label: "Product", path: "product" },
+//   { img: <MdAssignmentAdd />, label: "Add Product", path: "addProduct" },
+//   { img: <RiDiscountPercentFill />, label: "Promotion", path: "offer" },
+// ];
 export const inventory_title = [
   { title: "Total Product" },
   { title: "Categories" },
