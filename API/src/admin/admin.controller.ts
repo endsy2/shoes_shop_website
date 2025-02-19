@@ -38,7 +38,7 @@ export class AdminController {
     private readonly fileUploadService: FileUploadService,
     private readonly orderService: OrderService,
     private readonly productService: ProductService,
-  ) { }
+  ) {}
   @Get('displayProduct')
   async displayProduct() {
     return this.sharedService.displayProduct();
@@ -49,7 +49,7 @@ export class AdminController {
   }
   @Get('displayProduct?:name')
   async displayProductByName(@Query('name') name: string) {
-    return this.sharedService.displayProductByName(name);
+    return this.sharedService.displayProductByName({ name });
   }
   @Get('displayOrder')
   async displayOrder() {
@@ -112,7 +112,7 @@ export class AdminController {
   async InsertVariant(@Body() insertVariantDIO: insertVariantDTO) {
     return this.productService.insertVariant(insertVariantDIO);
   }
-  @Put('UpdateProductName')
-  @UsePipes(ValidationPipe)
-  async UpdateProductName(@Body() )
+  // @Put('UpdateProductName')
+  // @UsePipes(ValidationPipe)
+  // async UpdateProductName(@Body() )
 }
