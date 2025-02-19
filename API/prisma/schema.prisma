@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -49,9 +49,9 @@ model discount {
   endDate      DateTime
   productId    Int?
   createdAt    DateTime              @default(now())
-  product      product?              @relation(fields: [productId], references: [id], onDelete: Cascade, map: "Discount_productId_fkey")
+  product      product?              @relation(fields: [productId], references: [id], onDelete: Cascade, map: "Discount_productId_fk")
 
-  @@index([productId], map: "Discount_productId_fkey")
+  @@index([productId], map: "Discount_productId_idx")
 }
 
 model order {
@@ -60,10 +60,10 @@ model order {
   status      order_status @default(Pending)
   customerId  Int
   createdAt   DateTime     @default(now())
-  customer    customer     @relation(fields: [customerId], references: [id], onDelete: Cascade, map: "Order_customerId_fkey")
+  customer    customer     @relation(fields: [customerId], references: [id], onDelete: Cascade, map: "Order_customerId_fk")
   orderitem   orderitem[]
 
-  @@index([customerId], map: "Order_customerId_fkey")
+  @@index([customerId], map: "Order_customerId_idx")
 }
 
 model orderitem {
@@ -73,35 +73,35 @@ model orderitem {
   quantity  Int
   amount    Float
   createdAt DateTime @default(now())
-  order     order    @relation(fields: [orderId], references: [id], onDelete: Cascade, map: "OrderItem_orderId_fkey")
-  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "OrderItem_productId_fkey")
+  order     order    @relation(fields: [orderId], references: [id], onDelete: Cascade, map: "OrderItem_orderId_fk")
+  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "OrderItem_productId_fk")
 
-  @@index([orderId], map: "OrderItem_orderId_fkey")
-  @@index([productId], map: "OrderItem_productId_fkey")
+  @@index([orderId], map: "OrderItem_orderId_idx")
+  @@index([productId], map: "OrderItem_productId_idx")
 }
 
 model product {
   id              Int               @id @default(autoincrement())
   name            String            @unique
   brandId         Int
-  categoryID      Int
+  categoryId      Int
   createdAt       DateTime          @default(now())
   discount        discount[]
   orderitem       orderitem[]
-  brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fkey")
+  brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fk")
   productimage    productimage[]
   Description     String
   productVariants productVariants[]
-  category        category          @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "Product_categoryId_fkey")
+  category        category          @relation(fields: [categoryId], references: [id], onDelete: Cascade, map: "Product_categoryId_fk")
 
-  @@index([brandId], map: "Product_brandId_fkey")
-  @@index([categoryID], map: "Product_categoryId_fkey")
+  @@index([brandId], map: "Product_brandId_idx")
+  @@index([categoryId], map: "Product_categoryId_idx")
 }
 
 model productVariants {
   id         Int     @id @default(autoincrement())
-  product_id Int
-  product_fk product @relation(fields: [product_id], references: [id])
+  productId  Int
+  product_fk product @relation(fields: [productId], references: [id])
   color      String
   price      Float
 }
@@ -111,9 +111,9 @@ model productimage {
   productId Int
   imageUrl  String
   createdAt DateTime @default(now())
-  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "ProductImage_productId_fkey")
+  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "ProductImage_productId_fk")
 
-  @@index([productId], map: "ProductImage_productId_fkey")
+  @@index([productId], map: "ProductImage_productId_idx")
 }
 
 enum order_status {
