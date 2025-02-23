@@ -1,5 +1,5 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { log } from 'console';
+
 import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
@@ -10,8 +10,11 @@ export class SharedService {
     return this.prisma.product.findMany({
       include: {
         brand: true,
-        discount: true,
-        productVariants: true,
+        productVariants: {
+          include: {
+            discount: true,
+          },
+        },
         productimage: {
           select: {
             imageUrl: true,
@@ -20,12 +23,17 @@ export class SharedService {
       },
     });
   }
+
   async displayProductByID(id: number) {
     const product = await this.prisma.product.findUnique({
       include: {
         brand: true, // Include the brand
-        discount: true, // Include the discounts
-        productVariants: true,
+        // Include the discounts
+        productVariants: {
+          include: {
+            discount: true,
+          },
+        },
         productimage: {
           select: {
             imageUrl: true, // Only include imageUrl from productimages
@@ -47,8 +55,12 @@ export class SharedService {
       const product = await this.prisma.product.findMany({
         include: {
           brand: true,
-          discount: true,
-          productVariants: true,
+
+          productVariants: {
+            include: {
+              discount: true,
+            },
+          },
           productimage: {
             select: {
               imageUrl: true,
@@ -90,8 +102,11 @@ export class SharedService {
         include: {
           brand: true,
           productimage: true,
-          productVariants: true,
-          discount: true,
+          productVariants: {
+            include: {
+              discount: true,
+            },
+          },
         },
       });
 
@@ -105,13 +120,81 @@ export class SharedService {
     try {
       const products = await this.prisma.product.findMany({
         include: {
-          discount: true,
-          productVariants: true,
+          productVariants: {
+            include: {
+              discount: true,
+            },
+          },
+        },
+        where: {
+          OR: [
+            {
+              productVariants: {
+                some: {
+                  discount: {
+                    some: {
+                      value: {
+                        gte: min,
+                        lte: max,
+                      },
+                    },
+                  },
+                },
+              },
+            },
+            {
+              productVariants: {
+                some: {
+                  price: {
+                    gte: min,
+                    lte: max,
+                  },
+                },
+              },
+            },
+          ],
         },
       });
-      return products;
+
+      // Process the products to determine the actual price
+      return products.map((product) => {
+        let price = null;
+
+        // Find the lowest price from product variants
+        const variantPrices = product.productVariants.map((variant) => {
+          // Check if variant has a discount
+          if (variant.discount.length > 0) {
+            return variant.discount[0].value; // Use discount value
+          }
+          return variant.price; // Otherwise, use regular price
+        });
+
+        // Get the minimum price among variants
+        if (variantPrices.length > 0) {
+          price = Math.min(...variantPrices);
+        }
+
+        return {
+          ...product,
+          finalPrice: price,
+        };
+      });
     } catch (error) {
-      console.log(error);
+      console.error('Error fetching sorted products:', error);
+      throw error;
     }
   }
+
+  // async getDiscount() {
+  //   return this.prisma.discount.findMany({
+  //     include: {
+  //       product: {
+  //         include: {
+  //           category: true,
+  //           brand: true,
+  //         },
+  //       },
+  //     },
+  //   });
+  // }
 }

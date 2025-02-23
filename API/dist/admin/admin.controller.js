@@ -24,6 +24,7 @@ const product_service_1 = require("./service/product/product.service");
 const InsertBrand_dio_1 = require("./dto/insertDTO/InsertBrand.dio");
 const insertCategory_dto_1 = require("./dto/insertDTO/insertCategory.dto");
 const InsertVariant_dto_1 = require("./dto/insertDTO/InsertVariant.dto");
+const UpdateProductVariant_dto_1 = require("./dto/insertDTO/UpdateDTO/UpdateProductVariant.dto");
 let AdminController = class AdminController {
     constructor(adminService, sharedService, fileUploadService, orderService, productService) {
         this.adminService = adminService;
@@ -66,6 +67,12 @@ let AdminController = class AdminController {
         catch (error) {
             throw new common_1.BadRequestException(error || 'file upload not success');
         }
+    }
+    async UpdateProduct(file, updateProductDTO, oldName, oldColor) {
+        if (!file) {
+            throw new Error('you must input a image');
+        }
+        return this.productService.updateProduct(updateProductDTO, file, oldName, oldColor);
     }
     async InsertBrand(file, insertbrandDTO) {
         if (!file) {
@@ -131,6 +138,17 @@ __decorate([
         InsertProduct_dto_1.InsertProductDto]),
     __metadata("design:returntype", Promise)
 ], AdminController.prototype, "InsertProduct", null);
+__decorate([
+    (0, common_1.Put)('updateProductVariant'),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    (0, common_1.UsePipes)(common_1.ValidationPipe),
+    __param(0, (0, common_1.UploadedFile)()),
+    __param(1, (0, common_1.Body)()),
+    __param(2, (0, common_1.Query)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object, UpdateProductVariant_dto_1.UpdateProductVariantDTO, String, String]),
+    __metadata("design:returntype", Promise)
+], AdminController.prototype, "UpdateProduct", null);
 __decorate([
     (0, common_1.Post)('InsertBrand'),
     (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),

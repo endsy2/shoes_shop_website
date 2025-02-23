@@ -6,7 +6,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
   async insertProduct(insertProductDto, images) {
     try {
       const { price, name, brand, description, color, category } =
@@ -60,6 +60,129 @@ export class ProductService {
       throw new Error(`Something went wrong: ${error}`);
     }
   }
+
+  async updateProduct(updateProductDTO, images, oldname, oldColor) {
+    try {
+      const { name, brand, category, color, price, description, size } =
+        updateProductDTO;
+
+      if (
+        !name ||
+        !brand ||
+        !category ||
+        !color ||
+        !price ||
+        !description ||
+        !size
+      ) {
+        throw new Error('input Atleast name');
+      } else if (
+        !brand ||
+        !category ||
+        !color ||
+        !price ||
+        !description ||
+        !size
+      ) {
+        return this.prisma.product.update({
+          where: {
+            name: oldname,
+          },
+          data: {
+            name,
+          },
+        });
+      } else if (!brand || !category || !color || !price) {
+        return this.prisma.product.update({
+          where: {
+            name: oldname,
+          },
+          data: {
+            name,
+            Description: description,
+          },
+        });
+      }
+      const brandID = await this.prisma.brand.findUnique({
+        where: { name: brand },
+      });
+      const categoryID = await this.prisma.category.findUnique({
+        where: { name: category },
+      });
+
+      if (!color || !price) {
+        return this.prisma.product.update({
+          where: {
+            name: oldname,
+          },
+          data: {
+            name,
+            Description: description,
+            category: {
+              connect: { id: categoryID.id },
+            },
+            brand: {
+              connect: { id: brandID.id },
+            },
+          },
+        });
+      } else {
+        // Step 1: Update the product itself
+        // Step 1: Update the product itself
+        await this.prisma.product.update({
+          where: {
+            name: oldname, // Directly match the product by name
+          },
+          data: {
+            name,
+            Description: description,
+            category: {
+              connect: { id: categoryID.id },
+            },
+            brand: {
+              connect: { id: brandID.id },
+            },
+          },
+        });
+
+        // Step 2: Update the related productVariants
+        const product = await this.prisma.product.findUnique({
+          where: {
+            name: oldname, // Get the product by name to fetch its ID
+          },
+        });
+
+        await this.prisma.productVariants.updateMany({
+          where: {
+            productId: product.id, // Use productId instead of product in the where clause
+            color: oldColor, // Match the old color of the variant
+          },
+          data: {
+            color, // New color
+            price, // New price
+            size,
+          },
+        });
+
+        // Step 3: Optionally, include productVariants in the response if needed
+        return await this.prisma.product.findUnique({
+          where: {
+            name: oldname, // Directly match the product by name
+          },
+          include: {
+            productVariants: {
+              where: {
+                color: oldColor, // Check for the oldColor in the related productVariants
+              },
+            },
+          },
+        });
+      }
+    } catch (error) {
+      throw new Error('something went wrong');
+    }
+  }
+
   async insertBrand(insertBrandDTO, image) {
     const { brand_name } = insertBrandDTO;
     if (!brand_name) {
@@ -120,5 +243,5 @@ export class ProductService {
       throw new Error(`something went wrong ${error}`);
     }
   }
-  async uploadProductName() {}
+  async uploadProductName() { }
 }

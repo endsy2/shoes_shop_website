@@ -4,86 +4,97 @@ export declare class OrderService {
     constructor(prisma: PrismaService);
     displayOrder(): Promise<({
         orderitem: ({
-            product: {
-                brand: {
+            productVariant: {
+                product_fk: {
+                    brand: {
+                        id: number;
+                        name: string;
+                        createdAt: Date;
+                        imageUrl: string;
+                    };
+                    category: {
+                        id: number;
+                        name: string;
+                    };
+                } & {
                     id: number;
+                    name: string;
+                    brandId: number;
+                    categoryId: number;
                     createdAt: Date;
-                    name: string;
-                    imageUrl: string;
+                    Description: string;
                 };
-                category: {
-                    id: number;
-                    name: string;
-                };
-                productVariants: {
-                    id: number;
-                    price: number;
-                    color: string;
-                    productId: number;
-                }[];
             } & {
                 id: number;
-                createdAt: Date;
-                name: string;
-                brandId: number;
-                categoryId: number;
-                Description: string;
+                productId: number;
+                color: string;
+                size: string;
+                price: number;
             };
         } & {
             id: number;
             createdAt: Date;
-            productId: number;
+            productVariantId: number;
             orderId: number;
             quantity: number;
             amount: number;
         })[];
     } & {
         id: number;
+        createdAt: Date;
         totalAmount: number;
         status: import(".prisma/client").$Enums.order_status;
         customerId: number;
-        createdAt: Date;
     })[]>;
     displayOrderByID(id: any): Promise<{
         orderitem: ({
-            product: {
-                brand: {
+            productVariant: {
+                product_fk: {
+                    brand: {
+                        id: number;
+                        name: string;
+                        createdAt: Date;
+                        imageUrl: string;
+                    };
+                    productVariants: {
+                        id: number;
+                        productId: number;
+                        color: string;
+                        size: string;
+                        price: number;
+                    }[];
+                    category: {
+                        id: number;
+                        name: string;
+                    };
+                } & {
                     id: number;
+                    name: string;
+                    brandId: number;
+                    categoryId: number;
                     createdAt: Date;
-                    name: string;
-                    imageUrl: string;
+                    Description: string;
                 };
-                category: {
-                    id: number;
-                    name: string;
-                };
-                productVariants: {
-                    id: number;
-                    price: number;
-                    color: string;
-                    productId: number;
-                }[];
             } & {
                 id: number;
-                createdAt: Date;
-                name: string;
-                brandId: number;
-                categoryId: number;
-                Description: string;
+                productId: number;
+                color: string;
+                size: string;
+                price: number;
             };
         } & {
             id: number;
             createdAt: Date;
-            productId: number;
+            productVariantId: number;
             orderId: number;
             quantity: number;
             amount: number;
         })[];
     } & {
         id: number;
+        createdAt: Date;
         totalAmount: number;
         status: import(".prisma/client").$Enums.order_status;
         customerId: number;
-        createdAt: Date;
     }>;
 }

@@ -20,8 +20,11 @@ let SharedService = class SharedService {
         return this.prisma.product.findMany({
             include: {
                 brand: true,
-                discount: true,
-                productVariants: true,
+                productVariants: {
+                    include: {
+                        discount: true,
+                    },
+                },
                 productimage: {
                     select: {
                         imageUrl: true,
@@ -34,8 +37,11 @@ let SharedService = class SharedService {
         const product = await this.prisma.product.findUnique({
             include: {
                 brand: true,
-                discount: true,
-                productVariants: true,
+                productVariants: {
+                    include: {
+                        discount: true,
+                    },
+                },
                 productimage: {
                     select: {
                         imageUrl: true,
@@ -57,8 +63,11 @@ let SharedService = class SharedService {
             const product = await this.prisma.product.findMany({
                 include: {
                     brand: true,
-                    discount: true,
-                    productVariants: true,
+                    productVariants: {
+                        include: {
+                            discount: true,
+                        },
+                    },
                     productimage: {
                         select: {
                             imageUrl: true,
@@ -99,8 +108,11 @@ let SharedService = class SharedService {
                 include: {
                     brand: true,
                     productimage: true,
-                    productVariants: true,
-                    discount: true,
+                    productVariants: {
+                        include: {
+                            discount: true,
+                        },
+                    },
                 },
             });
             return products;
@@ -114,14 +126,61 @@ let SharedService = class SharedService {
         try {
             const products = await this.prisma.product.findMany({
                 include: {
-                    discount: true,
-                    productVariants: true,
+                    productVariants: {
+                        include: {
+                            discount: true,
+                        },
+                    },
+                },
+                where: {
+                    OR: [
+                        {
+                            productVariants: {
+                                some: {
+                                    discount: {
+                                        some: {
+                                            value: {
+                                                gte: min,
+                                                lte: max,
+                                            },
+                                        },
+                                    },
+                                },
+                            },
+                        },
+                        {
+                            productVariants: {
+                                some: {
+                                    price: {
+                                        gte: min,
+                                        lte: max,
+                                    },
+                                },
+                            },
+                        },
+                    ],
                 },
             });
-            return products;
+            return products.map((product) => {
+                let price = null;
+                const variantPrices = product.productVariants.map((variant) => {
+                    if (variant.discount.length > 0) {
+                        return variant.discount[0].value;
+                    }
+                    return variant.price;
+                });
+                if (variantPrices.length > 0) {
+                    price = Math.min(...variantPrices);
+                }
+                return {
+                    ...product,
+                    finalPrice: price,
+                };
+            });
         }
         catch (error) {
-            console.log(error);
+            console.error('Error fetching sorted products:', error);
+            throw error;
         }
     }
 };

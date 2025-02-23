@@ -29,6 +29,7 @@ import { log } from 'console';
 import { InsertbrandDTO } from './dto/insertDTO/InsertBrand.dio';
 import { InsertCategoryDTO } from './dto/insertDTO/insertCategory.dto';
 import { insertVariantDTO } from './dto/insertDTO/InsertVariant.dto';
+import { UpdateProductVariantDTO } from './dto/insertDTO/UpdateDTO/UpdateProductVariant.dto';
 
 @Controller('admin')
 export class AdminController {
@@ -38,27 +39,33 @@ export class AdminController {
     private readonly fileUploadService: FileUploadService,
     private readonly orderService: OrderService,
     private readonly productService: ProductService,
-  ) {}
+  ) { }
+
   @Get('displayProduct')
   async displayProduct() {
     return this.sharedService.displayProduct();
   }
+
   @Get('displayProduct/:id')
   async displayProductByID(@Param('id', ParseIntPipe) id: number) {
     return this.sharedService.displayProductByID(id);
   }
+
   @Get('displayProduct?:name')
   async displayProductByName(@Query('name') name: string) {
     return this.sharedService.displayProductByName({ name });
   }
+
   @Get('displayOrder')
   async displayOrder() {
     return this.orderService.displayOrder();
   }
+
   @Get('displayOrder/:id')
   async displayOrderByID(@Param('id', ParseIntPipe) id: number) {
     return this.orderService.displayOrderByID(id);
   }
+
   @Get('displayCategory')
   async displayCategory() {
     return this.orderService.displayOrder();
@@ -90,6 +97,27 @@ export class AdminController {
       throw new BadRequestException(error || 'file upload not success');
     }
   }
+
+  @Put('updateProductVariant')
+  @UseInterceptors(FileInterceptor('file'))
+  @UsePipes(ValidationPipe)
+  async UpdateProduct(
+    @UploadedFile() file: Express.Multer.File,
+    @Body() updateProductDTO: UpdateProductVariantDTO,
+    @Query() oldName: string,
+    oldColor: string,
+  ) {
+    if (!file) {
+      throw new Error('you must input a image');
+    }
+    return this.productService.updateProduct(
+      updateProductDTO,
+      file,
+      oldName,
+      oldColor,
+    );
+  }
+
   @Post('InsertBrand')
   @UseInterceptors(FileInterceptor('file'))
   @UsePipes(ValidationPipe)

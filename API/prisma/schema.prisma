@@ -40,18 +40,18 @@ model admin {
 }
 
 model discount {
-  id           Int                   @id @default(autoincrement())
-  name         String
-  description  String?
-  discountType discount_discountType
-  value        Float
-  startDate    DateTime
-  endDate      DateTime
-  productId    Int?
-  createdAt    DateTime              @default(now())
-  product      product?              @relation(fields: [productId], references: [id], onDelete: Cascade, map: "Discount_productId_fk")
+  id               Int                   @id @default(autoincrement())
+  name             String
+  description      String?
+  discountType     discount_discountType
+  value            Float
+  startDate        DateTime
+  endDate          DateTime
+  productVariantId Int?
+  createdAt        DateTime              @default(now())
+  product          productVariants?      @relation(fields: [productVariantId], references: [id], onDelete: Cascade, map: "Discount_productVariant_fk")
 
-  @@index([productId], map: "Discount_productId_idx")
+  @@index([productVariantId], map: "Discount_productVariantId_idx")
 }
 
 model order {
@@ -67,27 +67,26 @@ model order {
 }
 
 model orderitem {
-  id        Int      @id @default(autoincrement())
-  orderId   Int
-  productId Int
-  quantity  Int
-  amount    Float
-  createdAt DateTime @default(now())
-  order     order    @relation(fields: [orderId], references: [id], onDelete: Cascade, map: "OrderItem_orderId_fk")
-  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "OrderItem_productId_fk")
+  id               Int             @id @default(autoincrement())
+  orderId          Int
+  productVariantId Int
+  quantity         Int
+  amount           Float
+  createdAt        DateTime        @default(now())
+  order            order           @relation(fields: [orderId], references: [id], onDelete: Cascade, map: "OrderItem_orderId_fk")
+  productVariant   productVariants @relation(fields: [productVariantId], references: [id], onDelete: Cascade, map: "OrderItem_productId_fk")
 
   @@index([orderId], map: "OrderItem_orderId_idx")
-  @@index([productId], map: "OrderItem_productId_idx")
+  @@index([productVariantId], map: "OrderItem_productId_idx")
 }
 
 model product {
-  id              Int               @id @default(autoincrement())
-  name            String            @unique
-  brandId         Int
-  categoryId      Int
-  createdAt       DateTime          @default(now())
-  discount        discount[]
-  orderitem       orderitem[]
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  brandId    Int
+  categoryId Int
+  createdAt  DateTime @default(now())
+
   brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fk")
   productimage    productimage[]
   Description     String
@@ -99,11 +98,14 @@ model product {
 }
 
 model productVariants {
-  id         Int     @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   productId  Int
-  product_fk product @relation(fields: [productId], references: [id])
+  product_fk product     @relation(fields: [productId], references: [id])
   color      String
+  size       String      @default("0")
   price      Float
+  orderitem  orderitem[]
+  discount   discount[]
 }
 
 model productimage {
