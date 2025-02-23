@@ -5,17 +5,6 @@ export declare class UserController {
     private readonly userService;
     constructor(shareService: SharedService, userService: UserService);
     displayAllProduct(): Promise<({
-        discount: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            productId: number | null;
-            description: string | null;
-            discountType: import(".prisma/client").$Enums.discount_discountType;
-            value: number;
-            startDate: Date;
-            endDate: Date;
-        }[];
         brand: {
             id: number;
             name: string;
@@ -25,12 +14,25 @@ export declare class UserController {
         productimage: {
             imageUrl: string;
         }[];
-        productVariants: {
+        productVariants: ({
+            discount: {
+                id: number;
+                name: string;
+                createdAt: Date;
+                description: string | null;
+                discountType: import(".prisma/client").$Enums.discount_discountType;
+                value: number;
+                startDate: Date;
+                endDate: Date;
+                productVariantId: number | null;
+            }[];
+        } & {
             id: number;
             productId: number;
             color: string;
+            size: string;
             price: number;
-        }[];
+        })[];
     } & {
         id: number;
         name: string;
@@ -40,17 +42,6 @@ export declare class UserController {
         Description: string;
     })[]>;
     displayProductByName(name: string): Promise<({
-        discount: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            productId: number | null;
-            description: string | null;
-            discountType: import(".prisma/client").$Enums.discount_discountType;
-            value: number;
-            startDate: Date;
-            endDate: Date;
-        }[];
         brand: {
             id: number;
             name: string;
@@ -60,12 +51,25 @@ export declare class UserController {
         productimage: {
             imageUrl: string;
         }[];
-        productVariants: {
+        productVariants: ({
+            discount: {
+                id: number;
+                name: string;
+                createdAt: Date;
+                description: string | null;
+                discountType: import(".prisma/client").$Enums.discount_discountType;
+                value: number;
+                startDate: Date;
+                endDate: Date;
+                productVariantId: number | null;
+            }[];
+        } & {
             id: number;
             productId: number;
             color: string;
+            size: string;
             price: number;
-        }[];
+        })[];
     } & {
         id: number;
         name: string;
@@ -75,17 +79,6 @@ export declare class UserController {
         Description: string;
     })[]>;
     displayProductByCategory(category: string): Promise<({
-        discount: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            productId: number | null;
-            description: string | null;
-            discountType: import(".prisma/client").$Enums.discount_discountType;
-            value: number;
-            startDate: Date;
-            endDate: Date;
-        }[];
         brand: {
             id: number;
             name: string;
@@ -98,12 +91,25 @@ export declare class UserController {
             productId: number;
             imageUrl: string;
         }[];
-        productVariants: {
+        productVariants: ({
+            discount: {
+                id: number;
+                name: string;
+                createdAt: Date;
+                description: string | null;
+                discountType: import(".prisma/client").$Enums.discount_discountType;
+                value: number;
+                startDate: Date;
+                endDate: Date;
+                productVariantId: number | null;
+            }[];
+        } & {
             id: number;
             productId: number;
             color: string;
+            size: string;
             price: number;
-        }[];
+        })[];
     } & {
         id: number;
         name: string;
@@ -112,44 +118,35 @@ export declare class UserController {
         createdAt: Date;
         Description: string;
     })[]>;
-    displayProductBySortPrice(max: number, min: number): Promise<({
-        discount: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            productId: number | null;
-            description: string | null;
-            discountType: import(".prisma/client").$Enums.discount_discountType;
-            value: number;
-            startDate: Date;
-            endDate: Date;
-        }[];
-        productVariants: {
+    displayProductBySortPrice(max: number, min: number): Promise<{
+        finalPrice: any;
+        productVariants: ({
+            discount: {
+                id: number;
+                name: string;
+                createdAt: Date;
+                description: string | null;
+                discountType: import(".prisma/client").$Enums.discount_discountType;
+                value: number;
+                startDate: Date;
+                endDate: Date;
+                productVariantId: number | null;
+            }[];
+        } & {
             id: number;
             productId: number;
             color: string;
+            size: string;
             price: number;
-        }[];
-    } & {
+        })[];
         id: number;
         name: string;
         brandId: number;
         categoryId: number;
         createdAt: Date;
         Description: string;
-    })[]>;
+    }[]>;
     displayProductByID(id: number): Promise<{
-        discount: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            productId: number | null;
-            description: string | null;
-            discountType: import(".prisma/client").$Enums.discount_discountType;
-            value: number;
-            startDate: Date;
-            endDate: Date;
-        }[];
         brand: {
             id: number;
             name: string;
@@ -159,12 +156,25 @@ export declare class UserController {
         productimage: {
             imageUrl: string;
         }[];
-        productVariants: {
+        productVariants: ({
+            discount: {
+                id: number;
+                name: string;
+                createdAt: Date;
+                description: string | null;
+                discountType: import(".prisma/client").$Enums.discount_discountType;
+                value: number;
+                startDate: Date;
+                endDate: Date;
+                productVariantId: number | null;
+            }[];
+        } & {
             id: number;
             productId: number;
             color: string;
+            size: string;
             price: number;
-        }[];
+        })[];
     } & {
         id: number;
         name: string;

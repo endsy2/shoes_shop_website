@@ -63,6 +63,117 @@ let ProductService = class ProductService {
             throw new Error(`Something went wrong: ${error}`);
         }
     }
+    async updateProduct(updateProductDTO, images, oldname, oldColor) {
+        try {
+            const { name, brand, category, color, price, description, size } = updateProductDTO;
+            if (!name ||
+                !brand ||
+                !category ||
+                !color ||
+                !price ||
+                !description ||
+                !size) {
+                throw new Error('input Atleast name');
+            }
+            else if (!brand ||
+                !category ||
+                !color ||
+                !price ||
+                !description ||
+                !size) {
+                return this.prisma.product.update({
+                    where: {
+                        name: oldname,
+                    },
+                    data: {
+                        name,
+                    },
+                });
+            }
+            else if (!brand || !category || !color || !price) {
+                return this.prisma.product.update({
+                    where: {
+                        name: oldname,
+                    },
+                    data: {
+                        name,
+                        Description: description,
+                    },
+                });
+            }
+            const brandID = await this.prisma.brand.findUnique({
+                where: { name: brand },
+            });
+            const categoryID = await this.prisma.category.findUnique({
+                where: { name: category },
+            });
+            if (!color || !price) {
+                return this.prisma.product.update({
+                    where: {
+                        name: oldname,
+                    },
+                    data: {
+                        name,
+                        Description: description,
+                        category: {
+                            connect: { id: categoryID.id },
+                        },
+                        brand: {
+                            connect: { id: brandID.id },
+                        },
+                    },
+                });
+            }
+            else {
+                await this.prisma.product.update({
+                    where: {
+                        name: oldname,
+                    },
+                    data: {
+                        name,
+                        Description: description,
+                        category: {
+                            connect: { id: categoryID.id },
+                        },
+                        brand: {
+                            connect: { id: brandID.id },
+                        },
+                    },
+                });
+                const product = await this.prisma.product.findUnique({
+                    where: {
+                        name: oldname,
+                    },
+                });
+                await this.prisma.productVariants.updateMany({
+                    where: {
+                        productId: product.id,
+                        color: oldColor,
+                    },
+                    data: {
+                        color,
+                        price,
+                        size,
+                    },
+                });
+                return await this.prisma.product.findUnique({
+                    where: {
+                        name: oldname,
+                    },
+                    include: {
+                        productVariants: {
+                            where: {
+                                color: oldColor,
+                            },
+                        },
+                    },
+                });
+            }
+        }
+        catch (error) {
+            throw new Error('something went wrong');
+        }
+    }
     async insertBrand(insertBrandDTO, image) {
         const { brand_name } = insertBrandDTO;
         if (!brand_name) {

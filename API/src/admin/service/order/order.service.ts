@@ -3,7 +3,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   async displayOrder() {
     try {
@@ -11,11 +11,14 @@ export class OrderService {
         include: {
           orderitem: {
             include: {
-              product: {
+              productVariant: {
                 include: {
-                  brand: true, // Include brand details
-                  productVariants: true,
-                  category: true,
+                  product_fk: {
+                    include: {
+                      brand: true,
+                      category: true,
+                    },
+                  },
                 },
               },
             },
@@ -33,11 +36,15 @@ export class OrderService {
         include: {
           orderitem: {
             include: {
-              product: {
+              productVariant: {
                 include: {
-                  brand: true, // Include brand details
-                  productVariants: true,
-                  category: true, // Include product variants
+                  product_fk: {
+                    include: {
+                      brand: true, // Include brand details
+                      productVariants: true,
+                      category: true, // Include product variants
+                    },
+                  },
                 },
               },
             },

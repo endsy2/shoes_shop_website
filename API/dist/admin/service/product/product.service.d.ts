@@ -4,16 +4,24 @@ export declare class ProductService {
     constructor(prisma: PrismaService);
     insertProduct(insertProductDto: any, images: any): Promise<{
         id: number;
-        createdAt: Date;
         name: string;
         brandId: number;
         categoryId: number;
+        createdAt: Date;
+        Description: string;
+    }>;
+    updateProduct(updateProductDTO: any, images: any, oldname: any, oldColor: any): Promise<{
+        id: number;
+        name: string;
+        brandId: number;
+        categoryId: number;
+        createdAt: Date;
         Description: string;
     }>;
     insertBrand(insertBrandDTO: any, image: any): Promise<{
         id: number;
-        createdAt: Date;
         name: string;
+        createdAt: Date;
         imageUrl: string;
     }>;
     insertCategory(insertCategoryDTO: any): Promise<{
@@ -22,9 +30,10 @@ export declare class ProductService {
     }>;
     insertVariant(insertVariantDTO: any): Promise<{
         id: number;
-        price: number;
-        color: string;
         productId: number;
+        color: string;
+        size: string;
+        price: number;
     }>;
     uploadProductName(): Promise<void>;
 }
