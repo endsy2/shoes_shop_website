@@ -1,4 +1,48 @@
-import { Controller } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Query,
+} from '@nestjs/common';
+import { SharedService } from 'src/shared/shared.service';
+import { UserService } from './user.service';
+import { log } from 'console';
 
 @Controller('user')
-export class UserController {}
+export class UserController {
+  constructor(
+    private readonly shareService: SharedService,
+    private readonly userService: UserService,
+  ) { }
+  @Get('displayProductAll')
+  async displayAllProduct() {
+    return this.shareService.displayProduct();
+  }
+
+  @Get('displayProductBy/name')
+  async displayProductByName(@Query('name') name: string) {
+    return this.shareService.displayProductByName({ name });
+  }
+  @Get('displayProduct/category')
+  async displayProductByCategory(@Query('category') category: string) {
+    return this.shareService.getProductByCategory({ categoryName: category });
+  }
+
+  // @Get('displayProduct/sort')
+  // async displayProductBySortPrice(
+  //   @Query('max', ParseIntPipe) max: number,
+  //   @Query('min', ParseIntPipe) min: number,
+  // ) {
+  //   console.log(`Max: ${max}, Min: ${min}`);
+  //   return this.shareService.getSortPrice({ max, min });
+  // }
+
+  @Get('displayProductByID/:id')
+  async displayProductByID(@Param('id', ParseIntPipe) id: number) {
+    return this.shareService.displayProductByID(id);
+  }
+  // @Post('checkout')
+  // async checkout(@Body )
+}

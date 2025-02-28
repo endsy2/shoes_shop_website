@@ -10,17 +10,8 @@ import { SharedModule } from './shared/shared.module';
     AdminModule,
     UserModule,
     SharedModule,
-    // MulterModule.register({
-    //   storage: multer.diskStorage({
-    //     destination: './uploads',
-    //     filename: (req, file, cb) => {
-    //       cb(null, `${file.originalname}-${Date.now()}`);
-    //     },
-    //   }),
-    // }),
-    // FileUploadModule,
-    FileUploadModule,
+    FileUploadModule, // Import Multer config from FileUploadModule
     PrismaModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

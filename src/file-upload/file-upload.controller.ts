@@ -10,7 +10,7 @@ import { FileUploadService } from './file-upload.service.js';
 
 @Controller('file-upload')
 export class FileUploadController {
-  constructor(private readonly fileUploadService: FileUploadService) {}
+  constructor(private readonly fileUploadService: FileUploadService) { }
 
   @Post('upload')
   @UseInterceptors(FileInterceptor('file'))
@@ -21,11 +21,14 @@ export class FileUploadController {
     }
 
     try {
+      console.log(file);
+
+      // console.log(file);
+
       // Pass the file to the service for handling
-      const uploadResult = await this.fileUploadService.handleFileUpload(file);
+      // const uploadResult = await this.fileUploadService.handleFileUpload(file);
       return {
         message: 'File uploaded successfully',
-        data: uploadResult,
       };
     } catch (error) {
       // Handle errors and return a meaningful response

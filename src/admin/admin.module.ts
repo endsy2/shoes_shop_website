@@ -13,7 +13,7 @@ import { DiscountService } from './service/discount/discount.service';
 import { SharedService } from 'src/shared/shared.service';
 
 @Module({
-  imports: [],
+  imports: [FileUploadModule, PrismaModule],
   controllers: [AdminController],
   providers: [
     AdminService,
@@ -25,4 +25,4 @@ import { SharedService } from 'src/shared/shared.service';
     SharedService,
   ],
 })
-export class AdminModule {}
+export class AdminModule { }

@@ -3,126 +3,127 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model brand {
+model Brand {
   id        Int       @id @default(autoincrement())
   name      String    @unique
   imageUrl  String
   createdAt DateTime  @default(now())
-  product   product[]
+  products  Product[]
 }
 
-model category {
-  id      Int       @id @default(autoincrement())
-  name    String    @unique
-  product product[]
+model Category {
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  products Product[]
 }
 
-model customer {
+model Customer {
   id          Int      @id @default(autoincrement())
   firstName   String
   lastName    String
-  email       String   @unique(map: "Customer_email_key")
+  email       String   @unique
   password    String
   phoneNumber String
   address     String
   createdAt   DateTime @default(now())
-  order       order[]
+  orders      Order[]
 }
 
-model admin {
+model Admin {
   id       Int    @id @default(autoincrement())
-  Email    String
+  email    String @unique
   password String
 }
 
-model discount {
-  id           Int                   @id @default(autoincrement())
-  name         String
-  description  String?
-  discountType discount_discountType
-  value        Float
-  startDate    DateTime
-  endDate      DateTime
-  productId    Int?
-  createdAt    DateTime              @default(now())
-  product      product?              @relation(fields: [productId], references: [id], onDelete: Cascade, map: "Discount_productId_fkey")
+model Discount {
+  id               Int             @id @default(autoincrement())
+  name             String
+  description      String?
+  discountType     DiscountType
+  value            Float
+  startDate        DateTime
+  endDate          DateTime
+  productVariantId Int?
+  createdAt        DateTime        @default(now())
+  productVariant   ProductVariant? @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
 
-  @@index([productId], map: "Discount_productId_fkey")
+  @@index([productVariantId])
 }
 
-model order {
-  id          Int          @id @default(autoincrement())
-  totalAmount Float        @default(0)
-  status      order_status @default(Pending)
+model Order {
+  id          Int         @id @default(autoincrement())
+  totalAmount Float       @default(0)
+  status      OrderStatus @default(Pending)
   customerId  Int
-  createdAt   DateTime     @default(now())
-  customer    customer     @relation(fields: [customerId], references: [id], onDelete: Cascade, map: "Order_customerId_fkey")
-  orderitem   orderitem[]
+  createdAt   DateTime    @default(now())
+  customer    Customer    @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  orderItems  OrderItem[]
 
-  @@index([customerId], map: "Order_customerId_fkey")
+  @@index([customerId])
 }
 
-model orderitem {
-  id        Int      @id @default(autoincrement())
-  orderId   Int
-  productId Int
-  quantity  Int
-  amount    Float
-  createdAt DateTime @default(now())
-  order     order    @relation(fields: [orderId], references: [id], onDelete: Cascade, map: "OrderItem_orderId_fkey")
-  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "OrderItem_productId_fkey")
+model OrderItem {
+  id               Int            @id @default(autoincrement())
+  orderId          Int
+  productVariantId Int
+  quantity         Int
+  amount           Float
+  createdAt        DateTime       @default(now())
+  order            Order          @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
 
-  @@index([orderId], map: "OrderItem_orderId_fkey")
-  @@index([productId], map: "OrderItem_productId_fkey")
+  @@index([orderId])
+  @@index([productVariantId])
 }
 
-model product {
-  id              Int               @id @default(autoincrement())
-  name            String            @unique
+model Product {
+  id              Int              @id @default(autoincrement())
+  name            String           @unique
   brandId         Int
-  categoryID      Int
-  createdAt       DateTime          @default(now())
-  discount        discount[]
-  orderitem       orderitem[]
-  brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fkey")
-  productimage    productimage[]
-  Description     String
-  productVariants productVariants[]
-  category        category          @relation(fields: [categoryID], references: [id], onDelete: Cascade, map: "Product_categoryId_fkey")
+  categoryId      Int
+  description     String
+  createdAt       DateTime         @default(now())
+  brand           Brand            @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  category        Category         @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  productVariants ProductVariant[]
 
-  @@index([brandId], map: "Product_brandId_fkey")
-  @@index([categoryID], map: "Product_categoryId_fkey")
+  @@index([brandId])
+  @@index([categoryId])
 }
 
-model productVariants {
-  id         Int     @id @default(autoincrement())
-  product_id Int
-  product_fk product @relation(fields: [product_id], references: [id])
-  color      String
-  price      Float
+model ProductVariant {
+  id            Int            @id @default(autoincrement())
+  productId     Int
+  product       Product        @relation(fields: [productId], references: [id])
+  color         String
+  size          String         @default("0")
+  price         Float
+  orderItems    OrderItem[]
+  discounts     Discount[]
+  productImages ProductImage[]
 }
 
-model productimage {
-  id        Int      @id @default(autoincrement())
-  productId Int
-  imageUrl  String
-  createdAt DateTime @default(now())
-  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "ProductImage_productId_fkey")
+model ProductImage {
+  id               Int            @id @default(autoincrement())
+  productVariantId Int
+  imageUrl         String
+  createdAt        DateTime       @default(now())
+  productVariant   ProductVariant @relation(fields: [productVariantId], references: [id], onDelete: Cascade)
 
-  @@index([productId], map: "ProductImage_productId_fkey")
+  @@index([productVariantId])
 }
 
-enum order_status {
+enum OrderStatus {
   Pending
   Delivery
   Completed
 }
 
-enum discount_discountType {
-  active
-  expired
+enum DiscountType {
+  Active
+  Expired
 }

@@ -4,6 +4,7 @@ import {
   IsArray,
   isNotEmpty,
   IsNotEmpty,
+  isNumber,
   IsNumber,
   IsString,
   Min,
@@ -38,4 +39,7 @@ export class InsertProductDto {
   @IsString()
   @IsNotEmpty()
   color: string;
+
+  @IsNotEmpty()
+  size: string;
 }
