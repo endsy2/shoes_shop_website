@@ -5,4 +5,5 @@ export declare class InsertProductDto {
     category: string;
     description: string;
     color: string;
+    size: string;
 }

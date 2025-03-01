@@ -1,20 +1,16 @@
 import { OrderService } from './service/order/order.service';
-import { FileUploadService } from './../file-upload/file-upload.service';
 import { InsertProductDto } from './dto/insertDTO/InsertProduct.dto';
 import { SharedService } from 'src/shared/shared.service';
-import { AdminService } from './admin.service';
 import { ProductService } from './service/product/product.service';
 import { InsertbrandDTO } from './dto/insertDTO/InsertBrand.dio';
 import { InsertCategoryDTO } from './dto/insertDTO/insertCategory.dto';
 import { insertVariantDTO } from './dto/insertDTO/InsertVariant.dto';
 import { UpdateProductVariantDTO } from './dto/insertDTO/UpdateDTO/UpdateProductVariant.dto';
 export declare class AdminController {
-    private readonly adminService;
     private readonly sharedService;
-    private readonly fileUploadService;
     private readonly orderService;
     private readonly productService;
-    constructor(adminService: AdminService, sharedService: SharedService, fileUploadService: FileUploadService, orderService: OrderService, productService: ProductService);
+    constructor(sharedService: SharedService, orderService: OrderService, productService: ProductService);
     displayProduct(): Promise<({
         brand: {
             id: number;
@@ -22,20 +18,23 @@ export declare class AdminController {
             createdAt: Date;
             imageUrl: string;
         };
-        productimage: {
-            imageUrl: string;
-        }[];
         productVariants: ({
+            productimage: {
+                id: number;
+                createdAt: Date;
+                imageUrl: string;
+                productVariantId: number;
+            }[];
             discount: {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -52,80 +51,8 @@ export declare class AdminController {
         createdAt: Date;
         Description: string;
     })[]>;
-    displayProductByID(id: number): Promise<{
-        brand: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            imageUrl: string;
-        };
-        productimage: {
-            imageUrl: string;
-        }[];
-        productVariants: ({
-            discount: {
-                id: number;
-                name: string;
-                createdAt: Date;
-                description: string | null;
-                discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
-                startDate: Date;
-                endDate: Date;
-                productVariantId: number | null;
-            }[];
-        } & {
-            id: number;
-            productId: number;
-            color: string;
-            size: string;
-            price: number;
-        })[];
-    } & {
-        id: number;
-        name: string;
-        brandId: number;
-        categoryId: number;
-        createdAt: Date;
-        Description: string;
-    }>;
-    displayProductByName(name: string): Promise<({
-        brand: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            imageUrl: string;
-        };
-        productimage: {
-            imageUrl: string;
-        }[];
-        productVariants: ({
-            discount: {
-                id: number;
-                name: string;
-                createdAt: Date;
-                description: string | null;
-                discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
-                startDate: Date;
-                endDate: Date;
-                productVariantId: number | null;
-            }[];
-        } & {
-            id: number;
-            productId: number;
-            color: string;
-            size: string;
-            price: number;
-        })[];
-    } & {
-        id: number;
-        name: string;
-        brandId: number;
-        categoryId: number;
-        createdAt: Date;
-        Description: string;
-    })[]>;
+    displayProductByID(id: number): Promise<void>;
+    displayProductByName(name: string): Promise<void>;
     displayOrder(): Promise<({
         orderitem: ({
             productVariant: {

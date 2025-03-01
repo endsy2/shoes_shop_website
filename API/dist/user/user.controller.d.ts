@@ -4,80 +4,8 @@ export declare class UserController {
     private readonly shareService;
     private readonly userService;
     constructor(shareService: SharedService, userService: UserService);
-    displayAllProduct(): Promise<({
-        brand: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            imageUrl: string;
-        };
-        productimage: {
-            imageUrl: string;
-        }[];
-        productVariants: ({
-            discount: {
-                id: number;
-                name: string;
-                createdAt: Date;
-                description: string | null;
-                discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
-                startDate: Date;
-                endDate: Date;
-                productVariantId: number | null;
-            }[];
-        } & {
-            id: number;
-            productId: number;
-            color: string;
-            size: string;
-            price: number;
-        })[];
-    } & {
-        id: number;
-        name: string;
-        brandId: number;
-        categoryId: number;
-        createdAt: Date;
-        Description: string;
-    })[]>;
-    displayProductByName(name: string): Promise<({
-        brand: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            imageUrl: string;
-        };
-        productimage: {
-            imageUrl: string;
-        }[];
-        productVariants: ({
-            discount: {
-                id: number;
-                name: string;
-                createdAt: Date;
-                description: string | null;
-                discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
-                startDate: Date;
-                endDate: Date;
-                productVariantId: number | null;
-            }[];
-        } & {
-            id: number;
-            productId: number;
-            color: string;
-            size: string;
-            price: number;
-        })[];
-    } & {
-        id: number;
-        name: string;
-        brandId: number;
-        categoryId: number;
-        createdAt: Date;
-        Description: string;
-    })[]>;
+    displayAllProduct(): Promise<void>;
+    displayProductByName(name: string): Promise<void>;
     displayProductByCategory(category: string): Promise<({
         brand: {
             id: number;
@@ -85,23 +13,23 @@ export declare class UserController {
             createdAt: Date;
             imageUrl: string;
         };
-        productimage: {
-            id: number;
-            createdAt: Date;
-            productId: number;
-            imageUrl: string;
-        }[];
         productVariants: ({
+            productimage: {
+                id: number;
+                createdAt: Date;
+                imageUrl: string;
+                productVariantId: number;
+            }[];
             discount: {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -125,12 +53,12 @@ export declare class UserController {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -146,41 +74,5 @@ export declare class UserController {
         createdAt: Date;
         Description: string;
     }[]>;
-    displayProductByID(id: number): Promise<{
-        brand: {
-            id: number;
-            name: string;
-            createdAt: Date;
-            imageUrl: string;
-        };
-        productimage: {
-            imageUrl: string;
-        }[];
-        productVariants: ({
-            discount: {
-                id: number;
-                name: string;
-                createdAt: Date;
-                description: string | null;
-                discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
-                startDate: Date;
-                endDate: Date;
-                productVariantId: number | null;
-            }[];
-        } & {
-            id: number;
-            productId: number;
-            color: string;
-            size: string;
-            price: number;
-        })[];
-    } & {
-        id: number;
-        name: string;
-        brandId: number;
-        categoryId: number;
-        createdAt: Date;
-        Description: string;
-    }>;
+    displayProductByID(id: number): Promise<void>;
 }

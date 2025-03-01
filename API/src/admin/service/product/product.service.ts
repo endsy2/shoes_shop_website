@@ -9,10 +9,10 @@ export class ProductService {
   constructor(private readonly prisma: PrismaService) { }
   async insertProduct(insertProductDto, images) {
     try {
-      const { price, name, brand, description, color, category } =
+      const { price, name, brand, description, color, category,size } =
         insertProductDto;
 
-      if (!price || !name || !brand || !description || !color || !category) {
+      if (!price || !name || !brand || !description || !color || !category||!size) {
         throw new Error('Must input all flied');
       }
       // Find the brand by name
@@ -41,15 +41,18 @@ export class ProductService {
           category: {
             connect: { id: categoryID.id }, // Corrected category connection
           },
-          productimage: {
-            create: images.map((image) => ({
-              imageUrl: image, // Ensure the correct mapping for image URLs
-            })),
-          },
           productVariants: {
             create: {
               color,
               price,
+              size,
+              productimage:{
+                create:images.map((image)=>(
+                  {
+                    imageUrl:image
+                  }
+                ))
+              }
             },
           },
         },

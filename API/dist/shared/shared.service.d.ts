@@ -9,20 +9,23 @@ export declare class SharedService {
             createdAt: Date;
             imageUrl: string;
         };
-        productimage: {
-            imageUrl: string;
-        }[];
         productVariants: ({
+            productimage: {
+                id: number;
+                createdAt: Date;
+                imageUrl: string;
+                productVariantId: number;
+            }[];
             discount: {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -46,20 +49,23 @@ export declare class SharedService {
             createdAt: Date;
             imageUrl: string;
         };
-        productimage: {
-            imageUrl: string;
-        }[];
         productVariants: ({
+            productimage: {
+                id: number;
+                createdAt: Date;
+                imageUrl: string;
+                productVariantId: number;
+            }[];
             discount: {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -85,20 +91,23 @@ export declare class SharedService {
             createdAt: Date;
             imageUrl: string;
         };
-        productimage: {
-            imageUrl: string;
-        }[];
         productVariants: ({
+            productimage: {
+                id: number;
+                createdAt: Date;
+                imageUrl: string;
+                productVariantId: number;
+            }[];
             discount: {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -128,23 +137,23 @@ export declare class SharedService {
             createdAt: Date;
             imageUrl: string;
         };
-        productimage: {
-            id: number;
-            createdAt: Date;
-            productId: number;
-            imageUrl: string;
-        }[];
         productVariants: ({
+            productimage: {
+                id: number;
+                createdAt: Date;
+                imageUrl: string;
+                productVariantId: number;
+            }[];
             discount: {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;
@@ -171,12 +180,12 @@ export declare class SharedService {
                 id: number;
                 name: string;
                 createdAt: Date;
+                productVariantId: number | null;
                 description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
                 value: number;
                 startDate: Date;
                 endDate: Date;
-                productVariantId: number | null;
             }[];
         } & {
             id: number;

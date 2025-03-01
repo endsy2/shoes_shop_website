@@ -88,7 +88,7 @@ model product {
   createdAt  DateTime @default(now())
 
   brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fk")
-  productimage    productimage[]
+  
   Description     String
   productVariants productVariants[]
   category        category          @relation(fields: [categoryId], references: [id], onDelete: Cascade, map: "Product_categoryId_fk")
@@ -104,18 +104,19 @@ model productVariants {
   color      String
   size       String      @default("0")
   price      Float
+  productimage    productimage[]
   orderitem  orderitem[]
   discount   discount[]
 }
 
 model productimage {
   id        Int      @id @default(autoincrement())
-  productId Int
+  productVariantId Int
   imageUrl  String
   createdAt DateTime @default(now())
-  product   product  @relation(fields: [productId], references: [id], onDelete: Cascade, map: "ProductImage_productId_fk")
+  productVariant   productVariants  @relation(fields: [productVariantId], references: [id], onDelete: Cascade, map: "ProductImage_productVariantId_fk")
 
-  @@index([productId], map: "ProductImage_productId_idx")
+  @@index([productVariantId], map: "ProductImage_productId_idx")
 }
 
 enum order_status {

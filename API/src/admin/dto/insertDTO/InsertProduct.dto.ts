@@ -5,6 +5,7 @@ import {
   isNotEmpty,
   IsNotEmpty,
   IsNumber,
+  isString,
   IsString,
   Min,
 } from 'class-validator';
@@ -38,4 +39,8 @@ export class InsertProductDto {
   @IsString()
   @IsNotEmpty()
   color: string;
+
+  @IsString()
+  @IsNotEmpty()
+  size:string;
 }

@@ -5,14 +5,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const common_1 = require("@nestjs/common");
 const admin_module_1 = require("./admin/admin.module");
 const user_module_1 = require("./user/user.module");
 const prisma_module_1 = require("./prisma/prisma.module");
-const file_upload_module_1 = require("./file-upload/file-upload.module");
 const shared_module_1 = require("./shared/shared.module");
+const platform_express_1 = require("@nestjs/platform-express");
+const multer_1 = __importDefault(require("multer"));
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -22,7 +26,14 @@ exports.AppModule = AppModule = __decorate([
             admin_module_1.AdminModule,
             user_module_1.UserModule,
             shared_module_1.SharedModule,
-            file_upload_module_1.FileUploadModule,
+            platform_express_1.MulterModule.register({
+                storage: multer_1.default.diskStorage({
+                    destination: './uploads',
+                    filename: (req, file, cb) => {
+                        cb(null, `${file.originalname}-${Date.now()}`);
+                    },
+                }),
+            }),
             prisma_module_1.PrismaModule,
         ],
     })

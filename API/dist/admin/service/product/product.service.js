@@ -18,8 +18,8 @@ let ProductService = class ProductService {
     }
     async insertProduct(insertProductDto, images) {
         try {
-            const { price, name, brand, description, color, category } = insertProductDto;
-            if (!price || !name || !brand || !description || !color || !category) {
+            const { price, name, brand, description, color, category, size } = insertProductDto;
+            if (!price || !name || !brand || !description || !color || !category || !size) {
                 throw new Error('Must input all flied');
             }
             const brandID = await this.prisma.brand.findUnique({
@@ -44,15 +44,16 @@ let ProductService = class ProductService {
                     category: {
                         connect: { id: categoryID.id },
                     },
-                    productimage: {
-                        create: images.map((image) => ({
-                            imageUrl: image,
-                        })),
-                    },
                     productVariants: {
                         create: {
                             color,
                             price,
+                            size,
+                            productimage: {
+                                create: images.map((image) => ({
+                                    imageUrl: image
+                                }))
+                            }
                         },
                     },
                 },

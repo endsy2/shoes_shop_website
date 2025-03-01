@@ -13,15 +13,13 @@ export class SharedService {
         productVariants: {
           include: {
             discount: true,
+            productimage:true
           },
-        },
-        productimage: {
-          select: {
-            imageUrl: true,
-          },
+
         },
       },
     });
+    
   }
 
   async displayProductByID(id: number) {
@@ -32,13 +30,11 @@ export class SharedService {
         productVariants: {
           include: {
             discount: true,
+            productimage:true
           },
+
         },
-        productimage: {
-          select: {
-            imageUrl: true, // Only include imageUrl from productimages
-          },
-        },
+       
       },
       where: { id },
     });
@@ -59,13 +55,11 @@ export class SharedService {
           productVariants: {
             include: {
               discount: true,
+              productimage:true
             },
+  
           },
-          productimage: {
-            select: {
-              imageUrl: true,
-            },
-          },
+         
         },
         where: { name },
       });
@@ -101,11 +95,13 @@ export class SharedService {
         },
         include: {
           brand: true,
-          productimage: true,
+          
           productVariants: {
             include: {
               discount: true,
+              productimage:true
             },
+  
           },
         },
       });

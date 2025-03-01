@@ -8,8 +8,8 @@ export declare class OrderService {
                 product_fk: {
                     brand: {
                         id: number;
-                        name: string;
                         createdAt: Date;
+                        name: string;
                         imageUrl: string;
                     };
                     category: {
@@ -18,33 +18,33 @@ export declare class OrderService {
                     };
                 } & {
                     id: number;
+                    createdAt: Date;
                     name: string;
                     brandId: number;
                     categoryId: number;
-                    createdAt: Date;
                     Description: string;
                 };
             } & {
                 id: number;
-                productId: number;
+                price: number;
                 color: string;
                 size: string;
-                price: number;
+                productId: number;
             };
         } & {
             id: number;
             createdAt: Date;
             productVariantId: number;
-            orderId: number;
             quantity: number;
+            orderId: number;
             amount: number;
         })[];
     } & {
         id: number;
-        createdAt: Date;
         totalAmount: number;
         status: import(".prisma/client").$Enums.order_status;
         customerId: number;
+        createdAt: Date;
     })[]>;
     displayOrderByID(id: any): Promise<{
         orderitem: ({
@@ -52,49 +52,49 @@ export declare class OrderService {
                 product_fk: {
                     brand: {
                         id: number;
-                        name: string;
                         createdAt: Date;
+                        name: string;
                         imageUrl: string;
                     };
-                    productVariants: {
-                        id: number;
-                        productId: number;
-                        color: string;
-                        size: string;
-                        price: number;
-                    }[];
                     category: {
                         id: number;
                         name: string;
                     };
+                    productVariants: {
+                        id: number;
+                        price: number;
+                        color: string;
+                        size: string;
+                        productId: number;
+                    }[];
                 } & {
                     id: number;
+                    createdAt: Date;
                     name: string;
                     brandId: number;
                     categoryId: number;
-                    createdAt: Date;
                     Description: string;
                 };
             } & {
                 id: number;
-                productId: number;
+                price: number;
                 color: string;
                 size: string;
-                price: number;
+                productId: number;
             };
         } & {
             id: number;
             createdAt: Date;
             productVariantId: number;
-            orderId: number;
             quantity: number;
+            orderId: number;
             amount: number;
         })[];
     } & {
         id: number;
-        createdAt: Date;
         totalAmount: number;
         status: import(".prisma/client").$Enums.order_status;
         customerId: number;
+        createdAt: Date;
     }>;
 }

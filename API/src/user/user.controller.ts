@@ -18,12 +18,12 @@ export class UserController {
   ) {}
   @Get('displayProductAll')
   async displayAllProduct() {
-    return this.shareService.displayProduct();
+    // return this.shareService.displayProduct();
   }
 
   @Get('displayProductBy/name')
   async displayProductByName(@Query('name') name: string) {
-    return this.shareService.displayProductByName({ name });
+    // return this.shareService.displayProductByName({ name });
   }
   @Get('displayProduct/category')
   async displayProductByCategory(@Query('category') category: string) {
@@ -41,7 +41,7 @@ export class UserController {
 
   @Get('displayProductByID/:id')
   async displayProductByID(@Param('id', ParseIntPipe) id: number) {
-    return this.shareService.displayProductByID(id);
+    // return this.shareService.displayProductByID(id);
   }
   // @Post('checkout')
   // async checkout(@Body )

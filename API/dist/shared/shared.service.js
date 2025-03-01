@@ -23,11 +23,7 @@ let SharedService = class SharedService {
                 productVariants: {
                     include: {
                         discount: true,
-                    },
-                },
-                productimage: {
-                    select: {
-                        imageUrl: true,
+                        productimage: true
                     },
                 },
             },
@@ -40,11 +36,7 @@ let SharedService = class SharedService {
                 productVariants: {
                     include: {
                         discount: true,
-                    },
-                },
-                productimage: {
-                    select: {
-                        imageUrl: true,
+                        productimage: true
                     },
                 },
             },
@@ -66,11 +58,7 @@ let SharedService = class SharedService {
                     productVariants: {
                         include: {
                             discount: true,
-                        },
-                    },
-                    productimage: {
-                        select: {
-                            imageUrl: true,
+                            productimage: true
                         },
                     },
                 },
@@ -107,10 +95,10 @@ let SharedService = class SharedService {
                 },
                 include: {
                     brand: true,
-                    productimage: true,
                     productVariants: {
                         include: {
                             discount: true,
+                            productimage: true
                         },
                     },
                 },

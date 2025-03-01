@@ -14,22 +14,19 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AdminController = void 0;
 const order_service_1 = require("./service/order/order.service");
-const file_upload_service_1 = require("./../file-upload/file-upload.service");
 const common_1 = require("@nestjs/common");
 const InsertProduct_dto_1 = require("./dto/insertDTO/InsertProduct.dto");
 const shared_service_1 = require("../shared/shared.service");
 const platform_express_1 = require("@nestjs/platform-express");
-const admin_service_1 = require("./admin.service");
 const product_service_1 = require("./service/product/product.service");
 const InsertBrand_dio_1 = require("./dto/insertDTO/InsertBrand.dio");
 const insertCategory_dto_1 = require("./dto/insertDTO/insertCategory.dto");
 const InsertVariant_dto_1 = require("./dto/insertDTO/InsertVariant.dto");
 const UpdateProductVariant_dto_1 = require("./dto/insertDTO/UpdateDTO/UpdateProductVariant.dto");
+const multerConfig_1 = require("../Config/multerConfig");
 let AdminController = class AdminController {
-    constructor(adminService, sharedService, fileUploadService, orderService, productService) {
-        this.adminService = adminService;
+    constructor(sharedService, orderService, productService) {
         this.sharedService = sharedService;
-        this.fileUploadService = fileUploadService;
         this.orderService = orderService;
         this.productService = productService;
     }
@@ -37,10 +34,8 @@ let AdminController = class AdminController {
         return this.sharedService.displayProduct();
     }
     async displayProductByID(id) {
-        return this.sharedService.displayProductByID(id);
     }
     async displayProductByName(name) {
-        return this.sharedService.displayProductByName({ name });
     }
     async displayOrder() {
         return this.orderService.displayOrder();
@@ -57,10 +52,9 @@ let AdminController = class AdminController {
         }
         console.log(insertProductDto);
         try {
-            const uploadResult = await Promise.all(files.map((file) => this.fileUploadService.handleFileUpload(file)));
             const images = [];
-            for (const image of uploadResult) {
-                images.push(image.fileName);
+            for (const image of files) {
+                images.push(image.filename);
             }
             return this.productService.insertProduct(insertProductDto, images);
         }
@@ -129,7 +123,7 @@ __decorate([
 ], AdminController.prototype, "displayCategory", null);
 __decorate([
     (0, common_1.Post)('InsertProduct'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 10)),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FilesInterceptor)('files', 10, multerConfig_1.multerConfig)),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
     __param(0, (0, common_1.UploadedFiles)()),
     __param(1, (0, common_1.Body)()),
@@ -140,7 +134,7 @@ __decorate([
 ], AdminController.prototype, "InsertProduct", null);
 __decorate([
     (0, common_1.Put)('updateProductVariant'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', multerConfig_1.multerConfig)),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
@@ -151,7 +145,7 @@ __decorate([
 ], AdminController.prototype, "UpdateProduct", null);
 __decorate([
     (0, common_1.Post)('InsertBrand'),
-    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file')),
+    (0, common_1.UseInterceptors)((0, platform_express_1.FileInterceptor)('file', multerConfig_1.multerConfig)),
     (0, common_1.UsePipes)(common_1.ValidationPipe),
     __param(0, (0, common_1.UploadedFile)()),
     __param(1, (0, common_1.Body)()),
@@ -177,9 +171,7 @@ __decorate([
 ], AdminController.prototype, "InsertVariant", null);
 exports.AdminController = AdminController = __decorate([
     (0, common_1.Controller)('admin'),
-    __metadata("design:paramtypes", [admin_service_1.AdminService,
-        shared_service_1.SharedService,
-        file_upload_service_1.FileUploadService,
+    __metadata("design:paramtypes", [shared_service_1.SharedService,
         order_service_1.OrderService,
         product_service_1.ProductService])
 ], AdminController);

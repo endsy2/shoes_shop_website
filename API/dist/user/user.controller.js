@@ -22,10 +22,8 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async displayAllProduct() {
-        return this.shareService.displayProduct();
     }
     async displayProductByName(name) {
-        return this.shareService.displayProductByName({ name });
     }
     async displayProductByCategory(category) {
         return this.shareService.getProductByCategory({ categoryName: category });
@@ -35,7 +33,6 @@ let UserController = class UserController {
         return this.shareService.getSortPrice({ max, min });
     }
     async displayProductByID(id) {
-        return this.shareService.displayProductByID(id);
     }
 };
 exports.UserController = UserController;
