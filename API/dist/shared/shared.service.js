@@ -196,6 +196,36 @@ let SharedService = class SharedService {
             await this.prisma.$disconnect();
         }
     }
+    async getOrderByCustomerName(firstName, lastName) {
+        try {
+            if (!firstName || !lastName) {
+                throw new Error("First name and last name are required.");
+            }
+            const customer_row = await this.prisma.customer.findFirst({
+                where: { firstName, lastName }
+            });
+            if (!customer_row) {
+                throw new Error("Customer not found");
+            }
+            const orders = await this.prisma.order.findMany({
+                where: { customerId: customer_row.id },
+                include: {
+                    orderitem: {
+                        include: {
+                            productVariant: {
+                                include: { product_fk: true }
+                            }
+                        }
+                    }
+                }
+            });
+            return orders;
+        }
+        catch (error) {
+            console.error("Error fetching orders:", error);
+            throw new Error(`Something went wrong: ${error}`);
+        }
+    }
 };
 exports.SharedService = SharedService;
 exports.SharedService = SharedService = __decorate([

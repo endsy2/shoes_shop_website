@@ -17,7 +17,6 @@ const common_1 = require("@nestjs/common");
 const order_service_1 = require("../../service/order/order.service");
 const product_service_1 = require("../../service/product/product.service");
 const shared_service_1 = require("../../../shared/shared.service");
-const CreateOrder_dto_1 = require("./dto/CreateOrder.dto");
 let OrderController = class OrderController {
     constructor(sharedService, orderService, productService) {
         this.sharedService = sharedService;
@@ -36,13 +35,8 @@ let OrderController = class OrderController {
     async deleteOrderItem(id) {
         return this.orderService.deleteOrderItems(id);
     }
-    async checkout(createOrderDTO) {
-        try {
-            return this.orderService.checkout(createOrderDTO);
-        }
-        catch (error) {
-            throw new Error("something went wrong");
-        }
+    async displayOrderByName(firstName, LastName) {
+        console.log(firstName, LastName);
     }
 };
 exports.OrderController = OrderController;
@@ -74,12 +68,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], OrderController.prototype, "deleteOrderItem", null);
 __decorate([
-    (0, common_1.Post)('checkout'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('displayOrderByName?firstName:=firstName&LastName:=lastName'),
+    __param(0, (0, common_1.Query)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [CreateOrder_dto_1.CreateOrderDTO]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], OrderController.prototype, "checkout", null);
+], OrderController.prototype, "displayOrderByName", null);
 exports.OrderController = OrderController = __decorate([
     (0, common_1.Controller)('admin'),
     __metadata("design:paramtypes", [shared_service_1.SharedService,

@@ -16,6 +16,7 @@ exports.UserController = void 0;
 const common_1 = require("@nestjs/common");
 const shared_service_1 = require("../shared/shared.service");
 const user_service_1 = require("./user.service");
+const CreateOrder_dto_1 = require("./dto/CreateOrder.dto");
 let UserController = class UserController {
     constructor(shareService, userService) {
         this.shareService = shareService;
@@ -38,6 +39,17 @@ let UserController = class UserController {
         return this.shareService.displayProductByID(id);
     }
     async displayProductDiscount() {
+        return this.shareService.getDiscountedProducts();
+    }
+    async checkout(createOrderDTO) {
+        try {
+            return this.userService.checkout(createOrderDTO);
+        }
+        catch (error) {
+            throw new Error("something went wrong");
+        }
+    }
+    async displayDiscount() {
         return this.shareService.getDiscountedProducts();
     }
 };
@@ -83,6 +95,19 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductDiscount", null);
+__decorate([
+    (0, common_1.Post)('checkout'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [CreateOrder_dto_1.CreateOrderDTO]),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "checkout", null);
+__decorate([
+    (0, common_1.Get)('displayDiscount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "displayDiscount", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [shared_service_1.SharedService,

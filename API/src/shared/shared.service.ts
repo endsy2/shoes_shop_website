@@ -205,4 +205,40 @@ export class SharedService {
       await this.prisma.$disconnect();
     }
   }
+  async getOrderByCustomerName(firstName: string, lastName: string) {
+    try {
+      // Validate input
+      if (!firstName || !lastName) {
+        throw new Error("First name and last name are required.");
+      }
+  
+      // Find customer
+      const customer_row = await this.prisma.customer.findFirst({
+        where: { firstName, lastName } // ✅ Correct way
+      });
+  
+      if (!customer_row) {
+        throw new Error("Customer not found");
+      }
+  
+      // Find orders related to the customer
+      const orders = await this.prisma.order.findMany({
+        where: { customerId: customer_row.id },
+        include: {
+          orderitem: {  
+            include: {
+              productVariant: {
+                include: { product_fk: true }
+              }
+            }
+          }
+        }
+      });
+  
+      return orders;
+    } catch (error) {
+      console.error("Error fetching orders:", error);
+      throw new Error(`Something went wrong: ${error}`);
+    }
+  }
 }

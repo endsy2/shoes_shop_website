@@ -1,3 +1,4 @@
+import { log } from 'console';
 import { PrismaService } from './../../../prisma/prisma.service';
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
@@ -83,28 +84,5 @@ export class OrderService {
       throw new Error(`something went wrong ${error}`);
     }
   }
-  async checkout(createOrderDTO){
-    try{
-      const amount =0;
-      const {productVariant,quantity,price}=createOrderDTO.orderitem;
-      // const order=await this.prisma.order.create({
-      //   data:{
-      //     orderitem:{
-      //       create:{
-      //         quantity:1,
-      //         productVariantId:1
-      //       }
-      //     }
-      //   }
-      // });
-      // return order;
-      console.log(quantity);
-      console.log(productVariant);
-      console.log(price);
-      
-    }
-    catch(error){
-      throw new Error(`something went wrong ${error}`);
-  }
-}
+  
 }

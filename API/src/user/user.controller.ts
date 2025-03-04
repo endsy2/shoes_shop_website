@@ -4,11 +4,13 @@ import {
   Get,
   Param,
   ParseIntPipe,
+  Post,
   Query,
 } from '@nestjs/common';
 import { SharedService } from 'src/shared/shared.service';
 import { UserService } from './user.service';
 import { log } from 'console';
+import { CreateOrderDTO } from './dto/CreateOrder.dto';
 
 @Controller('user')
 export class UserController {
@@ -49,5 +51,18 @@ export class UserController {
   async displayProductDiscount(){
     return this.shareService.getDiscountedProducts();
   }
+  @Post('checkout')
+  async checkout(@Body() createOrderDTO:CreateOrderDTO){
+    try {
+        return this.userService.checkout(createOrderDTO)        
+    } catch (error) {
+        throw new Error("something went wrong");
+    }
+  }
+  @Get('displayDiscount')
+    async displayDiscount() {
+        return this.shareService.getDiscountedProducts();
+    }
+  
 }
 

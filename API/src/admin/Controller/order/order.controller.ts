@@ -1,8 +1,7 @@
-import { Body, Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { OrderService } from 'src/admin/service/order/order.service';
 import { ProductService } from 'src/admin/service/product/product.service';
 import { SharedService } from 'src/shared/shared.service';
-import {  CreateOrderDTO } from './dto/CreateOrder.dto';
 
 @Controller('admin')
 export class OrderController {
@@ -28,13 +27,11 @@ export class OrderController {
   async deleteOrderItem(@Param('id',ParseIntPipe)id :number) {
     return this.orderService.deleteOrderItems(id);
   }
-  @Post('checkout')
-  async checkout(@Body() createOrderDTO:CreateOrderDTO){
-    try {
-        return this.orderService.checkout(createOrderDTO)
-    } catch (error) {
-        throw new Error("something went wrong");
-    }
+  @Get('displayOrderByName?firstName:=firstName&LastName:=lastName')
+  async displayOrderByName(@Query() firstName:string,LastName:string) {
+    console.log(firstName,LastName);
+    
+    // return this.sharedService.getOrderByCustomerName(firstName,LastName);
   }
  
 }

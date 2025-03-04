@@ -9,16 +9,16 @@ export declare class DiscountController {
     displayDiscount(): Promise<({
         product_fk: {
             id: number;
-            createdAt: Date;
             name: string;
             brandId: number;
             categoryId: number;
+            createdAt: Date;
             Description: string;
         };
         discount: {
             id: number;
-            createdAt: Date;
             name: string;
+            createdAt: Date;
             productVariantId: number | null;
             description: string | null;
             discountType: import(".prisma/client").$Enums.discount_discountType;

@@ -98,18 +98,6 @@ let OrderService = class OrderService {
             throw new Error(`something went wrong ${error}`);
         }
     }
-    async checkout(createOrderDTO) {
-        try {
-            const amount = 0;
-            const { productVariant, quantity, price } = createOrderDTO.orderitem;
-            console.log(quantity);
-            console.log(productVariant);
-            console.log(price);
-        }
-        catch (error) {
-            throw new Error(`something went wrong ${error}`);
-        }
-    }
 };
 exports.OrderService = OrderService;
 exports.OrderService = OrderService = __decorate([

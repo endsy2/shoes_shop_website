@@ -1,7 +1,6 @@
 import { OrderService } from 'src/admin/service/order/order.service';
 import { ProductService } from 'src/admin/service/product/product.service';
 import { SharedService } from 'src/shared/shared.service';
-import { CreateOrderDTO } from './dto/CreateOrder.dto';
 export declare class OrderController {
     private readonly sharedService;
     private readonly orderService;
@@ -108,5 +107,5 @@ export declare class OrderController {
     deleteOrderItem(id: number): Promise<{
         message: string;
     }>;
-    checkout(createOrderDTO: CreateOrderDTO): Promise<void>;
+    displayOrderByName(firstName: string, LastName: string): Promise<void>;
 }
