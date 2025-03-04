@@ -22,8 +22,10 @@ let UserController = class UserController {
         this.userService = userService;
     }
     async displayAllProduct() {
+        return this.shareService.displayProduct();
     }
     async displayProductByName(name) {
+        return this.shareService.displayProductByName({ name });
     }
     async displayProductByCategory(category) {
         return this.shareService.getProductByCategory({ categoryName: category });
@@ -33,6 +35,10 @@ let UserController = class UserController {
         return this.shareService.getSortPrice({ max, min });
     }
     async displayProductByID(id) {
+        return this.shareService.displayProductByID(id);
+    }
+    async displayProductDiscount() {
+        return this.shareService.getDiscountedProducts();
     }
 };
 exports.UserController = UserController;
@@ -71,6 +77,12 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductByID", null);
+__decorate([
+    (0, common_1.Get)("displayProductDiscount"),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "displayProductDiscount", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [shared_service_1.SharedService,

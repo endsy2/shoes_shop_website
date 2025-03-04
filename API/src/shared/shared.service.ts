@@ -181,16 +181,28 @@ export class SharedService {
     }
   }
 
-  // async getDiscount() {
-  //   return this.prisma.discount.findMany({
-  //     include: {
-  //       product: {
-  //         include: {
-  //           category: true,
-  //           brand: true,
-  //         },
-  //       },
-  //     },
-  //   });
-  // }
+  async  getDiscountedProducts() {
+    try {
+      const productsWithDiscounts = await this.prisma.productVariants.findMany({
+        where: {
+          discount: {
+            some: {
+              startDate: { lte: new Date() },  // Discount should have started
+              endDate: { gte: new Date() }    // Discount should still be valid
+            }
+          }
+        },
+        include: {
+          product_fk: true,  // Include the related product
+          discount: true     // Include discount details
+        }
+      });
+  
+     return productsWithDiscounts;
+    } catch (error) {
+      console.error('Error fetching discounted products:', error);
+    } finally {
+      await this.prisma.$disconnect();
+    }
+  }
 }

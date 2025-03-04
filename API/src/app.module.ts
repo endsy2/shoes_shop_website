@@ -5,6 +5,9 @@ import { PrismaModule } from './prisma/prisma.module';
 import { SharedModule } from './shared/shared.module';
 import { MulterModule } from '@nestjs/platform-express';
 import multer from 'multer';
+import { DiscountController } from './admin/Controller/discount/discount.controller';
+import { OrderController } from './admin/Controller/order/order.controller';
+import { ProductController } from './admin/Controller/product/product.controller';
 
 @Module({
   imports: [

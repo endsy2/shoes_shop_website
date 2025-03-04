@@ -26,17 +26,17 @@ export declare class OrderService {
                 };
             } & {
                 id: number;
-                price: number;
+                productId: number;
                 color: string;
                 size: string;
-                productId: number;
+                price: number;
             };
         } & {
             id: number;
             createdAt: Date;
+            orderId: number;
             productVariantId: number;
             quantity: number;
-            orderId: number;
             amount: number;
         })[];
     } & {
@@ -50,6 +50,13 @@ export declare class OrderService {
         orderitem: ({
             productVariant: {
                 product_fk: {
+                    productVariants: {
+                        id: number;
+                        productId: number;
+                        color: string;
+                        size: string;
+                        price: number;
+                    }[];
                     brand: {
                         id: number;
                         createdAt: Date;
@@ -60,13 +67,6 @@ export declare class OrderService {
                         id: number;
                         name: string;
                     };
-                    productVariants: {
-                        id: number;
-                        price: number;
-                        color: string;
-                        size: string;
-                        productId: number;
-                    }[];
                 } & {
                     id: number;
                     createdAt: Date;
@@ -77,17 +77,17 @@ export declare class OrderService {
                 };
             } & {
                 id: number;
-                price: number;
+                productId: number;
                 color: string;
                 size: string;
-                productId: number;
+                price: number;
             };
         } & {
             id: number;
             createdAt: Date;
+            orderId: number;
             productVariantId: number;
             quantity: number;
-            orderId: number;
             amount: number;
         })[];
     } & {
@@ -97,4 +97,11 @@ export declare class OrderService {
         customerId: number;
         createdAt: Date;
     }>;
+    deleteOrder(id: any): Promise<{
+        message: string;
+    }>;
+    deleteOrderItems(id: any): Promise<{
+        message: string;
+    }>;
+    checkout(createOrderDTO: any): Promise<void>;
 }

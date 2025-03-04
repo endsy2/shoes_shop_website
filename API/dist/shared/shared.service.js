@@ -171,6 +171,31 @@ let SharedService = class SharedService {
             throw error;
         }
     }
+    async getDiscountedProducts() {
+        try {
+            const productsWithDiscounts = await this.prisma.productVariants.findMany({
+                where: {
+                    discount: {
+                        some: {
+                            startDate: { lte: new Date() },
+                            endDate: { gte: new Date() }
+                        }
+                    }
+                },
+                include: {
+                    product_fk: true,
+                    discount: true
+                }
+            });
+            return productsWithDiscounts;
+        }
+        catch (error) {
+            console.error('Error fetching discounted products:', error);
+        }
+        finally {
+            await this.prisma.$disconnect();
+        }
+    }
 };
 exports.SharedService = SharedService;
 exports.SharedService = SharedService = __decorate([
