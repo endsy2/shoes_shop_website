@@ -7,6 +7,8 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class UserService {
   constructor(private readonly prisma: PrismaService) { }
 
+
+  
   async checkout(createOrderDTO) {
     try {
       // Calculate total amount

@@ -8,6 +8,8 @@ import multer from 'multer';
 import { DiscountController } from './admin/Controller/discount/discount.controller';
 import { OrderController } from './admin/Controller/order/order.controller';
 import { ProductController } from './admin/Controller/product/product.controller';
+import { AuthModule } from './auth/auth.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -24,6 +26,8 @@ import { ProductController } from './admin/Controller/product/product.controller
     }),
 
     PrismaModule,
+
+    AuthModule,
   ],
 })
 export class AppModule {}
