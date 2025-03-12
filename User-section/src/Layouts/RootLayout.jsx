@@ -21,13 +21,13 @@ const RootLayout = () => {
 
   return (
     <div
-      className={`px-2 sm:px-16 lg:px-28 min-h-screen flex flex-col ${theme ? "bg-black text-white" : "bg-white text-black"}`}
+      className={` min-h-screen flex flex-col ${theme ? "bg-black text-white" : "bg-white text-black"}`}
     >
-      <nav>
+      <nav className="px-2 sm:px-16 lg:px-28">
         <NavBar />
       </nav>
       <main
-        className={`flex-1 max-w-full    ${stateTabCart ? "opacity-50 pointer-events-none" : ""}`}
+        className={`flex-1 max-w-full px-2 sm:px-16 lg:px-28    ${stateTabCart ? "opacity-50 pointer-events-none" : ""}`}
       >
         <Outlet />
       </main>

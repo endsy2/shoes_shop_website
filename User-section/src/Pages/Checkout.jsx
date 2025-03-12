@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { productCart } from "../Constants";
@@ -33,11 +32,11 @@ const Checkout = () => {
         <>
             {token ? (
                 <div className="mt-7 w-full">
-                    <h1 className="text-head mb-10 text-center text-primary">Check Out</h1>
+                    <h1 className="text-head mb-10 text-center text-black">Check Out</h1>
                     <div className="grid grid-cols-1 xl:grid-cols-2 gap-10 mx-10">
                         {/* Contact and Delivery Information */}
-                        <section className="border-2 opacity-90 dark:border-white border-primary px-14 py-10 rounded-xl">
-                            <h1 className="text-simple text-lg font-bold text-primary-600">
+                        <section className="border-2 opacity-90 dark:border-white border-black px-14 py-10 rounded-xl">
+                            <h1 className="text-simple text-lg font-bold text-black">
                                 1. Contact Information
                             </h1>
                             <form
@@ -45,22 +44,22 @@ const Checkout = () => {
                                 onSubmit={handleSubmit}
                             >
                                 <div className="flex flex-col items-start space-y-4">
-                                    <label className="text-simple font-OpenSans text-lg dark:text-white text-primary-600">
+                                    <label className="text-simple font-OpenSans text-lg dark:text-white text-black">
                                         Your Number
                                     </label>
                                     <input
-                                        className="p-3 text-primary-600 placeholder:text-primary-600 px-6 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
+                                        className="p-3 text-black placeholder:text-black px-6 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
                                         type="text"
                                         placeholder="Enter your number"
                                         required
                                     />
                                 </div>
                                 <div className="flex flex-col items-start space-y-4">
-                                    <label className="text-simple font-OpenSans text-lg dark:text-white text-primary-600">
+                                    <label className="text-simple font-OpenSans text-lg dark:text-white text-black">
                                         Your Address
                                     </label>
                                     <input
-                                        className="p-3 px-6 text-primary-600 placeholder:text-primary-600 font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
+                                        className="p-3 px-6 text-black placeholder:text-black font-OpenSans border-2 border-primary rounded-xl  focus:outline-none focus:ring-2 focus:ring-blue-400 hover:border-blue-500 transition-all duration-300 shadow-md"
                                         type="text"
                                         placeholder="Enter your address"
                                         required
@@ -68,7 +67,7 @@ const Checkout = () => {
                                 </div>
                             </form>
                             <div className="flex flex-col mt-5">
-                                <label className="text-simple text-lg font-bold text-primary-600">
+                                <label className="text-simple text-lg font-bold text-black">
                                     2. Delivery Method
                                 </label>
                                 <div className="flex gap-10 justify-between mt-8 ">
@@ -89,43 +88,40 @@ const Checkout = () => {
                                 </div>
                                 <button
                                     onClick={handleSubmit}
-                                    className="my-10 mt-16 bg-primary h-14 rounded-xl font-bold text-white hover:bg-primary-600 transition-all"
+                                    className="my-10 mt-16 bg-black h-14 rounded-xl font-bold text-white hover:bg-primary-600 hover:text-black transition-all"
                                 >
                                     PURCHASE NOW
                                 </button>
                             </div>
                         </section>
                         {/* Cart Items */}
-                        <section className="flex flex-col border-2 dark:border-white border-primary-600 rounded-lg ">
-                            <div className="grid grid-cols-4 px-3 border-b-2 border-primary-600 dark:border-white p-3 ">
-                                <h1 className="col-span-2 dark:text-primary-600">Product Name</h1>
-                                <h1 className="text-primary-600">Quantity</h1>
-                                <h1 className="text-center text-primary-600 pr-16">Price</h1>
+                        <section className="flex flex-col border-2 dark:border-white border-black rounded-lg ">
+                            <div className="grid grid-cols-4 px-3 border-b-2 border-black dark:border-white p-3 ">
+                                <h1 className="col-span-2 dark:text-black">Product Name</h1>
+                                <h1 className="text-black">Quantity</h1>
+                                <h1 className="text-center text-black pr-16">Price</h1>
                             </div>
                             <div>
                                 {filteredData.length > 0 ? (
                                     filteredData.map((product, index) => (
                                         <div
                                             key={product.id}
-                                            className="grid grid-cols-4 border-b-2 border-primary-600 p-4 mb-4 rounded shadow text-white "
+                                            className="grid grid-cols-4 border-b-2 border-black p-4 mb-4 rounded shadow text-white "
                                         >   <div className=" flex justify-start items-center col-span-2 gap-5">
                                                 <img src={product.pic} className="w-10 rounded-lg" />
-                                                <span className="text-primary-600">{product.name}</span>
+                                                <span className="text-black">{product.name}</span>
                                             </div>
                                             <div className="flex justify-start pl-6 items-center">
-                                                <p className="text-primary-600"> {cart[index].quantity}</p>
-
+                                                <p className="text-black"> {cart[index].quantity}</p>
                                             </div>
                                             <div className="flex justify-center items-center">
-                                                <p className=" text-primary-600  pr-10">{product.price}$</p>
-                                                <MdDeleteForever className="text-primary-600 text-xl" onClick={() => handleRemove({ productId: product.id })} />
+                                                <p className=" text-black pr-10">{product.price}$</p>
+                                                <MdDeleteForever className="text-black text-xl" onClick={() => handleRemove({ productId: product.id })} />
                                             </div>
-
                                         </div>
                                     ))
-
                                 ) : (
-                                    <p className="text-white text-primary-600">Your cart is empty.</p>
+                                    <p className=" text-black text-center mt-28">Your cart is empty.</p>
                                 )}
                             </div>
                         </section>

@@ -27,14 +27,15 @@ const Detail = () => {
                 {detail ? <DetailPic detail={detail} /> : <p>Loading...</p>}
             </section>
 
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 pl-14 gap-16">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-14 gap-16">
                 {productCart.map((element, index) => (
-                    <ShoesCard shoesData={element} key={index} />
+                    <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.pic} key={index} />
                 ))}
             </section>
 
         </main>
     );
+
 };
 
 export default Detail;

@@ -6,7 +6,7 @@ const Sliders = () => {
             className=''
             style={{
                 backgroundImage: `url(${slider1})`, backgroundSize: 'cover',
-                backgroundPosition: 'center', width: '100%', height: '450px',
+                backgroundPosition: 'center', width: '100%', height: '570px',
                 display: 'flex',
                 alignItems: 'center'
             }}>

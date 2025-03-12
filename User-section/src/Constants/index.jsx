@@ -1,13 +1,15 @@
 
+import { FaHeart, FaPhoneAlt, FaShoppingCart } from 'react-icons/fa';
 import { addToCartIcon, addToFavoriteIcon, logo, pic1, pic2, pic3, pic4, pic5, facebook, instagram, telegram, twitter, call, mail, mailBlack, callBlack, slider4, slider3, logoNike } from '../assets';
+import { MdEmail } from 'react-icons/md';
 
 export const nav_link = [
     { href: "Login", label: "Login" },
     { href: "Register", label: "Register" },
 ]
 export const nav_icon = [
-    { href: "Add-to-card", img: addToCartIcon, label: 'AddToCart' },
-    { href: "Add-to-favorite", img: addToFavoriteIcon, label: 'AddToFavorite' },
+    { href: "Add-to-card", img: <FaShoppingCart />, label: 'AddToCart' },
+    { href: "Add-to-favorite", img: <FaHeart />, label: 'AddToFavorite' },
 ]
 export const menubar = [
     { label: 'Brand', items: ['Nike', 'Adidas', 'Puma', 'Reebok'] },
@@ -245,8 +247,8 @@ export const footerInfo = [
         header: "Contect", body: [
             {
                 detail: [],
-                img: [{ img: call, detail: "1231231", imgBlack: callBlack },
-                { img: mail, detail: "ShoesStore@gamail.com", imgBlack: mailBlack },
+                img: [{ img: <FaPhoneAlt />, detail: "1231231", imgBlack: callBlack },
+                { img: <MdEmail />, detail: "ShoesStore@gamail.com", imgBlack: mailBlack },
                 ]
             }]
     },

@@ -23,10 +23,12 @@ export default {
       ...colors,
       primary: {
         DEFAULT: ' #EFEAE7',
-        600: '#EFEAE7',
-        700: '#EFEAE7'
+        600: '#e5ddd8',
+        700: '#e5ddd8',
+        800: '#dbcfc8',
+        900: '#d0c2b9',
       },
-      lightGray: '#5F5F60',
+      lightGray: '#858585',
     }
   },
   plugins: [],

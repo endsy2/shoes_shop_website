@@ -39,12 +39,12 @@ const AddToCart = () => {
       transform transition-transform duration-500
       ${statusTab === false ? 'translate-x-full' : ''}`}
     >
-      <h2 className="p-5 dark:text-white text-2xl text-primary-600">Shopping Cart</h2>
+      <h2 className="p-5 dark:text-white text-2xl text-black">Shopping Cart</h2>
       <div className="p-5 overflow-y-auto">
         {carts.length > 0 ? (
           carts.map((item) => <CartItem key={item.productId} product={item} />)
         ) : (
-          <p className="text-center text-white">Your cart is empty</p>
+          <p className="text-center text-black">Your cart is empty</p>
         )}
       </div>
       <div className="grid grid-cols-2">
@@ -52,7 +52,7 @@ const AddToCart = () => {
           CLOSE
         </button>
         <Link
-          className="bg-primary text-white py-2 flex justify-center items-center"
+          className="bg-primary text-black py-2 flex justify-center items-center"
           to="/checkout"
           onClick={handleCloseTabCart}
         >

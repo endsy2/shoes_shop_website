@@ -44,7 +44,7 @@ const Home = () => {
           slidesToScroll: 1,
           infinite: true,
           // dots: true,
-          arrows: false, // Optional: hide arrows on small screens
+          arrows: true, // Optional: hide arrows on small screens
         }
       },
       {
@@ -54,7 +54,7 @@ const Home = () => {
           slidesToScroll: 1,
           infinite: true,
           // dots: true,
-          arrows: false, // Optional: hide arrows on small screens
+          arrows: true, // Optional: hide arrows on small screens
         }
       },
       {
@@ -64,7 +64,7 @@ const Home = () => {
           slidesToScroll: 1,
           infinite: true,
           // dots: true,
-          arrows: false
+          arrows: true
         }
       },
       {
@@ -74,7 +74,7 @@ const Home = () => {
           slidesToScroll: 1,
           infinite: true,
           // dots: true,
-          arrows: false
+          arrows: true
         }
       }
     ]
@@ -87,12 +87,12 @@ const Home = () => {
       </section>
       <div className="flex flex-col mt-8">
         <h2 className="text-xl font-bold ">New Arrivals</h2>
-        <div className="slider-container w-full max-w-7xl  overflow-hidden relative">
+        <div className="slider-container w-full max-w-full  overflow-hidden relative">
           <section className="py-4 ">
             <Slider key={windowWidth} {...settings}>
               {productCart.map((element, index) => (
                 <div key={index} className="py-3">
-                  <ShoesCard productName={element.name} productPrice={element.price} productImage={element.pic} />
+                  <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.pic} />
                 </div>
               ))}
             </Slider>
@@ -104,12 +104,12 @@ const Home = () => {
       </section>
       <div className="flex flex-col mt-8">
         <h2 className="text-xl font-bold ">Trending Sneaker</h2>
-        <div className="slider-container w-full max-w-7xl  overflow-hidden relative">
+        <div className="slider-container w-full max-w-full  overflow-hidden relative">
           <section className="py-4 ">
             <Slider key={windowWidth} {...settings}>
-              {productCart.map((element, index) => (
-                <div key={index} className="py-3">
-                  <ShoesCard productName={element.name} productPrice={element.price} productImage={element.pic} />
+              {productCart.map((element) => (
+                <div key={element.id} className="py-3">
+                  <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.pic} />
                 </div>
               ))}
             </Slider>
@@ -118,13 +118,15 @@ const Home = () => {
       </div>
       <section className="pt-5">
         <h1 className="text-xl font-bold ">Our Trending Brand</h1>
-        <Slider key={windowWidth} {...settings}>
-          {logoBrand.map((element, index) => (
-            <div key={index} className="py-14 px-2 hover:scale-105 transition-transform duration-300 ">
-              <div className="flex justify-center items-center px-5 py-10 rounded-xl bg-gray-100"><img src={element} alt="" /></div>
-            </div>
-          ))}
-        </Slider>
+        <div className="slider-container w-full max-w-full py-10  overflow-hidden relative">
+          <Slider key={windowWidth} {...settings}>
+            {logoBrand.map((element, index) => (
+              <div key={index} className="py-14 px-2 hover:scale-105 transition-transform duration-300 ">
+                <div className="flex justify-center items-center px-5 py-10 rounded-xl bg-gray-100"><img src={element} alt="" /></div>
+              </div>
+            ))}
+          </Slider>
+        </div>
       </section>
     </main>
   );

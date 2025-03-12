@@ -1,16 +1,21 @@
 import { Link, useLocation } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart, toggleStatusTab } from "../store/cart";
-import { removeFromFavorite } from "../store/favorite";
-import { useContext, useState } from "react";
+import { addToFavorite, removeFromFavorite } from "../store/favorite.js";
+import { useContext } from "react";
 import { ThemeContext } from "../Context/ThemeContext";
-import { addToCartIcon, addToCartIconBlack } from "../assets";
+import { MdFavorite, MdFavoriteBorder } from "react-icons/md"; // Import outlined version
 
 const ShoesCard = ({ productName, productPrice, productImage, productId }) => {
   const dispatch = useDispatch();
   const location = useLocation();
   const theme = useContext(ThemeContext);
-  const [hover, setHover] = useState(false);
+
+  // Get favorite list from Redux
+  const favoriteList = useSelector((state) => state.favorite.favorite);
+
+  // Check if this product is already in favorites
+  const isFavorited = favoriteList.some((item) => item.productId === productId); // Ensure correct property
 
   const handleAddToCart = () => {
     dispatch(
@@ -23,49 +28,63 @@ const ShoesCard = ({ productName, productPrice, productImage, productId }) => {
     dispatch(toggleStatusTab());
   };
 
-  const handleRemove = () => {
-    dispatch(removeFromFavorite({ productId }));
+  const handleFavoriteToggle = (e) => {
+    e.preventDefault(); // Prevents the link from redirecting
+    if (isFavorited) {
+      dispatch(removeFromFavorite({ productId })); // Ensure correct property
+    } else {
+      dispatch(addToFavorite({ productId, productName, productImage, productPrice }));
+    }
+  };
+
+  const handleRemove = (e) => {
+    e.preventDefault();
+    console.log(productId);
+
+    dispatch(removeFromFavorite({ productId })); // Ensure correct property
   };
 
   return (
     <div className="container mt-10 px-1">
-      <div className="relative border-2 border-gray-300 dark:border-gray-700 overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105">
+      <div className="relative border-2 border-gray-300 dark:border-gray-700 overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 group">
         <Link to={`/product/${productId}`}>
           <div className="w-full bg-gray-50 dark:bg-gray-900">
             {/* Image Section */}
-            <div className="relative w-full h-60">
-              <img
-                src={productImage}
-                alt={productName}
-                className="w-full h-full object-cover rounded-t-lg"
-              />
+            <div
+              style={{ backgroundImage: `url(${productImage})` }}
+              className="relative w-full h-60 bg-cover bg-center flex flex-col justify-between rounded-lg shadow-md overflow-hidden group"
+            >
+              {/* Favorite Button - Toggle on Click */}
+              {location.pathname !== "/Add-to-favorite" ? (
+                <button
+                  onClick={handleFavoriteToggle}
+                  className={`absolute top-3 right-3 text-2xl p-2 rounded-full shadow-lg transition-all duration-300 
+                  bg-white text-lightGray hover:bg-white hover:text-black opacity-0 group-hover:opacity-100`}
+                >
+                  {isFavorited ? <MdFavorite className="text-red-500" /> : <MdFavoriteBorder />}
+                </button>
+              ) : (
+                <div></div>
+              )}
+
+              {/* Add To Cart Button */}
+              <button
+                onClick={handleAddToCart}
+                className="absolute bottom-0 left-0 w-full bg-primary text-black font-semibold py-2 rounded-md transition-all duration-300 transform translate-y-full group-hover:translate-y-0"
+              >
+                Add To Cart
+              </button>
             </div>
 
             {/* Content Section */}
             <div className="p-4 text-center bg-white dark:bg-gray-900">
-              {/* Shoe Name */}
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{productName}</h3>
-
-              {/* Price */}
               <p className="text-md font-bold text-gray-600 dark:text-gray-300 mt-3">${productPrice}</p>
             </div>
           </div>
         </Link>
 
-        {/* Buttons Section */}
-        {/* <div className="flex justify-center p-4">
-          <button
-            className="flex items-center gap-2 px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg transition-all duration-300 hover:bg-blue-700"
-            onClick={handleAddToCart}
-            onMouseEnter={() => setHover(true)}
-            onMouseLeave={() => setHover(false)}
-          >
-            Add To Cart
-            <img src={hover ? addToCartIcon : addToCartIconBlack} className="w-6" alt="Cart Icon" />
-          </button>
-        </div> */}
-
-        {/* Remove Favorite Button */}
+        {/* Remove Favorite Button - Only if on "Add-to-favorite" Page */}
         {location.pathname === "/Add-to-favorite" && (
           <button
             className="absolute top-3 right-3 bg-red-500 text-white text-sm font-bold rounded-full px-2 py-1 hover:bg-red-600 transition"
