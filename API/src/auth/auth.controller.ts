@@ -1,28 +1,41 @@
-import { Body, Controller, Post, Request, UseGuards } from '@nestjs/common';
-import { CreateUserDto } from '../users/dto/create-user.dto';
-import { UsersService } from '../users/users.service';
+import { PassportJwtGuard } from './guards/auth/passport-jwt.guard';
 import { AuthService } from './auth.service';
-import { Public } from './decorators/public.decorator';
-import { LocalAuthGuard } from './guards/local-auth.guard';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpStatus,
+  NotImplementedException,
+  Post,
+  Request,
+  UseGuards,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    private authService: AuthService,
-    private usersService: UsersService,
-  ) {}
+  constructor(private authService: AuthService) { }
 
-  @Public()
-  @UseGuards(LocalAuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @UsePipes(ValidationPipe)
+  @UseGuards(PassportJwtGuard)
   @Post('login')
-  async login(@Request() req: Express.Request) {
-    return this.authService.login(req.user);
+  login(@Request() request) {
+    return this.authService.signIn(request.user);
+  }
+  @HttpCode(HttpStatus.OK)
+  @Post('signUp')
+  signUp(@Body() input: { username: string; password: string }) {
+    return this.authService.signUp();
   }
 
-  @Public()
-  @Post('register')
-  async register(@Body() body: CreateUserDto) {
-    const user = await this.usersService.create(body);
-    return user;
+  @UseGuards(AuthGuard)
+  @Get('me')
+  getUserInto(@Request() request) {
+    // throw new NotImplementedException();
+    return request.user;
   }
 }

@@ -9,7 +9,7 @@ import { DiscountController } from './admin/Controller/discount/discount.control
 import { OrderController } from './admin/Controller/order/order.controller';
 import { ProductController } from './admin/Controller/product/product.controller';
 import { AuthModule } from './auth/auth.module';
-import { AuthModule } from './auth/auth.module';
+// import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -30,4 +30,4 @@ import { AuthModule } from './auth/auth.module';
     AuthModule,
   ],
 })
-export class AppModule {}
+export class AppModule { }

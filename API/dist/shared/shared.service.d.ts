@@ -4,170 +4,170 @@ export declare class SharedService {
     constructor(prisma: PrismaService);
     displayProduct(): Promise<({
         brand: {
-            id: number;
             name: string;
-            createdAt: Date;
+            id: number;
             imageUrl: string;
+            createdAt: Date;
         };
         productVariants: ({
-            productimage: {
-                id: number;
-                createdAt: Date;
-                imageUrl: string;
-                productVariantId: number;
-            }[];
             discount: {
-                id: number;
+                value: number;
                 name: string;
+                description: string | null;
+                id: number;
                 createdAt: Date;
                 productVariantId: number | null;
-                description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
                 startDate: Date;
                 endDate: Date;
             }[];
+            productimage: {
+                id: number;
+                imageUrl: string;
+                createdAt: Date;
+                productVariantId: number;
+            }[];
         } & {
+            color: string;
+            price: number;
+            size: string;
             id: number;
             productId: number;
-            color: string;
-            size: string;
-            price: number;
         })[];
     } & {
-        id: number;
         name: string;
+        id: number;
+        createdAt: Date;
         brandId: number;
         categoryId: number;
-        createdAt: Date;
         Description: string;
     })[]>;
     displayProductByID(id: number): Promise<{
         brand: {
-            id: number;
             name: string;
-            createdAt: Date;
+            id: number;
             imageUrl: string;
+            createdAt: Date;
         };
         productVariants: ({
-            productimage: {
-                id: number;
-                createdAt: Date;
-                imageUrl: string;
-                productVariantId: number;
-            }[];
             discount: {
-                id: number;
+                value: number;
                 name: string;
+                description: string | null;
+                id: number;
                 createdAt: Date;
                 productVariantId: number | null;
-                description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
                 startDate: Date;
                 endDate: Date;
             }[];
+            productimage: {
+                id: number;
+                imageUrl: string;
+                createdAt: Date;
+                productVariantId: number;
+            }[];
         } & {
+            color: string;
+            price: number;
+            size: string;
             id: number;
             productId: number;
-            color: string;
-            size: string;
-            price: number;
         })[];
     } & {
-        id: number;
         name: string;
+        id: number;
+        createdAt: Date;
         brandId: number;
         categoryId: number;
-        createdAt: Date;
         Description: string;
     }>;
     displayProductByName({ name }: {
         name: any;
     }): Promise<({
         brand: {
-            id: number;
             name: string;
-            createdAt: Date;
+            id: number;
             imageUrl: string;
+            createdAt: Date;
         };
         productVariants: ({
-            productimage: {
-                id: number;
-                createdAt: Date;
-                imageUrl: string;
-                productVariantId: number;
-            }[];
             discount: {
-                id: number;
+                value: number;
                 name: string;
+                description: string | null;
+                id: number;
                 createdAt: Date;
                 productVariantId: number | null;
-                description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
                 startDate: Date;
                 endDate: Date;
             }[];
+            productimage: {
+                id: number;
+                imageUrl: string;
+                createdAt: Date;
+                productVariantId: number;
+            }[];
         } & {
+            color: string;
+            price: number;
+            size: string;
             id: number;
             productId: number;
-            color: string;
-            size: string;
-            price: number;
         })[];
     } & {
-        id: number;
         name: string;
+        id: number;
+        createdAt: Date;
         brandId: number;
         categoryId: number;
-        createdAt: Date;
         Description: string;
     })[]>;
     getCategory(): Promise<{
-        id: number;
         name: string;
+        id: number;
     }[]>;
     getProductByCategory({ categoryName }: {
         categoryName: any;
     }): Promise<({
         brand: {
-            id: number;
             name: string;
-            createdAt: Date;
+            id: number;
             imageUrl: string;
+            createdAt: Date;
         };
         productVariants: ({
-            productimage: {
-                id: number;
-                createdAt: Date;
-                imageUrl: string;
-                productVariantId: number;
-            }[];
             discount: {
-                id: number;
+                value: number;
                 name: string;
+                description: string | null;
+                id: number;
                 createdAt: Date;
                 productVariantId: number | null;
-                description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
                 startDate: Date;
                 endDate: Date;
             }[];
+            productimage: {
+                id: number;
+                imageUrl: string;
+                createdAt: Date;
+                productVariantId: number;
+            }[];
         } & {
+            color: string;
+            price: number;
+            size: string;
             id: number;
             productId: number;
-            color: string;
-            size: string;
-            price: number;
         })[];
     } & {
-        id: number;
         name: string;
+        id: number;
+        createdAt: Date;
         brandId: number;
         categoryId: number;
-        createdAt: Date;
         Description: string;
     })[]>;
     getSortPrice({ min, max }: {
@@ -177,81 +177,81 @@ export declare class SharedService {
         finalPrice: any;
         productVariants: ({
             discount: {
-                id: number;
+                value: number;
                 name: string;
+                description: string | null;
+                id: number;
                 createdAt: Date;
                 productVariantId: number | null;
-                description: string | null;
                 discountType: import(".prisma/client").$Enums.discount_discountType;
-                value: number;
                 startDate: Date;
                 endDate: Date;
             }[];
         } & {
+            color: string;
+            price: number;
+            size: string;
             id: number;
             productId: number;
-            color: string;
-            size: string;
-            price: number;
         })[];
-        id: number;
         name: string;
+        id: number;
+        createdAt: Date;
         brandId: number;
         categoryId: number;
-        createdAt: Date;
         Description: string;
     }[]>;
     getDiscountedProducts(): Promise<({
-        product_fk: {
-            id: number;
-            name: string;
-            brandId: number;
-            categoryId: number;
-            createdAt: Date;
-            Description: string;
-        };
         discount: {
-            id: number;
+            value: number;
             name: string;
+            description: string | null;
+            id: number;
             createdAt: Date;
             productVariantId: number | null;
-            description: string | null;
             discountType: import(".prisma/client").$Enums.discount_discountType;
-            value: number;
             startDate: Date;
             endDate: Date;
         }[];
+        product_fk: {
+            name: string;
+            id: number;
+            createdAt: Date;
+            brandId: number;
+            categoryId: number;
+            Description: string;
+        };
     } & {
+        color: string;
+        price: number;
+        size: string;
         id: number;
         productId: number;
-        color: string;
-        size: string;
-        price: number;
     })[]>;
     getOrderByCustomerName(firstName: string, lastName: string): Promise<({
         orderitem: ({
             productVariant: {
                 product_fk: {
-                    id: number;
                     name: string;
+                    id: number;
+                    createdAt: Date;
                     brandId: number;
                     categoryId: number;
-                    createdAt: Date;
                     Description: string;
                 };
             } & {
+                color: string;
+                price: number;
+                size: string;
                 id: number;
                 productId: number;
-                color: string;
-                size: string;
-                price: number;
             };
         } & {
             id: number;
             createdAt: Date;
             productVariantId: number;
-            orderId: number;
             quantity: number;
+            orderId: number;
             amount: number;
         })[];
     } & {

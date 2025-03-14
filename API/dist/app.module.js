@@ -17,6 +17,7 @@ const prisma_module_1 = require("./prisma/prisma.module");
 const shared_module_1 = require("./shared/shared.module");
 const platform_express_1 = require("@nestjs/platform-express");
 const multer_1 = __importDefault(require("multer"));
+const auth_module_1 = require("./auth/auth.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -35,6 +36,7 @@ exports.AppModule = AppModule = __decorate([
                 }),
             }),
             prisma_module_1.PrismaModule,
+            auth_module_1.AuthModule,
         ],
     })
 ], AppModule);

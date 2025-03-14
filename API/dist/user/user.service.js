@@ -12,13 +12,25 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserService = void 0;
 const common_1 = require("@nestjs/common");
 const prisma_service_1 = require("../prisma/prisma.service");
+const users = [
+    {
+        userId: 1,
+        username: 'test1',
+        password: '123',
+    },
+    {
+        userId: 2,
+        username: 'test2',
+        password: '123',
+    },
+];
 let UserService = class UserService {
     constructor(prisma) {
         this.prisma = prisma;
     }
     async checkout(createOrderDTO) {
         try {
-            let totalAmount = createOrderDTO.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const totalAmount = createOrderDTO.orderItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
             console.log(`Total Amount: ${totalAmount}`);
             const insertOrder = await this.prisma.order.create({
                 data: {
@@ -34,12 +46,15 @@ let UserService = class UserService {
                     amount: item.price * item.quantity,
                 })),
             });
-            return { message: "Order placed successfully" };
+            return { message: 'Order placed successfully' };
         }
         catch (error) {
-            console.error("Checkout Error:", error);
+            console.error('Checkout Error:', error);
             throw new Error(`Something went wrong: ${error}`);
         }
+    }
+    async findUserByName(username) {
+        return users.find((user) => user.username === username);
     }
 };
 exports.UserService = UserService;
