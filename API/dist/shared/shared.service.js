@@ -23,7 +23,7 @@ let SharedService = class SharedService {
                 productVariants: {
                     include: {
                         discount: true,
-                        productimage: true
+                        productimage: true,
                     },
                 },
             },
@@ -36,7 +36,7 @@ let SharedService = class SharedService {
                 productVariants: {
                     include: {
                         discount: true,
-                        productimage: true
+                        productimage: true,
                     },
                 },
             },
@@ -58,7 +58,7 @@ let SharedService = class SharedService {
                     productVariants: {
                         include: {
                             discount: true,
-                            productimage: true
+                            productimage: true,
                         },
                     },
                 },
@@ -98,7 +98,7 @@ let SharedService = class SharedService {
                     productVariants: {
                         include: {
                             discount: true,
-                            productimage: true
+                            productimage: true,
                         },
                     },
                 },
@@ -178,14 +178,14 @@ let SharedService = class SharedService {
                     discount: {
                         some: {
                             startDate: { lte: new Date() },
-                            endDate: { gte: new Date() }
-                        }
-                    }
+                            endDate: { gte: new Date() },
+                        },
+                    },
                 },
                 include: {
                     product_fk: true,
-                    discount: true
-                }
+                    discount: true,
+                },
             });
             return productsWithDiscounts;
         }
@@ -199,13 +199,13 @@ let SharedService = class SharedService {
     async getOrderByCustomerName(firstName, lastName) {
         try {
             if (!firstName || !lastName) {
-                throw new Error("First name and last name are required.");
+                throw new Error('First name and last name are required.');
             }
             const customer_row = await this.prisma.customer.findFirst({
-                where: { firstName, lastName }
+                where: { firstName, lastName },
             });
             if (!customer_row) {
-                throw new Error("Customer not found");
+                throw new Error('Customer not found');
             }
             const orders = await this.prisma.order.findMany({
                 where: { customerId: customer_row.id },
@@ -213,16 +213,16 @@ let SharedService = class SharedService {
                     orderitem: {
                         include: {
                             productVariant: {
-                                include: { product_fk: true }
-                            }
-                        }
-                    }
-                }
+                                include: { product_fk: true },
+                            },
+                        },
+                    },
+                },
             });
             return orders;
         }
         catch (error) {
-            console.error("Error fetching orders:", error);
+            console.error('Error fetching orders:', error);
             throw new Error(`Something went wrong: ${error}`);
         }
     }

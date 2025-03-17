@@ -16,7 +16,7 @@ exports.AuthController = void 0;
 const passport_jwt_guard_1 = require("./guards/auth/passport-jwt.guard");
 const auth_service_1 = require("./auth.service");
 const common_1 = require("@nestjs/common");
-const auth_guard_1 = require("./guards/auth/auth.guard");
+const signUp_dto_1 = require("./DTO/signUp.dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -25,7 +25,7 @@ let AuthController = class AuthController {
         return this.authService.signIn(request.user);
     }
     signUp(input) {
-        return this.authService.signUp();
+        return this.authService.signUp(input);
     }
     getUserInto(request) {
         return request.user;
@@ -47,11 +47,11 @@ __decorate([
     (0, common_1.Post)('signUp'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", [signUp_dto_1.SignUpDto]),
     __metadata("design:returntype", void 0)
 ], AuthController.prototype, "signUp", null);
 __decorate([
-    (0, common_1.UseGuards)(auth_guard_1.AuthGuard),
+    (0, common_1.UseGuards)(passport_jwt_guard_1.PassportJwtGuard),
     (0, common_1.Get)('me'),
     __param(0, (0, common_1.Request)()),
     __metadata("design:type", Function),

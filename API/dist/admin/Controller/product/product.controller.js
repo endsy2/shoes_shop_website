@@ -165,27 +165,27 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "InsertVariant", null);
 __decorate([
-    (0, common_1.Get)("displayProductDiscount"),
+    (0, common_1.Get)('displayProductDiscount'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "displayProductDiscount", null);
 __decorate([
-    (0, common_1.Delete)("deleteProduct/:id"),
+    (0, common_1.Delete)('deleteProduct/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "deleteProduct", null);
 __decorate([
-    (0, common_1.Delete)("deleteCategory/:id"),
+    (0, common_1.Delete)('deleteCategory/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "deleteCategory", null);
 __decorate([
-    (0, common_1.Delete)("deleteBrand/:id"),
+    (0, common_1.Delete)('deleteBrand/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),

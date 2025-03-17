@@ -47,22 +47,20 @@ export class UserController {
   }
   // @Post('checkout')
   // async checkout(@Body )
-  @Get("displayProductDiscount")
-  async displayProductDiscount(){
+  @Get('displayProductDiscount')
+  async displayProductDiscount() {
     return this.shareService.getDiscountedProducts();
   }
   @Post('checkout')
-  async checkout(@Body() createOrderDTO:CreateOrderDTO){
+  async checkout(@Body() createOrderDTO: CreateOrderDTO) {
     try {
-        return this.userService.checkout(createOrderDTO)        
+      return this.userService.checkout(createOrderDTO);
     } catch (error) {
-        throw new Error("something went wrong");
+      throw new Error('something went wrong');
     }
   }
   @Get('displayDiscount')
-    async displayDiscount() {
-        return this.shareService.getDiscountedProducts();
-    }
-  
+  async displayDiscount() {
+    return this.shareService.getDiscountedProducts();
+  }
 }
-

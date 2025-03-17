@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class SharedService {
-  constructor(private prisma: PrismaService) { }
+  constructor(private prisma: PrismaService) {}
 
   async displayProduct() {
     return this.prisma.product.findMany({
@@ -13,13 +13,11 @@ export class SharedService {
         productVariants: {
           include: {
             discount: true,
-            productimage:true
+            productimage: true,
           },
-
         },
       },
     });
-    
   }
 
   async displayProductByID(id: number) {
@@ -30,11 +28,9 @@ export class SharedService {
         productVariants: {
           include: {
             discount: true,
-            productimage:true
+            productimage: true,
           },
-
         },
-       
       },
       where: { id },
     });
@@ -55,11 +51,9 @@ export class SharedService {
           productVariants: {
             include: {
               discount: true,
-              productimage:true
+              productimage: true,
             },
-  
           },
-         
         },
         where: { name },
       });
@@ -95,13 +89,12 @@ export class SharedService {
         },
         include: {
           brand: true,
-          
+
           productVariants: {
             include: {
               discount: true,
-              productimage:true
+              productimage: true,
             },
-  
           },
         },
       });
@@ -181,24 +174,24 @@ export class SharedService {
     }
   }
 
-  async  getDiscountedProducts() {
+  async getDiscountedProducts() {
     try {
       const productsWithDiscounts = await this.prisma.productVariants.findMany({
         where: {
           discount: {
             some: {
-              startDate: { lte: new Date() },  // Discount should have started
-              endDate: { gte: new Date() }    // Discount should still be valid
-            }
-          }
+              startDate: { lte: new Date() }, // Discount should have started
+              endDate: { gte: new Date() }, // Discount should still be valid
+            },
+          },
         },
         include: {
-          product_fk: true,  // Include the related product
-          discount: true     // Include discount details
-        }
+          product_fk: true, // Include the related product
+          discount: true, // Include discount details
+        },
       });
-  
-     return productsWithDiscounts;
+
+      return productsWithDiscounts;
     } catch (error) {
       console.error('Error fetching discounted products:', error);
     } finally {
@@ -209,35 +202,35 @@ export class SharedService {
     try {
       // Validate input
       if (!firstName || !lastName) {
-        throw new Error("First name and last name are required.");
+        throw new Error('First name and last name are required.');
       }
-  
+
       // Find customer
       const customer_row = await this.prisma.customer.findFirst({
-        where: { firstName, lastName } // ✅ Correct way
+        where: { firstName, lastName }, // ✅ Correct way
       });
-  
+
       if (!customer_row) {
-        throw new Error("Customer not found");
+        throw new Error('Customer not found');
       }
-  
+
       // Find orders related to the customer
       const orders = await this.prisma.order.findMany({
         where: { customerId: customer_row.id },
         include: {
-          orderitem: {  
+          orderitem: {
             include: {
               productVariant: {
-                include: { product_fk: true }
-              }
-            }
-          }
-        }
+                include: { product_fk: true },
+              },
+            },
+          },
+        },
       });
-  
+
       return orders;
     } catch (error) {
-      console.error("Error fetching orders:", error);
+      console.error('Error fetching orders:', error);
       throw new Error(`Something went wrong: ${error}`);
     }
   }

@@ -2,12 +2,12 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import { PrismaService } from 'src/prisma/prisma.service';
 type AuthInput = {
-    username: string;
+    email: string;
     password: string;
 };
 type SignInData = {
     userId: number;
-    username: string;
+    email: string;
 };
 type SignUpData = {
     email: string;
@@ -28,6 +28,8 @@ export declare class AuthService {
     authenticate(input: AuthInput): Promise<AuthResult>;
     validateUser(input: AuthInput): Promise<SignInData | null>;
     signIn(user: SignInData): Promise<AuthResult>;
-    signUp(user: SignUpData): Promise<AuthResult>;
+    signUp(user: SignUpData): Promise<{
+        accessToken: AuthResult;
+    }>;
 }
 export {};

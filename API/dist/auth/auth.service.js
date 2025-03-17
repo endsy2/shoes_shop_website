@@ -62,19 +62,14 @@ let AuthService = class AuthService {
         return this.signIn(user);
     }
     async validateUser(input) {
-        const user = await this.userService.findUserByName(input.username);
-        if (user && user.password === input.password) {
-            return {
-                userId: user.userId,
-                username: user.username,
-            };
-        }
+        const user = await this.userService.findUserByName(input.email);
+        console.log(user);
         return null;
     }
     async signIn(user) {
         const tokenPayload = {
             sub: user.userId,
-            username: user.username,
+            email: user.email,
         };
         const accessToken = await this.jwtService.signAsync(tokenPayload);
         return {
@@ -84,20 +79,28 @@ let AuthService = class AuthService {
     async signUp(user) {
         try {
             const hashPassword = await bcrypt.hash(user.password, 10);
-            const create = await this.prismaService.customer.create({
+            const createdUser = await this.prismaService.customer.create({
                 data: {
                     firstName: user.firstName,
                     lastName: user.lastName,
                     email: user.email,
                     password: hashPassword,
                     phoneNumber: user.phoneNumber,
-                    address: user.password,
+                    address: user.address,
                 },
             });
-            const token = ;
+            console.log('Created User:', createdUser.email);
+            const token = await this.signIn({
+                userId: createdUser.id,
+                email: createdUser.email,
+            });
+            return {
+                accessToken: token,
+            };
         }
         catch (error) {
-            throw new common_1.UnauthorizedException();
+            console.error('Signup Error:', error);
+            throw new common_1.UnauthorizedException('Signup failed.');
         }
     }
 };

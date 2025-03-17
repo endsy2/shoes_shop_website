@@ -46,7 +46,7 @@ let UserController = class UserController {
             return this.userService.checkout(createOrderDTO);
         }
         catch (error) {
-            throw new Error("something went wrong");
+            throw new Error('something went wrong');
         }
     }
     async displayDiscount() {
@@ -90,7 +90,7 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductByID", null);
 __decorate([
-    (0, common_1.Get)("displayProductDiscount"),
+    (0, common_1.Get)('displayProductDiscount'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

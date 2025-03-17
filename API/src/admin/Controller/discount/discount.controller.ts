@@ -5,14 +5,13 @@ import { SharedService } from 'src/shared/shared.service';
 
 @Controller('admin')
 export class DiscountController {
-constructor(
+  constructor(
     private readonly sharedService: SharedService,
     private readonly orderService: OrderService,
     private readonly productService: ProductService,
-  ) { }
+  ) {}
   @Get('displayDiscount')
-    async displayDiscount() {
-        return this.sharedService.getDiscountedProducts();
-    }
-
+  async displayDiscount() {
+    return this.sharedService.getDiscountedProducts();
+  }
 }

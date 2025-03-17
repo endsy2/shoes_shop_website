@@ -4,7 +4,7 @@ import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class OrderService {
-  constructor(private readonly prisma: PrismaService) { }
+  constructor(private readonly prisma: PrismaService) {}
 
   async displayOrder() {
     try {
@@ -61,28 +61,27 @@ export class OrderService {
       throw new Error(`Error fetching orders: ${error}`);
     }
   }
-  async deleteOrder(id){
+  async deleteOrder(id) {
     try {
-      const orderItems=await this.prisma.orderitem.deleteMany({
-        where:{orderId:{in:id}}
-      })
-      const order=await this.prisma.order.deleteMany({
-        where:id
+      const orderItems = await this.prisma.orderitem.deleteMany({
+        where: { orderId: { in: id } },
       });
-      return {message:'brand deleted'};
+      const order = await this.prisma.order.deleteMany({
+        where: id,
+      });
+      return { message: 'brand deleted' };
     } catch (error) {
       throw new Error(`something went wrong ${error}`);
     }
   }
-  async deleteOrderItems(id){
+  async deleteOrderItems(id) {
     try {
-      const brand=await this.prisma.orderitem.deleteMany({
-        where:id
+      const brand = await this.prisma.orderitem.deleteMany({
+        where: id,
       });
-      return {message:'brand deleted'};
+      return { message: 'brand deleted' };
     } catch (error) {
       throw new Error(`something went wrong ${error}`);
     }
   }
-  
 }

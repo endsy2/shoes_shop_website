@@ -76,10 +76,10 @@ let OrderService = class OrderService {
     async deleteOrder(id) {
         try {
             const orderItems = await this.prisma.orderitem.deleteMany({
-                where: { orderId: { in: id } }
+                where: { orderId: { in: id } },
             });
             const order = await this.prisma.order.deleteMany({
-                where: id
+                where: id,
             });
             return { message: 'brand deleted' };
         }
@@ -90,7 +90,7 @@ let OrderService = class OrderService {
     async deleteOrderItems(id) {
         try {
             const brand = await this.prisma.orderitem.deleteMany({
-                where: id
+                where: id,
             });
             return { message: 'brand deleted' };
         }

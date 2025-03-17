@@ -19,7 +19,13 @@ let ProductService = class ProductService {
     async insertProduct(insertProductDto, images) {
         try {
             const { price, name, brand, description, color, category, size } = insertProductDto;
-            if (!price || !name || !brand || !description || !color || !category || !size) {
+            if (!price ||
+                !name ||
+                !brand ||
+                !description ||
+                !color ||
+                !category ||
+                !size) {
                 throw new Error('Must input all flied');
             }
             const brandID = await this.prisma.brand.findUnique({
@@ -51,9 +57,9 @@ let ProductService = class ProductService {
                             size,
                             productimage: {
                                 create: images.map((image) => ({
-                                    imageUrl: image
-                                }))
-                            }
+                                    imageUrl: image,
+                                })),
+                            },
                         },
                     },
                 },
@@ -249,7 +255,7 @@ let ProductService = class ProductService {
                 select: { id: true },
             });
             const productVariantIds = productVariants.map((variant) => variant.id);
-            console.log(`Deleting product variants with IDs: ${productVariantIds.join(", ")}`);
+            console.log(`Deleting product variants with IDs: ${productVariantIds.join(', ')}`);
             const deleteImage = await this.prisma.productimage.deleteMany({
                 where: { productVariantId: { in: productVariantIds } },
             });
@@ -270,7 +276,7 @@ let ProductService = class ProductService {
                 where: { id },
             });
             console.log(`Product with ID ${id} deleted.`);
-            return { message: "Product and related records successfully deleted." };
+            return { message: 'Product and related records successfully deleted.' };
         }
         catch (error) {
             console.error(`Error deleting product: ${error}`);
@@ -280,9 +286,9 @@ let ProductService = class ProductService {
     async deleteCategory(id) {
         try {
             const category = await this.prisma.category.delete({
-                where: id
+                where: id,
             });
-            return { message: "category deleted" };
+            return { message: 'category deleted' };
         }
         catch (error) {
             throw new Error(`something went wrong ${error}`);
@@ -291,7 +297,7 @@ let ProductService = class ProductService {
     async deleteBrand(id) {
         try {
             const brand = await this.prisma.category.deleteMany({
-                where: id
+                where: id,
             });
             return { message: 'brand deleted' };
         }

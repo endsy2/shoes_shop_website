@@ -14,6 +14,7 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { SignUpDto } from './DTO/signUp.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -28,11 +29,11 @@ export class AuthController {
   }
   @HttpCode(HttpStatus.OK)
   @Post('signUp')
-  signUp(@Body() input: { username: string; password: string }) {
-    return this.authService.signUp();
+  signUp(@Body() input: SignUpDto) {
+    return this.authService.signUp(input);
   }
 
-  @UseGuards(AuthGuard)
+  @UseGuards(PassportJwtGuard)
   @Get('me')
   getUserInto(@Request() request) {
     // throw new NotImplementedException();

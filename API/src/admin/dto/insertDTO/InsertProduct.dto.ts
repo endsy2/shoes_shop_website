@@ -42,5 +42,5 @@ export class InsertProductDto {
 
   @IsString()
   @IsNotEmpty()
-  size:string;
+  size: string;
 }

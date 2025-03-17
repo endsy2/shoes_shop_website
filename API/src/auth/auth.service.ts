@@ -3,9 +3,11 @@ import { JwtService } from '@nestjs/jwt';
 import { UserService } from 'src/user/user.service';
 import * as bcrypt from 'bcrypt';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { log } from 'console';
+import { create } from 'domain';
 
-type AuthInput = { username: string; password: string };
-type SignInData = { userId: number; username: string };
+type AuthInput = { email: string; password: string };
+type SignInData = { userId: number; email: string };
 type SignUpData = {
   email: string;
   password: string;
@@ -33,41 +35,58 @@ export class AuthService {
   }
 
   async validateUser(input: AuthInput): Promise<SignInData | null> {
-    const user = await this.userService.findUserByName(input.username);
-    if (user && user.password === input.password) {
-      return {
-        userId: user.userId,
-        username: user.username,
-      };
-    }
+    const user = await this.userService.findUserByName(input.email);
+    // if (user && user.password === input.password) {
+    //   return {
+    //     userId: user.userId,
+    //     email: user.email,
+    //   };
+    // }
+    console.log(user);
+
     return null;
   }
   async signIn(user: SignInData): Promise<AuthResult> {
     const tokenPayload = {
       sub: user.userId,
-      username: user.username,
+      email: user.email,
     };
     const accessToken = await this.jwtService.signAsync(tokenPayload);
     return {
       accessToken,
     };
   }
-  async signUp(user: SignUpData): Promise<AuthResult> {
+  async signUp(user: SignUpData) {
     try {
+      // Hash the password
       const hashPassword = await bcrypt.hash(user.password, 10);
-      const create = await this.prismaService.customer.create({
+
+      // Create the user in the database
+      const createdUser = await this.prismaService.customer.create({
         data: {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
           password: hashPassword,
           phoneNumber: user.phoneNumber,
-          address: user.password,
+          address: user.address,
         },
       });
-      const token =
+
+      console.log('Created User:', createdUser.email);
+
+      // Generate token (assuming signIn expects an object)
+      const token = await this.signIn({
+        userId: createdUser.id,
+        email: createdUser.email,
+      });
+
+      return {
+        accessToken: token,
+      };
     } catch (error) {
-      throw new UnauthorizedException();
+      console.error('Signup Error:', error);
+      throw new UnauthorizedException('Signup failed.');
     }
   }
 }

@@ -7,10 +7,10 @@ exports.multerConfig = {
     storage: (0, multer_1.diskStorage)({
         destination: './uploads',
         filename: (req, file, callback) => {
-            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
             const ext = (0, path_1.extname)(file.originalname);
             callback(null, `${file.fieldname}-${uniqueSuffix}${ext}`);
-        }
-    })
+        },
+    }),
 };
 //# sourceMappingURL=multerConfig.js.map
