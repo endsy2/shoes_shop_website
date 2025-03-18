@@ -76,12 +76,6 @@ let ProductController = class ProductController {
     async InsertVariant(insertVariantDIO) {
         return this.productService.insertVariant(insertVariantDIO);
     }
-    async displayProductDiscount() {
-        return this.sharedService.getDiscountedProducts();
-    }
-    async deleteProduct(id) {
-        return this.productService.deleteProduct(id);
-    }
     async deleteCategory(id) {
         return this.productService.deleteCategory(id);
     }
@@ -164,19 +158,6 @@ __decorate([
     __metadata("design:paramtypes", [InsertVariant_dto_1.insertVariantDTO]),
     __metadata("design:returntype", Promise)
 ], ProductController.prototype, "InsertVariant", null);
-__decorate([
-    (0, common_1.Get)('displayProductDiscount'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], ProductController.prototype, "displayProductDiscount", null);
-__decorate([
-    (0, common_1.Delete)('deleteProduct/:id'),
-    __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number]),
-    __metadata("design:returntype", Promise)
-], ProductController.prototype, "deleteProduct", null);
 __decorate([
     (0, common_1.Delete)('deleteCategory/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),

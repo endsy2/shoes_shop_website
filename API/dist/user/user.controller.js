@@ -31,15 +31,8 @@ let UserController = class UserController {
     async displayProductByCategory(category) {
         return this.shareService.getProductByCategory({ categoryName: category });
     }
-    async displayProductBySortPrice(max, min) {
-        console.log(`Max: ${max}, Min: ${min}`);
-        return this.shareService.getSortPrice({ max, min });
-    }
     async displayProductByID(id) {
         return this.shareService.displayProductByID(id);
-    }
-    async displayProductDiscount() {
-        return this.shareService.getDiscountedProducts();
     }
     async checkout(createOrderDTO) {
         try {
@@ -49,8 +42,8 @@ let UserController = class UserController {
             throw new Error('something went wrong');
         }
     }
-    async displayDiscount() {
-        return this.shareService.getDiscountedProducts();
+    async displayBrand() {
+        return this.shareService.displayBrand();
     }
 };
 exports.UserController = UserController;
@@ -75,26 +68,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductByCategory", null);
 __decorate([
-    (0, common_1.Get)('displayProduct/sort'),
-    __param(0, (0, common_1.Query)('max', common_1.ParseIntPipe)),
-    __param(1, (0, common_1.Query)('min', common_1.ParseIntPipe)),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Number, Number]),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "displayProductBySortPrice", null);
-__decorate([
     (0, common_1.Get)('displayProductByID/:id'),
     __param(0, (0, common_1.Param)('id', common_1.ParseIntPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductByID", null);
-__decorate([
-    (0, common_1.Get)('displayProductDiscount'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], UserController.prototype, "displayProductDiscount", null);
 __decorate([
     (0, common_1.Post)('checkout'),
     __param(0, (0, common_1.Body)()),
@@ -103,11 +82,11 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "checkout", null);
 __decorate([
-    (0, common_1.Get)('displayDiscount'),
+    (0, common_1.Get)('displayBrand'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], UserController.prototype, "displayDiscount", null);
+], UserController.prototype, "displayBrand", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('user'),
     __metadata("design:paramtypes", [shared_service_1.SharedService,

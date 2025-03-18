@@ -20,17 +20,8 @@ let DiscountController = class DiscountController {
         this.orderService = orderService;
         this.productService = productService;
     }
-    async displayDiscount() {
-        return this.sharedService.getDiscountedProducts();
-    }
 };
 exports.DiscountController = DiscountController;
-__decorate([
-    (0, common_1.Get)('displayDiscount'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], DiscountController.prototype, "displayDiscount", null);
 exports.DiscountController = DiscountController = __decorate([
     (0, common_1.Controller)('admin'),
     __metadata("design:paramtypes", [shared_service_1.SharedService,

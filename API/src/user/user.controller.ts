@@ -17,7 +17,7 @@ export class UserController {
   constructor(
     private readonly shareService: SharedService,
     private readonly userService: UserService,
-  ) {}
+  ) { }
   @Get('displayProductAll')
   async displayAllProduct() {
     return this.shareService.displayProduct();
@@ -32,14 +32,14 @@ export class UserController {
     return this.shareService.getProductByCategory({ categoryName: category });
   }
 
-  @Get('displayProduct/sort')
-  async displayProductBySortPrice(
-    @Query('max', ParseIntPipe) max: number,
-    @Query('min', ParseIntPipe) min: number,
-  ) {
-    console.log(`Max: ${max}, Min: ${min}`);
-    return this.shareService.getSortPrice({ max, min });
-  }
+  // @Get('displayProduct/sort')
+  // async displayProductBySortPrice(
+  //   @Query('max', ParseIntPipe) max: number,
+  //   @Query('min', ParseIntPipe) min: number,
+  // ) {
+  //   console.log(`Max: ${max}, Min: ${min}`);
+  //   return this.shareService.getSortPrice({ max, min });
+  // }
 
   @Get('displayProductByID/:id')
   async displayProductByID(@Param('id', ParseIntPipe) id: number) {
@@ -47,10 +47,10 @@ export class UserController {
   }
   // @Post('checkout')
   // async checkout(@Body )
-  @Get('displayProductDiscount')
-  async displayProductDiscount() {
-    return this.shareService.getDiscountedProducts();
-  }
+  // @Get('displayProductDiscount')
+  // async displayProductDiscount() {
+  //   return this.shareService.getDiscountedProducts();
+  // }
   @Post('checkout')
   async checkout(@Body() createOrderDTO: CreateOrderDTO) {
     try {
@@ -59,8 +59,12 @@ export class UserController {
       throw new Error('something went wrong');
     }
   }
-  @Get('displayDiscount')
-  async displayDiscount() {
-    return this.shareService.getDiscountedProducts();
+  // @Get('displayDiscount')
+  // async displayDiscount() {
+  //   return this.shareService.getDiscountedProducts();
+  // }
+  @Get('displayBrand')
+  async displayBrand() {
+    return this.shareService.displayBrand();
   }
 }

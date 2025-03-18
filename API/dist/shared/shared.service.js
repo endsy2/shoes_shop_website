@@ -110,92 +110,6 @@ let SharedService = class SharedService {
             throw error;
         }
     }
-    async getSortPrice({ min, max }) {
-        try {
-            const products = await this.prisma.product.findMany({
-                include: {
-                    productVariants: {
-                        include: {
-                            discount: true,
-                        },
-                    },
-                },
-                where: {
-                    OR: [
-                        {
-                            productVariants: {
-                                some: {
-                                    discount: {
-                                        some: {
-                                            value: {
-                                                gte: min,
-                                                lte: max,
-                                            },
-                                        },
-                                    },
-                                },
-                            },
-                        },
-                        {
-                            productVariants: {
-                                some: {
-                                    price: {
-                                        gte: min,
-                                        lte: max,
-                                    },
-                                },
-                            },
-                        },
-                    ],
-                },
-            });
-            return products.map((product) => {
-                let price = null;
-                const variantPrices = product.productVariants.map((variant) => {
-                    if (variant.discount.length > 0) {
-                        return variant.discount[0].value;
-                    }
-                    return variant.price;
-                });
-                if (variantPrices.length > 0) {
-                    price = Math.min(...variantPrices);
-                }
-                return {
-                    ...product,
-                    finalPrice: price,
-                };
-            });
-        }
-        catch (error) {
-            console.error('Error fetching sorted products:', error);
-            throw error;
-        }
-    }
-    async getDiscountedProducts() {
-        try {
-            const productsWithDiscounts = await this.prisma.productVariants.findMany({
-                where: {
-                    discount: {
-                        some: {
-                            startDate: { lte: new Date() },
-                            endDate: { gte: new Date() },
-                        },
-                    },
-                },
-                include: {
-                    product_fk: true,
-                    discount: true,
-                },
-            });
-            return productsWithDiscounts;
-        }
-        catch (error) {
-            console.error('Error fetching discounted products:', error);
-        }
-        finally {
-            await this.prisma.$disconnect();
-        }
-    }
     async getOrderByCustomerName(firstName, lastName) {
         try {
             if (!firstName || !lastName) {
@@ -225,6 +139,9 @@ let SharedService = class SharedService {
             console.error('Error fetching orders:', error);
             throw new Error(`Something went wrong: ${error}`);
         }
+    }
+    async displayBrand() {
+        return await this.prisma.brand.findMany();
     }
 };
 exports.SharedService = SharedService;

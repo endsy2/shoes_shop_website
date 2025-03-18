@@ -7,7 +7,7 @@ import { identity } from 'rxjs';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
   async insertProduct(insertProductDto, images) {
     try {
       const { price, name, brand, description, color, category, size } =
@@ -253,62 +253,62 @@ export class ProductService {
       throw new Error(`something went wrong ${error}`);
     }
   }
-  async uploadProductName() {}
-  async deleteProduct(id: number) {
-    try {
-      // First, check if the product exists before proceeding with deletion.
-      const product = await this.prisma.product.findUnique({ where: { id } });
-      if (!product) {
-        throw new Error(`Product with ID ${id} not found.`);
-      }
+  // async uploadProductName() { }
+  // async deleteProduct(id: number) {
+  //   try {
+  //     // First, check if the product exists before proceeding with deletion.
+  //     const product = await this.prisma.product.findUnique({ where: { id } });
+  //     if (!product) {
+  //       throw new Error(`Product with ID ${id} not found.`);
+  //     }
 
-      // Find all product variants associated with the product
-      const productVariants = await this.prisma.productVariants.findMany({
-        where: { productId: id },
-        select: { id: true }, // Only select the 'id' field for efficiency
-      });
+  //     // Find all product variants associated with the product
+  //     const productVariants = await this.prisma.productVariants.findMany({
+  //       where: { productId: id },
+  //       select: { id: true }, // Only select the 'id' field for efficiency
+  //     });
 
-      const productVariantIds = productVariants.map((variant) => variant.id);
+  //     const productVariantIds = productVariants.map((variant) => variant.id);
 
-      // Logging the product variant ids for debugging
-      console.log(
-        `Deleting product variants with IDs: ${productVariantIds.join(', ')}`,
-      );
+  //     // Logging the product variant ids for debugging
+  //     console.log(
+  //       `Deleting product variants with IDs: ${productVariantIds.join(', ')}`,
+  //     );
 
-      // Perform cascading delete on related records
-      const deleteImage = await this.prisma.productimage.deleteMany({
-        where: { productVariantId: { in: productVariantIds } },
-      });
-      console.log(`Deleted ${deleteImage.count} images.`);
+  //     // Perform cascading delete on related records
+  //     const deleteImage = await this.prisma.productimage.deleteMany({
+  //       where: { productVariantId: { in: productVariantIds } },
+  //     });
+  //     console.log(`Deleted ${deleteImage.count} images.`);
 
-      const deleteOrderItems = await this.prisma.orderitem.deleteMany({
-        where: { productVariantId: { in: productVariantIds } },
-      });
-      console.log(`Deleted ${deleteOrderItems.count} order items.`);
+  //     const deleteOrderItems = await this.prisma.orderitem.deleteMany({
+  //       where: { productVariantId: { in: productVariantIds } },
+  //     });
+  //     console.log(`Deleted ${deleteOrderItems.count} order items.`);
 
-      const deleteDiscounts = await this.prisma.discount.deleteMany({
-        where: { productVariantId: { in: productVariantIds } },
-      });
-      console.log(`Deleted ${deleteDiscounts.count} discounts.`);
+  //     const deleteDiscounts = await this.prisma.discount.deleteMany({
+  //       where: { productVariantId: { in: productVariantIds } },
+  //     });
+  //     console.log(`Deleted ${deleteDiscounts.count} discounts.`);
 
-      const deleteProductVariants =
-        await this.prisma.productVariants.deleteMany({
-          where: { productId: id },
-        });
-      console.log(`Deleted ${deleteProductVariants.count} product variants.`);
+  //     const deleteProductVariants =
+  //       await this.prisma.productVariants.deleteMany({
+  //         where: { productId: id },
+  //       });
+  //     console.log(`Deleted ${deleteProductVariants.count} product variants.`);
 
-      // Finally, delete the product itself
-      const deleteProduct = await this.prisma.product.delete({
-        where: { id },
-      });
-      console.log(`Product with ID ${id} deleted.`);
+  //     // Finally, delete the product itself
+  //     const deleteProduct = await this.prisma.product.delete({
+  //       where: { id },
+  //     });
+  //     console.log(`Product with ID ${id} deleted.`);
 
-      return { message: 'Product and related records successfully deleted.' };
-    } catch (error) {
-      console.error(`Error deleting product: ${error}`);
-      throw new Error(`Something went wrong: ${error}`);
-    }
-  }
+  //     return { message: 'Product and related records successfully deleted.' };
+  //   } catch (error) {
+  //     console.error(`Error deleting product: ${error}`);
+  //     throw new Error(`Something went wrong: ${error}`);
+  //   }
+  // }
   async deleteCategory(id) {
     try {
       const category = await this.prisma.category.delete({

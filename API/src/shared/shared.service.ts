@@ -4,7 +4,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class SharedService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
   async displayProduct() {
     return this.prisma.product.findMany({
@@ -105,99 +105,99 @@ export class SharedService {
       throw error;
     }
   }
-  async getSortPrice({ min, max }) {
-    try {
-      const products = await this.prisma.product.findMany({
-        include: {
-          productVariants: {
-            include: {
-              discount: true,
-            },
-          },
-        },
-        where: {
-          OR: [
-            {
-              productVariants: {
-                some: {
-                  discount: {
-                    some: {
-                      value: {
-                        gte: min,
-                        lte: max,
-                      },
-                    },
-                  },
-                },
-              },
-            },
-            {
-              productVariants: {
-                some: {
-                  price: {
-                    gte: min,
-                    lte: max,
-                  },
-                },
-              },
-            },
-          ],
-        },
-      });
+  // async getSortPrice({ min, max }) {
+  //   try {
+  //     const products = await this.prisma.product.findMany({
+  //       include: {
+  //         productVariants: {
+  //           include: {
+  //             discount: true,
+  //           },
+  //         },
+  //       },
+  //       where: {
+  //         OR: [
+  //           {
+  //             productVariants: {
+  //               some: {
+  //                 discount: {
+  //                   some: {
+  //                     value: {
+  //                       gte: min,
+  //                       lte: max,
+  //                     },
+  //                   },
+  //                 },
+  //               },
+  //             },
+  //           },
+  //           {
+  //             productVariants: {
+  //               some: {
+  //                 price: {
+  //                   gte: min,
+  //                   lte: max,
+  //                 },
+  //               },
+  //             },
+  //           },
+  //         ],
+  //       },
+  //     });
 
-      // Process the products to determine the actual price
-      return products.map((product) => {
-        let price = null;
+  //     // Process the products to determine the actual price
+  //     return products.map((product) => {
+  //       let price = null;
 
-        // Find the lowest price from product variants
-        const variantPrices = product.productVariants.map((variant) => {
-          // Check if variant has a discount
-          if (variant.discount.length > 0) {
-            return variant.discount[0].value; // Use discount value
-          }
-          return variant.price; // Otherwise, use regular price
-        });
+  //       // Find the lowest price from product variants
+  //       const variantPrices = product.productVariants.map((variant) => {
+  //         // Check if variant has a discount
+  //         if (variant.discount.length > 0) {
+  //           return variant.discount[0].value; // Use discount value
+  //         }
+  //         return variant.price; // Otherwise, use regular price
+  //       });
 
-        // Get the minimum price among variants
-        if (variantPrices.length > 0) {
-          price = Math.min(...variantPrices);
-        }
+  //       // Get the minimum price among variants
+  //       if (variantPrices.length > 0) {
+  //         price = Math.min(...variantPrices);
+  //       }
 
-        return {
-          ...product,
-          finalPrice: price,
-        };
-      });
-    } catch (error) {
-      console.error('Error fetching sorted products:', error);
-      throw error;
-    }
-  }
+  //       return {
+  //         ...product,
+  //         finalPrice: price,
+  //       };
+  //     });
+  //   } catch (error) {
+  //     console.error('Error fetching sorted products:', error);
+  //     throw error;
+  //   }
+  // }
 
-  async getDiscountedProducts() {
-    try {
-      const productsWithDiscounts = await this.prisma.productVariants.findMany({
-        where: {
-          discount: {
-            some: {
-              startDate: { lte: new Date() }, // Discount should have started
-              endDate: { gte: new Date() }, // Discount should still be valid
-            },
-          },
-        },
-        include: {
-          product_fk: true, // Include the related product
-          discount: true, // Include discount details
-        },
-      });
+  // async getDiscountedProducts() {
+  //   try {
+  //     const productsWithDiscounts = await this.prisma.productVariants.findMany({
+  //       where: {
+  //         discount: {
+  //           some: {
+  //             startDate: { lte: new Date() }, // Discount should have started
+  //             endDate: { gte: new Date() }, // Discount should still be valid
+  //           },
+  //         },
+  //       },
+  //       include: {
+  //         product_fk: true, // Include the related product
+  //         discount: true, // Include discount details
+  //       },
+  //     });
 
-      return productsWithDiscounts;
-    } catch (error) {
-      console.error('Error fetching discounted products:', error);
-    } finally {
-      await this.prisma.$disconnect();
-    }
-  }
+  //     return productsWithDiscounts;
+  //   } catch (error) {
+  //     console.error('Error fetching discounted products:', error);
+  //   } finally {
+  //     await this.prisma.$disconnect();
+  //   }
+  // }
   async getOrderByCustomerName(firstName: string, lastName: string) {
     try {
       // Validate input
@@ -233,5 +233,8 @@ export class SharedService {
       console.error('Error fetching orders:', error);
       throw new Error(`Something went wrong: ${error}`);
     }
+  }
+  async displayBrand() {
+    return await this.prisma.brand.findMany();
   }
 }

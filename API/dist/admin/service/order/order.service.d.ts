@@ -29,6 +29,7 @@ export declare class OrderService {
                 price: number;
                 size: string;
                 id: number;
+                discountId: number | null;
                 productId: number;
             };
         } & {
@@ -65,6 +66,7 @@ export declare class OrderService {
                         price: number;
                         size: string;
                         id: number;
+                        discountId: number | null;
                         productId: number;
                     }[];
                 } & {
@@ -80,6 +82,7 @@ export declare class OrderService {
                 price: number;
                 size: string;
                 id: number;
+                discountId: number | null;
                 productId: number;
             };
         } & {
