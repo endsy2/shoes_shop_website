@@ -243,46 +243,6 @@ let ProductService = class ProductService {
             throw new Error(`something went wrong ${error}`);
         }
     }
-    async uploadProductName() { }
-    async deleteProduct(id) {
-        try {
-            const product = await this.prisma.product.findUnique({ where: { id } });
-            if (!product) {
-                throw new Error(`Product with ID ${id} not found.`);
-            }
-            const productVariants = await this.prisma.productVariants.findMany({
-                where: { productId: id },
-                select: { id: true },
-            });
-            const productVariantIds = productVariants.map((variant) => variant.id);
-            console.log(`Deleting product variants with IDs: ${productVariantIds.join(', ')}`);
-            const deleteImage = await this.prisma.productimage.deleteMany({
-                where: { productVariantId: { in: productVariantIds } },
-            });
-            console.log(`Deleted ${deleteImage.count} images.`);
-            const deleteOrderItems = await this.prisma.orderitem.deleteMany({
-                where: { productVariantId: { in: productVariantIds } },
-            });
-            console.log(`Deleted ${deleteOrderItems.count} order items.`);
-            const deleteDiscounts = await this.prisma.discount.deleteMany({
-                where: { productVariantId: { in: productVariantIds } },
-            });
-            console.log(`Deleted ${deleteDiscounts.count} discounts.`);
-            const deleteProductVariants = await this.prisma.productVariants.deleteMany({
-                where: { productId: id },
-            });
-            console.log(`Deleted ${deleteProductVariants.count} product variants.`);
-            const deleteProduct = await this.prisma.product.delete({
-                where: { id },
-            });
-            console.log(`Product with ID ${id} deleted.`);
-            return { message: 'Product and related records successfully deleted.' };
-        }
-        catch (error) {
-            console.error(`Error deleting product: ${error}`);
-            throw new Error(`Something went wrong: ${error}`);
-        }
-    }
     async deleteCategory(id) {
         try {
             const category = await this.prisma.category.delete({

@@ -9,9 +9,9 @@ export class DiscountController {
     private readonly sharedService: SharedService,
     private readonly orderService: OrderService,
     private readonly productService: ProductService,
-  ) {}
-  @Get('displayDiscount')
-  async displayDiscount() {
-    return this.sharedService.getDiscountedProducts();
-  }
+  ) { }
+  // @Get('displayDiscount')
+  // async displayDiscount() {
+  //   return this.sharedService.getDiscountedProducts();
+  // }
 }

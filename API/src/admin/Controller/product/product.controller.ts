@@ -32,7 +32,7 @@ export class ProductController {
     private readonly sharedService: SharedService,
     private readonly orderService: OrderService,
     private readonly productService: ProductService,
-  ) {}
+  ) { }
   @Get('displayProduct')
   async displayProduct() {
     return this.sharedService.displayProduct();
@@ -119,14 +119,14 @@ export class ProductController {
   async InsertVariant(@Body() insertVariantDIO: insertVariantDTO) {
     return this.productService.insertVariant(insertVariantDIO);
   }
-  @Get('displayProductDiscount')
-  async displayProductDiscount() {
-    return this.sharedService.getDiscountedProducts();
-  }
-  @Delete('deleteProduct/:id')
-  async deleteProduct(@Param('id', ParseIntPipe) id: number) {
-    return this.productService.deleteProduct(id);
-  }
+  // @Get('displayProductDiscount')
+  // async displayProductDiscount() {
+  //   return this.sharedService.getDiscountedProducts();
+  // }
+  // @Delete('deleteProduct/:id')
+  // async deleteProduct(@Param('id', ParseIntPipe) id: number) {
+  //   return this.productService.deleteProduct(id);
+  // }
   @Delete('deleteCategory/:id')
   async deleteCategory(@Param('id', ParseIntPipe) id: number) {
     return this.productService.deleteCategory(id);

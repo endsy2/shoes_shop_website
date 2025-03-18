@@ -39,21 +39,6 @@ model admin {
   password String
 }
 
-model discount {
-  id               Int                   @id @default(autoincrement())
-  name             String
-  description      String?
-  discountType     discount_discountType
-  value            Float
-  startDate        DateTime
-  endDate          DateTime
-  productVariantId Int?
-  createdAt        DateTime              @default(now())
-  product          productVariants?      @relation(fields: [productVariantId], references: [id], onDelete: Cascade, map: "Discount_productVariant_fk")
-
-  @@index([productVariantId], map: "Discount_productVariantId_idx")
-}
-
 model order {
   id          Int          @id @default(autoincrement())
   totalAmount Float        @default(0)
@@ -87,8 +72,8 @@ model product {
   categoryId Int
   createdAt  DateTime @default(now())
 
-  brand           brand             @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fk")
-  
+  brand brand @relation(fields: [brandId], references: [id], onDelete: Cascade, map: "Product_brandId_fk")
+
   Description     String
   productVariants productVariants[]
   category        category          @relation(fields: [categoryId], references: [id], onDelete: Cascade, map: "Product_categoryId_fk")
@@ -97,24 +82,45 @@ model product {
   @@index([categoryId], map: "Product_categoryId_idx")
 }
 
+model discount {
+  id           Int                   @id @default(autoincrement())
+  name         String
+  description  String?
+  discountType discount_discountType
+  value        Float
+  startDate    DateTime
+  endDate      DateTime
+  createdAt    DateTime              @default(now())
+
+  // A discount can apply to multiple productVariants
+  productVariants productVariants[] @relation("ProductVariantDiscount")
+
+  @@index([name], map: "Discount_name_idx")
+}
+
 model productVariants {
-  id         Int         @id @default(autoincrement())
-  productId  Int
-  product_fk product     @relation(fields: [productId], references: [id])
-  color      String
-  size       String      @default("0")
-  price      Float
-  productimage    productimage[]
-  orderitem  orderitem[]
-  discount   discount[]
+  id           Int            @id @default(autoincrement())
+  productId    Int
+  product_fk   product        @relation(fields: [productId], references: [id])
+  color        String
+  size         String         @default("0")
+  price        Float
+  productimage productimage[]
+  orderitem    orderitem[]
+
+  // A product variant can have only one discount
+  discountId Int? // Nullable (a product variant may not have a discount)
+  discount   discount? @relation("ProductVariantDiscount", fields: [discountId], references: [id])
+
+  @@index([productId], map: "ProductVariants_productId_idx")
 }
 
 model productimage {
-  id        Int      @id @default(autoincrement())
+  id               Int             @id @default(autoincrement())
   productVariantId Int
-  imageUrl  String
-  createdAt DateTime @default(now())
-  productVariant   productVariants  @relation(fields: [productVariantId], references: [id], onDelete: Cascade, map: "ProductImage_productVariantId_fk")
+  imageUrl         String
+  createdAt        DateTime        @default(now())
+  productVariant   productVariants @relation(fields: [productVariantId], references: [id], onDelete: Cascade, map: "ProductImage_productVariantId_fk")
 
   @@index([productVariantId], map: "ProductImage_productId_idx")
 }
