@@ -11,37 +11,37 @@ export declare class OrderController {
             productVariant: {
                 product_fk: {
                     brand: {
-                        id: number;
                         name: string;
-                        createdAt: Date;
+                        id: number;
                         imageUrl: string;
+                        createdAt: Date;
                     };
                     category: {
-                        id: number;
                         name: string;
+                        id: number;
                     };
                 } & {
-                    id: number;
                     name: string;
+                    id: number;
+                    createdAt: Date;
                     brandId: number;
                     categoryId: number;
-                    createdAt: Date;
                     Description: string;
                 };
             } & {
-                id: number;
-                productId: number;
                 color: string;
-                size: string;
                 price: number;
+                size: string;
+                id: number;
                 discountId: number | null;
+                productId: number;
             };
         } & {
             id: number;
             createdAt: Date;
             productVariantId: number;
-            orderId: number;
             quantity: number;
+            orderId: number;
             amount: number;
         })[];
     } & {
@@ -56,45 +56,45 @@ export declare class OrderController {
             productVariant: {
                 product_fk: {
                     brand: {
-                        id: number;
                         name: string;
-                        createdAt: Date;
+                        id: number;
                         imageUrl: string;
+                        createdAt: Date;
+                    };
+                    category: {
+                        name: string;
+                        id: number;
                     };
                     productVariants: {
-                        id: number;
-                        productId: number;
                         color: string;
-                        size: string;
                         price: number;
-                        discountId: number | null;
-                    }[];
-                    category: {
+                        size: string;
                         id: number;
-                        name: string;
-                    };
+                        discountId: number | null;
+                        productId: number;
+                    }[];
                 } & {
-                    id: number;
                     name: string;
+                    id: number;
+                    createdAt: Date;
                     brandId: number;
                     categoryId: number;
-                    createdAt: Date;
                     Description: string;
                 };
             } & {
-                id: number;
-                productId: number;
                 color: string;
-                size: string;
                 price: number;
+                size: string;
+                id: number;
                 discountId: number | null;
+                productId: number;
             };
         } & {
             id: number;
             createdAt: Date;
             productVariantId: number;
-            orderId: number;
             quantity: number;
+            orderId: number;
             amount: number;
         })[];
     } & {

@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { addToCartIconBlack, addToFavoriteWhiteIcon, darkMode, hamburgerBar, heartBlack, heartFill, heartFillBlack, lightMode, logo } from "../assets";
 import { nav_icon, nav_link } from "../Constants";
 import { menubar } from "../Constants";
@@ -18,6 +18,8 @@ const NavBar = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
   const [toggleHeart, setToggleHeart] = useState(false);
   const { theme, setTheme } = useThemeContext();
+  const [searchData, setSearchData] = useState('');
+  const navigate = useNavigate();
 
   const handleToggleHeart = () => {
     if (favorite.length > 0) {
@@ -38,6 +40,12 @@ const NavBar = () => {
     dispatch(toggleStatusTab()); // Dispatch the action to open the cart tab
   };
 
+  const handleSearchNav = (e) => {
+    if (e.key === "Enter" && searchData.trim !== "") {
+      navigate(`/search?search=${searchData}`)
+    }
+  }
+
   return (
     <nav className={`flex-col w-full  `}>
       <section className="flex justify-around md:justify-between items-center py-7 w-full ">
@@ -53,6 +61,11 @@ const NavBar = () => {
             type="text"
             placeholder="Search"
             className="border border-black rounded-md px-5 py-1 w-56 mr-8 h-9 max-md:hidden"
+            onChange={(e) => {
+              e.preventDefault()
+              setSearchData(e.target.value);
+            }}
+            onKeyDown={handleSearchNav}
           />
           <div className="gap-7 items-center hidden lg:flex">
             {nav_icon.map((element) => (
