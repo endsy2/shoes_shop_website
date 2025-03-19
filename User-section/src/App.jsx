@@ -15,6 +15,7 @@ import Detail from "./Pages/Detail.jsx";
 import Bycategory from "./Pages/Bycategory.jsx";
 import Checkout from "./Pages/Checkout.jsx";
 import Profile from "./Pages/Profile.jsx";
+import Search from "./Pages/Search.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="product/:param" element={<Detail />} />
         <Route path="category/:category" element={<Bycategory />} />
         <Route path="Profile" element={<Profile />} />
+        <Route path="search" element={<Search />} />
       </Route>
       <Route>
         <Route path="/" />
