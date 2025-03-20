@@ -70,41 +70,49 @@ export class SharedService {
   }
   async getProductByCategory({ categoryName }) {
     try {
+      // Find category by name
       const category = await this.prisma.category.findUnique({
         where: {
-          name: categoryName,
+          name: categoryName, // Category name
         },
         select: {
-          id: true,
+          id: true, // Only select the id of the category
         },
       });
 
+      // Handle case where category is not found
       if (!category) {
+        console.error(`Category '${categoryName}' not found`);
         throw new Error('Category not found');
       }
 
+      // Fetch products that belong to the found category
       const products = await this.prisma.product.findMany({
         where: {
-          categoryId: category.id,
+          categoryId: category.id, // Filter products by the category id
         },
         include: {
-          brand: true,
-
+          brand: true, // Include brand information
           productVariants: {
             include: {
-              discount: true,
-              productimage: true,
+              discount: true, // Include discount info
+              productimage: true, // Include product images
             },
           },
         },
       });
 
+      // Return the list of products
+      console.log(
+        `Fetched ${products.length} products for category ${categoryName}`,
+      );
       return products;
     } catch (error) {
       console.error('Error fetching products by category:', error);
-      throw error;
+      throw new Error('Failed to fetch products');
     }
   }
+
   // async getSortPrice({ min, max }) {
   //   try {
   //     const products = await this.prisma.product.findMany({
@@ -174,30 +182,29 @@ export class SharedService {
   //   }
   // }
 
-  // async getDiscountedProducts() {
-  //   try {
-  //     const productsWithDiscounts = await this.prisma.productVariants.findMany({
-  //       where: {
-  //         discount: {
-  //           some: {
-  //             startDate: { lte: new Date() }, // Discount should have started
-  //             endDate: { gte: new Date() }, // Discount should still be valid
-  //           },
-  //         },
-  //       },
-  //       include: {
-  //         product_fk: true, // Include the related product
-  //         discount: true, // Include discount details
-  //       },
-  //     });
+  async getDiscountedProducts() {
+    try {
+      const productsWithDiscounts = await this.prisma.productVariants.findMany({
+        where: {
+          discount: {
+            startDate: { lte: new Date() }, // Discount should have started
+            endDate: { gte: new Date() }, // Discount should still be valid
+          },
+        },
+        include: {
+          product_fk: true, // Include the related product
+          discount: true,
+          productimage: true, // Include discount details
+        },
+      });
 
-  //     return productsWithDiscounts;
-  //   } catch (error) {
-  //     console.error('Error fetching discounted products:', error);
-  //   } finally {
-  //     await this.prisma.$disconnect();
-  //   }
-  // }
+      return productsWithDiscounts;
+    } catch (error) {
+      console.error('Error fetching discounted products:', error);
+      throw new Error('Could not fetch discounted products');
+    }
+  }
+
   async getOrderByCustomerName(firstName: string, lastName: string) {
     try {
       // Validate input

@@ -34,6 +34,9 @@ let UserController = class UserController {
     async displayProductByID(id) {
         return this.shareService.displayProductByID(id);
     }
+    async displayProductDiscount() {
+        return this.shareService.getDiscountedProducts();
+    }
     async checkout(createOrderDTO) {
         try {
             return this.userService.checkout(createOrderDTO);
@@ -41,6 +44,9 @@ let UserController = class UserController {
         catch (error) {
             throw new Error('something went wrong');
         }
+    }
+    async displayDiscount() {
+        return this.shareService.getDiscountedProducts();
     }
     async displayBrand() {
         return this.shareService.displayBrand();
@@ -54,14 +60,14 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayAllProduct", null);
 __decorate([
-    (0, common_1.Get)('displayProductBy/name'),
+    (0, common_1.Get)('displayProduct/byname'),
     __param(0, (0, common_1.Query)('name')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductByName", null);
 __decorate([
-    (0, common_1.Get)('displayProduct/category'),
+    (0, common_1.Get)('displayProduct/bycategory'),
     __param(0, (0, common_1.Query)('category')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
@@ -75,12 +81,24 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "displayProductByID", null);
 __decorate([
+    (0, common_1.Get)('displayProductDiscount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "displayProductDiscount", null);
+__decorate([
     (0, common_1.Post)('checkout'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [CreateOrder_dto_1.CreateOrderDTO]),
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "checkout", null);
+__decorate([
+    (0, common_1.Get)('displayDiscount'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], UserController.prototype, "displayDiscount", null);
 __decorate([
     (0, common_1.Get)('displayBrand'),
     __metadata("design:type", Function),

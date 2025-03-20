@@ -155,11 +155,14 @@ const Home = () => {
         <div className="slider-container w-full max-w-full  overflow-hidden relative">
           <section className="py-4 ">
             <Slider key={windowWidth} {...settings}>
-              {productCart.map((element) => (
+              {productDiscountData.map((element) => (
                 <div key={element.id} className="py-3">
-                  <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.pic} />
+                  <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.productimage.imageUrl} />
                 </div>
+
               ))}
+              {/* {console.log('discount' + productDiscountData)
+              } */}
             </Slider>
           </section>
         </div>

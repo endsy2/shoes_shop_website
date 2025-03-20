@@ -42,7 +42,7 @@ const NavBar = () => {
 
   const handleSearchNav = (e) => {
     if (e.key === "Enter" && searchData.trim !== "") {
-      navigate(`/search?search=${searchData}`)
+      navigate(`/product?search=${searchData}`)
     }
   }
 
@@ -59,12 +59,10 @@ const NavBar = () => {
         <div className="flex justify-end items-center">
           <input
             type="text"
-            placeholder="Search"
-            className="border border-black rounded-md px-5 py-1 w-56 mr-8 h-9 max-md:hidden"
-            onChange={(e) => {
-              e.preventDefault()
-              setSearchData(e.target.value);
-            }}
+            placeholder="Search..."
+            className="border border-black rounded-md px-5 py-1 w-56 h-9 pr-10 focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+            value={searchData}
+            onChange={(e) => setSearchData(e.target.value)}
             onKeyDown={handleSearchNav}
           />
           <div className="gap-7 items-center hidden lg:flex">
