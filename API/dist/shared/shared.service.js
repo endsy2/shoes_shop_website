@@ -87,6 +87,7 @@ let SharedService = class SharedService {
                 },
             });
             if (!category) {
+                console.error(`Category '${categoryName}' not found`);
                 throw new Error('Category not found');
             }
             const products = await this.prisma.product.findMany({
@@ -103,11 +104,34 @@ let SharedService = class SharedService {
                     },
                 },
             });
+            console.log(`Fetched ${products.length} products for category ${categoryName}`);
             return products;
         }
         catch (error) {
             console.error('Error fetching products by category:', error);
-            throw error;
+            throw new Error('Failed to fetch products');
+        }
+    }
+    async getDiscountedProducts() {
+        try {
+            const productsWithDiscounts = await this.prisma.productVariants.findMany({
+                where: {
+                    discount: {
+                        startDate: { lte: new Date() },
+                        endDate: { gte: new Date() },
+                    },
+                },
+                include: {
+                    product_fk: true,
+                    discount: true,
+                    productimage: true,
+                },
+            });
+            return productsWithDiscounts;
+        }
+        catch (error) {
+            console.error('Error fetching discounted products:', error);
+            throw new Error('Could not fetch discounted products');
         }
     }
     async getOrderByCustomerName(firstName, lastName) {

@@ -11,6 +11,7 @@ import { SharedService } from 'src/shared/shared.service';
 import { UserService } from './user.service';
 import { log } from 'console';
 import { CreateOrderDTO } from './dto/CreateOrder.dto';
+import { Checkout } from './dto/Ckeckout.dto';
 
 @Controller('user')
 export class UserController {
@@ -23,13 +24,14 @@ export class UserController {
     return this.shareService.displayProduct();
   }
 
-  @Get('displayProductBy/name')
+  @Get('displayProduct/byname')
   async displayProductByName(@Query('name') name: string) {
     return this.shareService.displayProductByName({ name });
   }
-  @Get('displayProduct/category')
+  @Get('displayProduct/bycategory')
   async displayProductByCategory(@Query('category') category: string) {
     return this.shareService.getProductByCategory({ categoryName: category });
+    // console.log(category);
   }
 
   // @Get('displayProduct/sort')
@@ -45,12 +47,10 @@ export class UserController {
   async displayProductByID(@Param('id', ParseIntPipe) id: number) {
     return this.shareService.displayProductByID(id);
   }
-  // @Post('checkout')
-  // async checkout(@Body )
-  // @Get('displayProductDiscount')
-  // async displayProductDiscount() {
-  //   return this.shareService.getDiscountedProducts();
-  // }
+  @Get('displayProductDiscount')
+  async displayProductDiscount() {
+    return this.shareService.getDiscountedProducts();
+  }
   @Post('checkout')
   async checkout(@Body() createOrderDTO: CreateOrderDTO) {
     try {
@@ -59,10 +59,10 @@ export class UserController {
       throw new Error('something went wrong');
     }
   }
-  // @Get('displayDiscount')
-  // async displayDiscount() {
-  //   return this.shareService.getDiscountedProducts();
-  // }
+  @Get('displayDiscount')
+  async displayDiscount() {
+    return this.shareService.getDiscountedProducts();
+  }
   @Get('displayBrand')
   async displayBrand() {
     return this.shareService.displayBrand();

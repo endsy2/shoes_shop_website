@@ -1,6 +1,7 @@
 import React from 'react';
 import { slider2, sliderLetter2 } from '../assets';
 import { trending_pic } from '../Constants';
+import { Link } from 'react-router-dom';
 
 const Sliders2 = () => {
     return (
@@ -22,7 +23,7 @@ const Sliders2 = () => {
                     />
 
                     <button className="mt-6 px-8 md:px-12 py-3 bg-white text-black font-bold rounded-full shadow-lg hover:bg-gray-300 transition-all transform hover:scale-110">
-                        Shop Now
+                        <Link to='/product'>Shop Now</Link>
                     </button>
                 </div>
             </div>

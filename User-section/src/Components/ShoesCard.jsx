@@ -45,7 +45,7 @@ const ShoesCard = ({ productName, productPrice, productImage, productId }) => {
   };
 
   return (
-    <div className="relative container mt-10 px-1">
+    <div className="relative container   px-1">
       <div className="relative border-2 border-gray-300 dark:border-gray-700 overflow-hidden rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 group">
         <Link to={`/product/${productId}`}>
           {/* Only the product content is wrapped inside Link */}

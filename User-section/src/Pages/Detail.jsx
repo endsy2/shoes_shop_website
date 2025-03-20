@@ -3,23 +3,27 @@ import { useParams, useNavigate } from 'react-router-dom';
 import DetailPic from '../Section/Detail/Detail';
 import ShoesCard from '../Components/ShoesCard';
 import { productCart } from '../Constants';
+import axios from 'axios';
 
 const Detail = () => {
     const { param } = useParams();
-    const navigate = useNavigate();
     const [detail, setDetail] = useState(null);
 
-    useEffect(() => {
-        const productId = parseInt(param, 10);
-        const findDetail2 = productCart.filter(product => product.id === productId);
-
-        if (findDetail2.length > 0) {
-            setDetail(findDetail2[0]);
-        } else {
-            // Navigate to another page if the product is not found
-            navigate('/');
+    const fetchDataById = async () => {
+        try {
+            // Assuming the base URL is http://localhost:3000 (change accordingly)
+            const fetch = await api.get(`http://localhost:3000/user/displayProductByID/${param}`);
+            console.log(fetch);
+            setDetail(fetch.data);  // Set the response data to detail state
+        } catch (error) {
+            console.log(error);
         }
-    }, [param, navigate]);
+    };
+
+    useEffect(() => {
+        fetchDataById();
+        console.log(param);
+    }, [param]);  // Remove navigate from dependencies
 
     return (
         <main>
@@ -29,13 +33,18 @@ const Detail = () => {
 
             <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-14 gap-16">
                 {productCart.map((element, index) => (
-                    <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.pic} key={index} />
+                    <ShoesCard
+                        productId={element.id}
+                        productName={element.name}
+                        productPrice={element.price}
+                        productImage={element.pic}
+                        key={index}
+                    />
                 ))}
             </section>
 
         </main>
     );
-
 };
 
 export default Detail;
