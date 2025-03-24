@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import DetailPic from '../Section/Detail/Detail';
+import DetailPic from '../Section/Detail/DetailPic';
 import ShoesCard from '../Components/ShoesCard';
 import { productCart } from '../Constants';
 import axios from 'axios';
@@ -47,7 +47,7 @@ const Detail = () => {
                 {detail ? <DetailPic detail={detail} /> : <p>Loading...</p>}
             </section>
 
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-14 gap-16">
+            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-14 gap-16 mt-10">
                 {product.length > 0 ? (
                     product.map((element, index) => (
                         <ShoesCard
