@@ -140,7 +140,9 @@ const Home = () => {
             <Slider key={windowWidth} {...settings}>
               {productData.map((element, index) => (
                 <div key={index} className="py-3">
-                  <ShoesCard productId={element.id} productName={element.name} productPrice={element.price} productImage={element.pic} />
+                  <ShoesCard productId={element.id} productName={element.name}
+                    productPrice={element?.productVariants[0]?.price}
+                    productImage={element?.productVariants[0]?.productimage[0]?.imageUrl || 'fallback-image-url.jpg'} />
                 </div>
               ))}
             </Slider>

@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart, toggleStatusTab } from '../../store/cart';
-import { heart, heartFill } from '../../assets/index.js';
 import { addToFavorite, removeFromFavorite } from '../../store/favorite';
 import { MdFavorite, MdOutlineFavoriteBorder } from 'react-icons/md';
 
 const DetailPic = ({ detail }) => {
-    const url = 'http:/localhost/3000/upload/'
+    const url = 'http:/localhost:3000/uploads/';
     const [quantity, setQuantity] = useState(1);
+    const [selectedVariant, setSelectedVariant] = useState(detail.productVariants[0]); // default to first variant
     const dispatch = useDispatch();
     const favorite = useSelector(store => store.favorite.favorite);
 
@@ -15,8 +15,8 @@ const DetailPic = ({ detail }) => {
     const handlePlusQuantity = () => setQuantity(prev => prev + 1);
 
     const handleAddToCart = () => {
-        if (detail) {
-            dispatch(addToCart({ productId: detail.id, quantity, price: detail.productVariants[0].price }));
+        if (selectedVariant) {
+            dispatch(addToCart({ productId: detail.id, quantity, price: selectedVariant.price }));
             dispatch(toggleStatusTab());
         }
     };
@@ -31,30 +31,40 @@ const DetailPic = ({ detail }) => {
         }
     };
 
+    const handleVariantChange = (variant) => {
+        setSelectedVariant(variant); // Change selected variant
+    };
+
     if (!detail) {
         return <p>Loading...</p>;
     }
 
     return (
         <section className='flex flex-wrap gap-10'>
+
+            {/* Product image gallery */}
             <section className='flex'>
                 <div className='flex flex-col gap-5 mx-5 mt-2'>
-                    {/* Product image gallery */}
                     {detail.productVariants.map((variant, index) => (
-                        <div key={index} className='w-20'>
+                        <div
+                            key={index}
+                            className={`w-20 ${variant.color === selectedVariant.color ? 'border-2 border-blue-500' : ''}`} // Highlight selected variant
+                            onClick={() => handleVariantChange(variant)} // Change image on click
+                        >
                             <img
-                                src={variant.productimage[0].imageUrl}
+                                src={`${url}${variant?.productimage?.[0]?.imageUrl}`}
                                 alt={`Product image ${index + 1}`}
-                                className='rounded-xl'
+                                className='rounded-xl cursor-pointer'
                             />
                         </div>
                     ))}
                 </div>
+
+                {/* Main product image */}
                 <section>
-                    {/* Main product image */}
                     <div>
                         <img
-                            src={url + detail.productVariants[0].productimage[0].imageUrl}
+                            src={`${url}${selectedVariant?.productimage?.[0]?.imageUrl}`}
                             alt='Main product image'
                             className='rounded-xl'
                         />
@@ -62,6 +72,7 @@ const DetailPic = ({ detail }) => {
                 </section>
             </section>
 
+            {/* Product details and actions */}
             <div className='flex flex-col'>
                 <section>
                     <h1 className='text-main dark:text-main-light font-bold text-4xl mb-5'>{detail.name}</h1>
@@ -84,15 +95,15 @@ const DetailPic = ({ detail }) => {
                     </button>
 
                     {/* Product details */}
-                    <p className='text-main dark:text-main-light mb-5 text-3xl'>${detail.productVariants[0].price}</p>
-                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Color: {detail.productVariants[0].color}</p>
-                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Size: {detail.productVariants[0].size}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-3xl'>${selectedVariant.price}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Color: {selectedVariant.color}</p>
+                    <p className='text-main dark:text-main-light mb-5 text-2xl'>Size: {selectedVariant.size}</p>
                     <p className='text-main dark:text-main-light mb-5 text-2xl'>Detail: {detail.Description}</p>
 
                     {/* Discount if available */}
-                    {detail.productVariants[0].discount && (
+                    {selectedVariant.discount && (
                         <p className='text-main dark:text-main-light mb-5 text-2xl'>
-                            Discount: {detail.productVariants[0].discount.value}% off
+                            Discount: {selectedVariant.discount.value}% off
                         </p>
                     )}
                 </section>
