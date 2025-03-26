@@ -43,7 +43,7 @@ const Detail = () => {
 
     return (
         <main>
-            <section className="flex gap-16 mt-10 mx-10">
+            <section className="flex gap-16  ">
                 {detail ? <DetailPic detail={detail} /> : <p>Loading...</p>}
             </section>
 

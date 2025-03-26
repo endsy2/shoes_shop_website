@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, toggleStatusTab } from "../../store/cart";
 import { addToFavorite, removeFromFavorite } from "../../store/favorite";
-import { MdFavorite, MdOutlineFavoriteBorder } from "react-icons/md";
+import { MdFavorite, MdKeyboardArrowDown, MdKeyboardArrowUp, MdOutlineFavoriteBorder } from "react-icons/md";
 
 const DetailPic = ({ detail }) => {
     const url = "http://localhost:3000/uploads/";
+    const [descriptionBar, setDescriptionBar] = useState(false);
     const [quantity, setQuantity] = useState(1);
     const [selectedColor, setSelectedColor] = useState(detail.productVariants[0].color);
     const [selectedVariant, setSelectedVariant] = useState(detail.productVariants[0]);
@@ -21,7 +22,7 @@ const DetailPic = ({ detail }) => {
 
     const handleAddToCart = () => {
         if (selectedVariant) {
-            dispatch(addToCart({ productId: detail.id, quantity, price: selectedVariant.price }));
+            dispatch(addToCart({ productName: detail.name, productVariantId: selectedVariant.id, quantity, price: selectedVariant.price, image: selectedImage, size: selectedVariant.size, color: selectedVariant.color }));
             dispatch(toggleStatusTab());
         }
     };
@@ -30,7 +31,7 @@ const DetailPic = ({ detail }) => {
         const isFavorite = favorite.some((item) => item.productId === detail.id);
         isFavorite
             ? dispatch(removeFromFavorite({ productId: detail.id }))
-            : dispatch(addToFavorite({ productId: detail.id }));
+            : dispatch(addToFavorite({ productId: detail.id, productName: detail.name, productPrice: selectedVariant.price, productImage: selectedImage }));
     };
 
     const handleColorChange = (color) => {
@@ -53,27 +54,30 @@ const DetailPic = ({ detail }) => {
     const handleImageChange = (imageUrl) => setSelectedImage(imageUrl);
 
     return (
-        <section className="flex flex-wrap gap-12 p-8 w-full bg-gray-50">
-            {/* Left Section: Image Thumbnails */}
-            <div className="flex flex-col gap-4 w-1/4">
-                {selectedVariant.productimage.map((img, index) => (
-                    <img
-                        key={index}
-                        src={`${url}${img.imageUrl}`}
-                        alt={`Thumbnail ${index + 1}`}
-                        className={`w-16 h-16 object-cover rounded-md cursor-pointer border-2 hover:border-blue-500 transition-all duration-300 ${selectedImage === img.imageUrl ? "border-blue-500" : "border-gray-300"}`}
-                        onClick={() => handleImageChange(img.imageUrl)}
-                    />
-                ))}
-            </div>
+        <section className="flex  gap-20 px-8 py-10 w-full bg-gray-50">
 
-            {/* Main Image */}
-            <div className="w-1/2 flex justify-center">
-                <img
-                    src={`${url}${selectedImage}`}
-                    alt="Main Product"
-                    className="w-96 h-96 object-cover rounded-lg shadow-lg"
-                />
+            {/* Left Section: Image Thumbnails */}
+            <div className="flex gap-5 ml-10">
+                <div className="flex flex-col gap-4 ">
+                    {selectedVariant.productimage.map((img, index) => (
+                        <img
+                            key={index}
+                            src={`${url}${img.imageUrl}`}
+                            alt={`Thumbnail ${index + 1}`}
+                            className={`w-16 h-16 object-cover rounded-md cursor-pointer border-2 hover:border-blue-500 transition-all duration-300 ${selectedImage === img.imageUrl ? "border-blue-500" : "border-gray-300"}`}
+                            onClick={() => handleImageChange(img.imageUrl)}
+                        />
+                    ))}
+                </div>
+
+                {/* Main Image */}
+                <div className="flex justify-center">
+                    <img
+                        src={`${url}${selectedImage}`}
+                        alt="Main Product"
+                        className="w-96 h-96 object-cover rounded-lg shadow-lg"
+                    />
+                </div>
             </div>
 
             {/* Right Section: Product Details */}
@@ -81,25 +85,32 @@ const DetailPic = ({ detail }) => {
                 <h1 className="text-4xl font-semibold text-gray-900 mb-4">{detail.name}</h1>
 
                 {/* Add to Favorite Button */}
-                <button
-                    onClick={handleAddToFavorite}
-                    className="flex items-center gap-2 text-red-500 hover:text-red-600 transition-all duration-300 mb-6"
-                >
-                    {favorite.some((item) => item.productId === detail.id) ? (
-                        <MdFavorite size={26} />
-                    ) : (
-                        <MdOutlineFavoriteBorder size={26} />
-                    )}
-                    <span className="text-lg">{favorite.some((item) => item.productId === detail.id) ? "Remove from Favorite" : "Add to Favorite"}</span>
-                </button>
+
+
 
                 {/* Product Price */}
-                <p className="text-3xl font-semibold text-blue-600 mb-6">${selectedVariant.price}</p>
+                <div>
+                    {selectedVariant.discount ? (
+                        <div className="flex  items-center gap-5">
+                            <s className="text-3xl font-semibold text-gray-500">${selectedVariant.price}</s>
+                            <p className="text-3xl font-semibold text-blue-500">
+                                ${(selectedVariant.price * (1 - selectedVariant.discount.value / 100)).toFixed(2)}
+                            </p>
+                            <p className="text-lg text-red-500 ">
+                                {selectedVariant.discount.value}% off
+                            </p>
+                        </div>
+                    ) : (
+                        <p className="text-3xl font-semibold text-blue-600">${selectedVariant.price}</p>
+                    )}
+                </div>
+                <h1 className="text-lg font-medium text-gray-700  mt-5">Brand: {detail.brand.name}</h1>
+
 
                 {/* Color Options */}
-                <div className="mt-6">
+                <div className="mt-3 flex items-center  gap-4 ">
                     <p className="text-lg font-medium text-gray-700">Color:</p>
-                    <div className="flex gap-4 mt-3">
+                    <div className="flex gap-4 ">
                         {[...new Set(detail.productVariants.map((variant) => variant.color))].map((color, index) => (
                             <button
                                 key={index}
@@ -112,9 +123,9 @@ const DetailPic = ({ detail }) => {
                 </div>
 
                 {/* Size Options */}
-                <div className="mt-6">
+                <div className="flex items-center gap-5 mt-6">
                     <p className="text-lg font-medium text-gray-700">Size:</p>
-                    <div className="flex gap-3 mt-3">
+                    <div className="flex gap-3 ">
                         {detail.productVariants
                             .filter((variant) => variant.color === selectedColor)
                             .map((variant) => (
@@ -130,14 +141,10 @@ const DetailPic = ({ detail }) => {
                 </div>
 
                 {/* Product Description */}
-                <p className="text-lg text-gray-600 mt-4">{detail.Description}</p>
+
 
                 {/* Discount Information */}
-                {selectedVariant.discount && (
-                    <p className="text-lg text-red-500 mt-4">
-                        Discount: {selectedVariant.discount.value}% off
-                    </p>
-                )}
+
 
                 {/* Quantity & Add to Cart */}
                 <div className="flex items-center gap-6 mt-8">
@@ -147,12 +154,45 @@ const DetailPic = ({ detail }) => {
                 </div>
 
                 {/* Add to Cart Button */}
+
                 <button
                     className="mt-6 w-full px-6 py-3 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300"
                     onClick={handleAddToCart}
                 >
                     Add To Cart
                 </button>
+                <button
+                    onClick={handleAddToFavorite}
+                    className="flex items-center justify-center gap-2 px-1 py-3 my-7 bg-white border border-red-400 text-red-500 font-semibold 
+               rounded-full shadow-sm hover:bg-red-500 hover:text-white transition-all duration-300 ease-in-out"
+                >
+                    {favorite.some((item) => item.productId === detail.id) ? (
+                        <MdFavorite size={26} className="transition-all duration-300 ease-in-out" />
+                    ) : (
+                        <MdOutlineFavoriteBorder size={26} className="transition-all duration-300 ease-in-out" />
+                    )}
+                    <span className="text-lg">
+                        {favorite.some((item) => item.productId === detail.id) ? "Remove from Favorites" : "Add to Favorites"}
+                    </span>
+                </button>
+                <div
+                    className="w-full bg-white shadow-sm rounded-lg p-4 transition-all duration-300"
+                    onClick={() => setDescriptionBar(!descriptionBar)}
+                >
+                    {/* Header with Toggle Icon */}
+                    <div className="flex items-center justify-between cursor-pointer">
+                        <h1 className="text-xl font-semibold text-gray-800">Description</h1>
+                        {descriptionBar ? <MdKeyboardArrowUp size={30} className="text-gray-600" /> : <MdKeyboardArrowDown size={30} className="text-gray-600" />}
+                    </div>
+
+                    {/* Expandable Description */}
+                    <div className={`overflow-hidden transition-all duration-300 ${descriptionBar ? "max-h-40 mt-3" : "max-h-0"}`}>
+                        <p className="text-lg text-gray-600 leading-relaxed">
+                            {detail.Description}
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </section>
     );
