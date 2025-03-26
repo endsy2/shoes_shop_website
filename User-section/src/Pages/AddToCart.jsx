@@ -26,6 +26,7 @@ const AddToCart = () => {
     } else {
       document.removeEventListener('mousedown', handleClickOutside);
     }
+    // console.log(item);
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
@@ -42,6 +43,7 @@ const AddToCart = () => {
       <h2 className="p-5 dark:text-white text-2xl text-black">Shopping Cart</h2>
       <div className="p-5 overflow-y-auto">
         {carts.length > 0 ? (
+
           carts.map((item) => <CartItem key={item.productId} product={item} />)
         ) : (
           <p className="text-center text-black">Your cart is empty</p>

@@ -12,45 +12,47 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart(state, action) {
-            const { productId, quantity, price } = action.payload;
+            const { productName, productVariantId, quantity, price, image, size, color } = action.payload;
 
             // Find index of the product in the cart
-            const indexProductId = state.items.findIndex((item) => item.productId === productId);
+            const index = state.items.findIndex((item) => item.productVariantId === productVariantId);
 
-            if (indexProductId >= 0) {
+            if (index >= 0) {
                 // If product exists, increase quantity
-                state.items[indexProductId].quantity += quantity;
+                state.items[index].quantity += quantity;
             } else {
                 // If product doesn't exist, add new item
-                state.items.push({ productId, quantity, price });
+                state.items.push({ productName, productVariantId, quantity, price, image, size, color });
             }
 
             // Save updated cart to localStorage
             localStorage.setItem("carts", JSON.stringify(state.items));
         },
+
         changeQuantity(state, action) {
-            const { productId, quantity } = action.payload;
+            const { productVariantId, quantity } = action.payload;
 
-            const indexProductId = state.items.findIndex((item) => item.productId === productId);
+            const index = state.items.findIndex((item) => item.productVariantId === productVariantId);
 
-            if (indexProductId >= 0) {
+            if (index >= 0) {
                 if (quantity > 0) {
                     // Update quantity if greater than zero
-                    state.items[indexProductId].quantity = quantity;
+                    state.items[index].quantity = quantity;
                 } else {
                     // Remove item if quantity is zero or less
-                    state.items = state.items.filter((item) => item.productId !== productId);
+                    state.items = state.items.filter((item) => item.productVariantId !== productVariantId);
                 }
 
                 // Save updated cart to localStorage
                 localStorage.setItem("carts", JSON.stringify(state.items));
             }
         },
+
         removeFromCart(state, action) {
-            const { productId } = action.payload;
+            const { productVariantId } = action.payload;
 
             // Filter out the item to remove it
-            state.items = state.items.filter((item) => item.productId !== productId);
+            state.items = state.items.filter((item) => item.productVariantId !== productVariantId);
 
             // Save updated cart to localStorage
             localStorage.setItem("carts", JSON.stringify(state.items));

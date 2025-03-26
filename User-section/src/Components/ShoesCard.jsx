@@ -52,7 +52,7 @@ const ShoesCard = ({ productName, productPrice, productImage, productId }) => {
           <div className="w-full bg-gray-50 dark:bg-gray-900">
             {/* Image Section */}
             <div
-              style={{ backgroundImage: `url(${productImage})` }}
+              style={{ backgroundImage: `url(http://localhost:3000/uploads/${productImage})` }}
               className="relative w-full h-60 bg-cover bg-center flex flex-col justify-between rounded-lg shadow-md overflow-hidden group"
             >
               {/* Favorite Button - Toggle on Click */}
