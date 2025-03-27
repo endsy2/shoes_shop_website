@@ -1,20 +1,16 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-  Route,
-  RouterProvider,
-} from "react-router-dom";
-import { AuthlayOut} from "../src/Page/Root/AuthLayOut"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import AuthLayOut from "./Pages/Root/AuthLayOut"; // Correct path
+import RootLayOut from "./Pages/Root/RootLayOut"; // Correct path
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<AuthLayOut />}>
+const App = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<AuthLayOut />} />
+        <Route path="/root" element={<RootLayOut />} /> {/* Lowercase path */}
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-    </Route>
-    
-  )
-);
-
-export default function App() {
-  return <RouterProvider router={router} />;
-}
+export default App;
