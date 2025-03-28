@@ -43,11 +43,11 @@ const Detail = () => {
 
     return (
         <main>
-            <section className="flex gap-16  ">
+            <section className="  ">
                 {detail ? <DetailPic detail={detail} /> : <p>Loading...</p>}
             </section>
 
-            <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-14 gap-16 mt-10">
+            {/* <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 pl-14 gap-16 mt-10">
                 {product.length > 0 ? (
                     product.map((element, index) => (
                         <ShoesCard
@@ -61,7 +61,7 @@ const Detail = () => {
                 ) : (
                     <p>No products available.</p>
                 )}
-            </section>
+            </section> */}
         </main>
     );
 };

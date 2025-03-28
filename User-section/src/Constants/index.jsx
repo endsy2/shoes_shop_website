@@ -141,87 +141,87 @@ export const productCart = [
         pic: pic1,
         picDetail: [pic1, pic2, pic3, pic4, pic5]
     },
-    {
-        id: 12,
-        name: "Product 12",
-        price: "200",
-        color: "Magenta",
-        size: "S",
-        pic: pic2,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 13,
-        name: "Product 13",
-        price: "135",
-        color: "Teal",
-        size: "L",
-        pic: pic3,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 14,
-        name: "Product 14",
-        price: "105",
-        color: "Brown",
-        size: "M",
-        pic: pic4,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 15,
-        name: "Product 15",
-        price: "75",
-        color: "Beige",
-        size: "S",
-        pic: pic5,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 16,
-        name: "Product 16",
-        price: "125",
-        color: "Lime",
-        size: "XL",
-        pic: pic1,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 17,
-        name: "Product 17",
-        price: "155",
-        color: "Violet",
-        size: "M",
-        pic: pic2,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 18,
-        name: "Product 18",
-        price: "85",
-        color: "Indigo",
-        size: "L",
-        pic: pic3,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 19,
-        name: "Product 19",
-        price: "100",
-        color: "Gold",
-        size: "S",
-        pic: pic4,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    },
-    {
-        id: 20,
-        name: "Product 20",
-        price: "125",
-        color: "Silver",
-        size: "M",
-        pic: pic5,
-        picDetail: [pic1, pic2, pic3, pic4, pic5]
-    }
+    // {
+    //     id: 12,
+    //     name: "Product 12",
+    //     price: "200",
+    //     color: "Magenta",
+    //     size: "S",
+    //     pic: pic2,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 13,
+    //     name: "Product 13",
+    //     price: "135",
+    //     color: "Teal",
+    //     size: "L",
+    //     pic: pic3,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 14,
+    //     name: "Product 14",
+    //     price: "105",
+    //     color: "Brown",
+    //     size: "M",
+    //     pic: pic4,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 15,
+    //     name: "Product 15",
+    //     price: "75",
+    //     color: "Beige",
+    //     size: "S",
+    //     pic: pic5,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 16,
+    //     name: "Product 16",
+    //     price: "125",
+    //     color: "Lime",
+    //     size: "XL",
+    //     pic: pic1,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 17,
+    //     name: "Product 17",
+    //     price: "155",
+    //     color: "Violet",
+    //     size: "M",
+    //     pic: pic2,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 18,
+    //     name: "Product 18",
+    //     price: "85",
+    //     color: "Indigo",
+    //     size: "L",
+    //     pic: pic3,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 19,
+    //     name: "Product 19",
+    //     price: "100",
+    //     color: "Gold",
+    //     size: "S",
+    //     pic: pic4,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // },
+    // {
+    //     id: 20,
+    //     name: "Product 20",
+    //     price: "125",
+    //     color: "Silver",
+    //     size: "M",
+    //     pic: pic5,
+    //     picDetail: [pic1, pic2, pic3, pic4, pic5]
+    // }
 ];
 
 
