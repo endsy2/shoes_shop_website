@@ -1,26 +1,49 @@
 import { useEffect, useState } from "react";
-import { dashboardHeaderAll, dashboardHeaderData, logoutFetch } from "../../Fetch/FetchAPI";
-import { dashBoradMain_item } from "../../Constants";
 import Cookies from "js-cookie";
+import { logoutFetch } from "../../Fetch/FetchAPI";
+import { dashBoradMain_item } from "../../Constants";
 
 const DashBoardHeader = () => {
   const [selectDate, setSelectDate] = useState("ALL");
   const [mergedData, setMergedData] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
 
-  const fetchDate = async () => {
-    try {
-      const response = await dashboardHeaderData(selectDate);
-      const data = response.data || [];
-      const merged = data.data.map((value, index) => ({
-        ...(value || {}),
-        ...(dashBoradMain_item[index] || {}),
-        date: selectDate,
-      }));
-      setMergedData(merged);
-    } catch (error) {
-      console.error("Error fetching date data:", error);
+  // 👇 Fake data creation
+  const generateFakeData = () => {
+    const fakeItems = [];
+    for (let i = 1; i <= 24; i++) {
+      fakeItems.push({
+        name: `Shoes ${i}`,
+        color: "Red/Black",
+        size: "45/46",
+        price: "$99.99",
+        brand: "Jordan",
+        sold: `${(i * 1000).toLocaleString()}`,
+      });
     }
+    return fakeItems;
   };
+
+  const fetchFakeData = () => {
+    const fake = generateFakeData().map((item, index) => ({
+      ...item,
+      ...(dashBoradMain_item[index] || {}),
+      date: selectDate,
+    }));
+    setMergedData(fake);
+  };
+
+  useEffect(() => {
+    fetchFakeData();
+  }, [selectDate]);
+
+  const totalPages = Math.ceil(mergedData.length / itemsPerPage);
+
+  const paginatedData = mergedData.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
 
   const handleLogout = async () => {
     try {
@@ -31,29 +54,6 @@ const DashBoardHeader = () => {
       console.log(error);
     }
   };
-
-  const fetchAll = async () => {
-    try {
-      const response = await dashboardHeaderAll();
-      const data = response.data || [];
-      const merged = data.data.map((value, index) => ({
-        ...(value || {}),
-        ...(dashBoradMain_item[index] || {}),
-        date: "ALL",
-      }));
-      setMergedData(merged);
-    } catch (error) {
-      console.error("Error fetching all data:", error);
-    }
-  };
-
-  useEffect(() => {
-    if (selectDate === "ALL") {
-      fetchAll();
-    } else {
-      fetchDate();
-    }
-  }, [selectDate]);
 
   return (
     <div className="p-4 bg-gray-100 min-h-screen">
@@ -75,7 +75,7 @@ const DashBoardHeader = () => {
 
       {/* Listing Overview Section */}
       <div className="p-4 bg-gray-200 shadow-md rounded-md mt-[-10px] flex">
-        {/* Left: Sales Data (3 Rows, 2 Columns) */}
+        {/* Left: Sales Data */}
         <div className="w-2/3 grid grid-cols-2 gap-4">
           {[
             { label: "Today's Sales", value: "$37,541.00", percent: "+1.02%", up: true },
@@ -95,20 +95,20 @@ const DashBoardHeader = () => {
           ))}
         </div>
 
-        {/* Right: Fake Sales Graph */}
+        {/* Right: Sales Graph */}
         <div className="w-1/3 p-4 bg-white shadow rounded-md ml-4">
           <div className="flex justify-between items-center mb-2">
             <h3 className="text-lg font-semibold">Overall Sales</h3>
-            <select 
-                  className="px-3 py-1 text-sm bg-white border rounded-md"
-                  value={selectDate}
-                  onChange={(e) => setSelectDate(e.target.value)}
-                >
-                  <option value="ALL">All Time</option>
-                  <option value="TODAY">Today</option>
-                  <option value="WEEK">This Week</option>
-                  <option value="MONTH">This Month</option>
-                </select>
+            <select
+              className="px-3 py-1 text-sm bg-white border rounded-md"
+              value={selectDate}
+              onChange={(e) => setSelectDate(e.target.value)}
+            >
+              <option value="ALL">All Time</option>
+              <option value="TODAY">Today</option>
+              <option value="WEEK">This Week</option>
+              <option value="MONTH">This Month</option>
+            </select>
           </div>
           <div className="h-80 bg-gray-200 flex justify-center items-center text-gray-500">
             📊 Fake Graph Here
@@ -119,7 +119,6 @@ const DashBoardHeader = () => {
       {/* Best Selling Products Table */}
       <div className="mt-4 p-4 bg-white shadow rounded-md">
         <h3 className="text-xl font-semibold">Best Selling Product</h3>
-        
         <table className="w-full border-collapse mt-2">
           <thead>
             <tr className="bg-gray-200">
@@ -132,42 +131,63 @@ const DashBoardHeader = () => {
             </tr>
           </thead>
           <tbody>
-            {[...Array(6)].map((_, index) => (
+            {paginatedData.map((item, index) => (
               <tr key={index} className="border-t">
                 <td className="p-2 flex items-center pl-6">
-                  <img src="/path/to/shoe.png" alt="Shoe" className="w-10 mr-2" /> Shoes Name
+                  <img src="/src/Assets/download.png" alt="Shoe" className="w-10 mr-2" />
+                  {item.name}
                 </td>
-                <td className="p-2 pl-12">Red/Black</td>
-                <td className="p-2 pl-12">45/46</td>
-                <td className="p-2 text-green-600 font-bold pl-12">$99.99</td>
-                <td className="p-2 pl-12">Jordan</td>
-                <td className="p-2 font-semibold pl-12">999,999</td>
+                <td className="p-2 pl-12">{item.color}</td>
+                <td className="p-2 pl-12">{item.size}</td>
+                <td className="p-2 text-green-600 font-bold pl-12">{item.price}</td>
+                <td className="p-2 pl-12">{item.brand}</td>
+                <td className="p-2 font-semibold pl-12">{item.sold}</td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
 
-      {/* Pagination and Filters */}
-        <div className="p-4 border-t flex flex-col sm:flex-row justify-between items-center">
-          <div className="mb-3 sm:mb-0">
-            <span className="text-sm text-gray-600">
-              Showing <span className="font-semibold">1-5</span> of <span className="font-semibold">24</span> products
-            </span>
-          </div>
-          <div className="flex space-x-1">
-            <button className="px-3 py-1 border rounded-md text-sm bg-gray-100">Previous</button>
-            {[1, 2, 3, 4, 5].map((num) => (
-              <button 
-                key={num}
-                className={`px-3 py-1 border rounded-md text-sm ${num === 1 ? "bg-blue-100 border-blue-200" : "bg-white"}`}
-              >
-                {num}
-              </button>
-            ))}
-            <button className="px-3 py-1 border rounded-md text-sm bg-gray-100">Next</button>
-          </div>
+      {/* Pagination */}
+      <div className="p-4 border-t flex flex-col sm:flex-row justify-between items-center">
+        <div className="mb-3 sm:mb-0">
+          <span className="text-sm text-gray-600">
+            Showing{" "}
+            <span className="font-semibold">{(currentPage - 1) * itemsPerPage + 1}</span> -
+            <span className="font-semibold">
+              {Math.min(currentPage * itemsPerPage, mergedData.length)}
+            </span>{" "}
+            of <span className="font-semibold">{mergedData.length}</span> products
+          </span>
         </div>
+        <div className="flex space-x-1">
+          <button
+            className="px-3 py-1 border rounded-md text-sm bg-gray-100"
+            onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+            disabled={currentPage === 1}
+          >
+            Previous
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
+            <button
+              key={num}
+              onClick={() => setCurrentPage(num)}
+              className={`px-3 py-1 border rounded-md text-sm ${
+                num === currentPage ? "bg-blue-100 border-blue-300" : "bg-white"
+              }`}
+            >
+              {num}
+            </button>
+          ))}
+          <button
+            className="px-3 py-1 border rounded-md text-sm bg-gray-100"
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            disabled={currentPage === totalPages}
+          >
+            Next
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
